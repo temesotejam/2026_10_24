@@ -12,7 +12,7 @@
       <header class="topbar">
         <div class="brand"><div class="brand-mark">R</div><div><p>REALITY DUNGEON</p><h1>現象救助隊</h1></div></div>
         <div class="location"><span id="placeLabel">今日の迷宮</span><strong id="floorLabel">1F</strong></div>
-        <div class="header-actions"><button id="newsButton">＋ 現実を追加</button><button class="icon-button" id="helpButton" aria-label="遊び方">?</button></div>
+        <div class="header-actions"><button id="newsButton">◉ ニュース一覧</button><button class="icon-button" id="helpButton" aria-label="遊び方">?</button></div>
       </header>
 
       <section class="play-layout">
@@ -65,11 +65,14 @@
     </div></div>
 
     <div class="modal" id="newsModal" aria-hidden="true"><form class="modal-card news-form" id="newsForm">
-      <button type="button" class="modal-close" data-close="newsModal">×</button><p class="eyebrow">WORLD SEED</p><h2>小さなニュースから迷宮を作る</h2><p class="modal-lead">見出しを攻撃カードにはしません。場所・分野・事実を、次の迷宮の地形や出会う現象に変換します。</p>
+      <button type="button" class="modal-close" data-close="newsModal">×</button><p class="eyebrow">AUTO NEWS FEED</p><h2>現実から迷宮を選ぶ</h2><p class="modal-lead">公開ニュースを6時間ごとに自動収集します。事件・事故・災害などは遊びにせず、地域・科学・交通・環境の小さな変化を優先します。</p>
+      <div class="auto-news-head"><b id="autoNewsStatus">ニュースを読み込み中…</b><span>出典と日時を保持</span></div><div class="auto-news-list" id="autoNewsList"></div>
+      <details class="manual-entry"><summary>ニュースを自分で追加する</summary>
       <label><span>ニュースの見出し</span><input name="title" maxlength="60" required placeholder="例：駅前広場で夜市が始まる" /></label>
       <div class="form-row"><label><span>場所</span><input name="place" maxlength="30" required placeholder="例：○○市" /></label><label><span>分野</span><select name="category"><option value="community">地域・文化</option><option value="climate">天気・環境</option><option value="mobility">交通・都市</option><option value="science">研究・技術</option></select></label></div>
       <label><span>確認できた事実</span><textarea name="fact" maxlength="180" required placeholder="意見ではなく、起きたことを短く"></textarea></label><label><span>出典URL</span><input name="source" type="url" required placeholder="https://..." /></label>
       <button class="primary" type="submit">このニュースから出発する</button>
+      </details>
     </form></div>
 
     <div class="modal" id="resultModal" aria-hidden="true"><div class="modal-card result-card"><p class="eyebrow" id="resultEyebrow">RESCUE COMPLETE</p><div class="result-mark" id="resultMark">✓</div><h2 id="resultTitle">調査から帰還しました</h2><p id="resultCopy"></p><div class="result-stats" id="resultStats"></div><button class="primary" id="resultRestart">もう一度、別の迷宮へ</button></div></div>

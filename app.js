@@ -18,6 +18,8 @@ const categoryThemes = {
 };
 
 let game;
+let autoNews = [];
+let selectedSeed = null;
 const $ = s => document.querySelector(s);
 const els = {
   hpText: $('#hpText'), hpBar: $('#hpBar'), bellyText: $('#bellyText'), bellyBar: $('#bellyBar'),
@@ -37,8 +39,49 @@ function savedSeed() {
   try { return JSON.parse(localStorage.getItem('reality-dungeon-seed')) || null; } catch { return null; }
 }
 
-function startGame() {
-  const seed = savedSeed();
+async function loadAutomaticNews() {
+  try {
+    const response = await fetch(`data/news.json?v=${Date.now()}`);
+    if (!response.ok) throw new Error('feed unavailable');
+    const data = await response.json();
+    const allowed = new Set(Object.keys(categoryThemes));
+    autoNews = (Array.isArray(data.items) ? data.items : []).filter(n => n && n.title && n.url).slice(0, 24).map(n => ({
+      title: String(n.title).slice(0, 80), place: String(n.source || '国内ニュース').slice(0, 30),
+      category: allowed.has(n.category) ? n.category : 'community', fact: String(n.summary || n.title).slice(0, 180),
+      source: String(n.url), publishedAt: n.publishedAt || '', automatic: true
+    }));
+  } catch { autoNews = []; }
+  renderAutomaticNews();
+}
+
+function renderAutomaticNews() {
+  const list = $('#autoNewsList'), status = $('#autoNewsStatus');
+  list.innerHTML = '';
+  status.textContent = autoNews.length ? `自動収集 ${autoNews.length}件` : '現在、収集データを準備中です';
+  if (!autoNews.length) {
+    const p = document.createElement('p'); p.className = 'modal-lead'; p.textContent = '初回の自動収集後にここへ表示されます。下の入力も利用できます。'; list.appendChild(p); return;
+  }
+  autoNews.slice(0, 10).forEach((news, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'auto-news-item';
+    const date = news.publishedAt ? new Date(news.publishedAt).toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' }) : 'NEW';
+    const cat = { community: '地域', climate: '環境', mobility: '交通', science: '科学' }[news.category];
+    const meta = document.createElement('span'); meta.textContent = `${date} · ${cat}`;
+    const title = document.createElement('b'); title.textContent = news.title;
+    const source = document.createElement('small'); source.textContent = news.place;
+    b.append(meta, title, source);
+    b.addEventListener('click', () => { selectedSeed = autoNews[i]; localStorage.removeItem('reality-dungeon-seed'); closeModal('newsModal'); startGame(); setMessage(`「${selectedSeed.title}」を調査します。`, '◎'); });
+    list.appendChild(b);
+  });
+}
+
+function startGame(rotateNews = false) {
+  const manual = savedSeed();
+  if (rotateNews && autoNews.length) { selectedSeed = autoNews[rand(autoNews.length)]; localStorage.removeItem('reality-dungeon-seed'); }
+  if (!selectedSeed && !manual && autoNews.length) {
+    const day = Number(new Date().toISOString().slice(0, 10).replaceAll('-', ''));
+    selectedSeed = autoNews[day % autoNews.length];
+  }
+  const seed = selectedSeed || manual || null;
   game = {
     floor: 1, turn: 0, ended: false, map: [], rooms: [], seen: new Set(), enemies: [], items: [], stairs: null,
     player: { x: 0, y: 0, hp: 24, maxHp: 24, belly: 100, attack: 4 },
@@ -358,7 +401,7 @@ function floatNumber(x,y,n,heal=false) {
 
 function showNote(enemy) {
   const t=enemyTypes[enemy.type];game.known.add(enemy.type);
-  const source = enemy.type==='echo' && game.seed ? `<a href="${esc(game.seed.source)}" target="_blank" rel="noopener">入力した出典を開く ↗</a>` : '';
+  const source = enemy.type==='echo' && game.seed ? `<a href="${esc(game.seed.source)}" target="_blank" rel="noopener">${game.seed.automatic?'ニュース':'入力した情報'}の出典を開く ↗</a>` : '';
   const fact = enemy.type==='echo' && game.seed ? esc(game.seed.fact) : t.note;
   els.note.innerHTML=`<div class="note-icon" style="background:${t.color}">${t.glyph}</div><div><b>${t.name}</b><p>${fact}</p>${source}</div>`;
 }
@@ -381,13 +424,13 @@ document.querySelector('[data-wait]').addEventListener('click',waitTurn);
 els.observe.addEventListener('click',observe);els.flare.addEventListener('click',flare);
 $('#helpButton').addEventListener('click',()=>openModal('helpModal'));$('#newsButton').addEventListener('click',()=>openModal('newsModal'));
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
-$('#restartButton').addEventListener('click',startGame);$('#resultRestart').addEventListener('click',()=>{closeModal('resultModal');startGame();});
+$('#restartButton').addEventListener('click',()=>startGame(true));$('#resultRestart').addEventListener('click',()=>{closeModal('resultModal');startGame(true);});
 document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m && m.id!=='resultModal')closeModal(m.id);}));
 
 $('#newsForm').addEventListener('submit',e=>{
   e.preventDefault();const d=new FormData(e.currentTarget);const seed={title:d.get('title').trim(),place:d.get('place').trim(),category:d.get('category'),fact:d.get('fact').trim(),source:d.get('source').trim()};
   try { const u=new URL(seed.source); if(!['http:','https:'].includes(u.protocol)) throw new Error(); } catch { e.currentTarget.querySelector('[name="source"]').setCustomValidity('http または https のURLを入力してください');e.currentTarget.reportValidity();return; }
-  localStorage.setItem('reality-dungeon-seed',JSON.stringify(seed));closeModal('newsModal');startGame();setMessage(`「${seed.title}」から迷宮が生まれました。`,'◎');addLog('現実接続',seed.title);
+  selectedSeed=seed;localStorage.setItem('reality-dungeon-seed',JSON.stringify(seed));closeModal('newsModal');startGame();setMessage(`「${seed.title}」から迷宮が生まれました。`,'◎');addLog('現実接続',seed.title);
 });
 $('#newsForm [name="source"]').addEventListener('input', e => e.target.setCustomValidity(''));
 
@@ -396,5 +439,5 @@ window.addEventListener('keydown',e=>{
   if(moves[k]){e.preventDefault();movePlayer(...moves[k]);}else if(k==='q')observe();else if(k==='e')flare();else if(k===' '){e.preventDefault();waitTurn();}
 });
 
-startGame();draw();
-if(!localStorage.getItem('reality-dungeon-tutorial')){openModal('helpModal');localStorage.setItem('reality-dungeon-tutorial','seen');}
+async function bootstrap(){await loadAutomaticNews();startGame();draw();if(!localStorage.getItem('reality-dungeon-tutorial')){openModal('helpModal');localStorage.setItem('reality-dungeon-tutorial','seen');}}
+bootstrap();
