@@ -445,5 +445,5 @@ window.addEventListener('keydown',e=>{
   if(moves[k]){e.preventDefault();movePlayer(...moves[k]);}else if(k==='q')observe();else if(k==='e')flare();else if(k===' '){e.preventDefault();waitTurn();}
 });
 
-async function bootstrap(){await loadAutomaticNews();startGame();draw();if(!localStorage.getItem('reality-dungeon-tutorial')){openModal('helpModal');localStorage.setItem('reality-dungeon-tutorial','seen');}}
+async function bootstrap(){history.scrollRestoration='manual';window.scrollTo(0,0);await loadAutomaticNews();startGame();draw();localStorage.setItem('reality-dungeon-tutorial','seen');}
 bootstrap();
