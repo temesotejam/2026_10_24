@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="theme-color" content="#12231e" />
     <title>現象救助隊｜REALITY DUNGEON</title>
-    <link rel="stylesheet" href="styles.css?v=viewport4" />
+    <link rel="stylesheet" href="styles.css?v=reality1" />
   </head>
   <body>
     <main class="game-shell">
@@ -24,7 +24,7 @@
           <div class="meter-block"><div><span>おなか</span><b id="bellyText">100 / 100</b></div><div class="meter belly"><i id="bellyBar"></i></div></div>
           <div class="objective-list">
             <div class="active"><i>1</i><span><b>歩く</b><small>矢印キー / ボタン</small></span></div>
-            <div><i>2</i><span><b>ぶつかって攻撃</b><small>敵の方向へ進む</small></span></div>
+            <div><i>2</i><span><b>「現」の地点へ</b><small>ニュースが迷宮を変える</small></span></div>
             <div><i>3</i><span><b>階段へ行く</b><small>3Fから脱出で成功</small></span></div>
           </div>
           <button class="secondary" id="restartButton">↻ 新しい迷宮</button>
@@ -60,7 +60,7 @@
 
     <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card">
       <button class="modal-close" data-close="helpModal">×</button><p class="eyebrow">HOW TO PLAY</p><h2>歩けば、世界も動く。</h2>
-      <div class="how-grid"><article><i>01</i><h3>階段を探す</h3><p>方向キーか画面の矢印で移動。光る階段に乗ると次の階へ進みます。</p></article><article><i>02</i><h3>ぶつかって戦う</h3><p>敵がいる方向へ進むと通常攻撃。こちらの行動後、敵も一斉に動きます。</p></article><article><i>03</i><h3>観測して仲間に</h3><p>Qの「観測」で印をつけ、その敵を倒すと現象を理解して仲間にできます。</p></article></div>
+      <div class="how-grid"><article><i>01</i><h3>現実地点を探す</h3><p>「現」と光る地点には、今日のニュースと迷宮を変える効果があります。</p></article><article><i>02</i><h3>ぶつかって戦う</h3><p>敵がいる方向へ進むと通常攻撃。こちらの行動後、敵も一斉に動きます。</p></article><article><i>03</i><h3>観測して仲間に</h3><p>Qの「観測」で印をつけ、その敵を倒すと現象を理解して仲間にできます。</p></article></div>
       <p class="key-guide">PC: 矢印 / WASDで移動　・　Qで観測　・　Eで信号弾　・　Spaceで待機</p><button class="primary" data-close="helpModal">調査を始める</button>
     </div></div>
 
@@ -76,6 +76,7 @@
     </form></div>
 
     <div class="modal" id="resultModal" aria-hidden="true"><div class="modal-card result-card"><p class="eyebrow" id="resultEyebrow">RESCUE COMPLETE</p><div class="result-mark" id="resultMark">✓</div><h2 id="resultTitle">調査から帰還しました</h2><p id="resultCopy"></p><div class="result-stats" id="resultStats"></div><button class="primary" id="resultRestart">もう一度、別の迷宮へ</button></div></div>
-    <script src="app.js?v=viewport4"></script>
+    <div class="modal" id="realityModal" aria-hidden="true"><div class="modal-card reality-card"><p class="eyebrow">REALITY FOUND</p><div class="reality-category" id="realityCategory">地域の出来事</div><h2 id="realityTitle"></h2><p class="reality-fact" id="realityFact"></p><div class="reality-effect"><span>迷宮への変化</span><b id="realityEffect"></b></div><a id="realitySource" target="_blank" rel="noopener">ニュースの出典を開く ↗</a><button class="primary" data-close="realityModal">調査を続ける</button></div></div>
+    <script src="app.js?v=reality1"></script>
   </body>
 </html>

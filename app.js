@@ -89,9 +89,9 @@ function startGame(rotateNews = false) {
   }
   const seed = selectedSeed || manual || null;
   game = {
-    floor: 1, turn: 0, ended: false, map: [], rooms: [], seen: new Set(), enemies: [], items: [], stairs: null,
+    floor: 1, turn: 0, ended: false, map: [], rooms: [], seen: new Set(), enemies: [], items: [], realityNodes: [], stairs: null,
     player: { x: 0, y: 0, hp: 24, maxHp: 24, belly: 100, attack: 4 },
-    team: [], known: new Set(), kills: 0, observeCd: 0, flareCd: 0, seed,
+    team: [], known: new Set(), kills: 0, realityFinds: 0, observeCd: 0, flareCd: 0, seed,
     logs: []
   };
   generateFloor();
@@ -117,7 +117,7 @@ function generateFloor() {
   const first = game.rooms[0], last = game.rooms[game.rooms.length - 1];
   game.player.x = first.cx; game.player.y = first.cy;
   game.stairs = { x: last.cx, y: last.cy };
-  game.enemies = []; game.items = [];
+  game.enemies = []; game.items = []; game.realityNodes = [];
   game.team.forEach((a, i) => { a.x = first.cx + (i % 2 ? -1 : 1); a.y = first.cy + (i > 1 ? 1 : 0); });
   const enemyCount = 4 + game.floor * 2;
   for (let i = 0; i < enemyCount; i++) {
@@ -131,9 +131,11 @@ function generateFloor() {
     game.enemies.push({ ...pos, type, hp: base.hp + bonus * 2, maxHp: base.hp + bonus * 2, atk: base.atk + Math.floor(bonus / 2), observed: false, id: crypto.randomUUID?.() || `${Date.now()}-${i}` });
   }
   for (let i = 0; i < 3 + game.floor; i++) game.items.push({ ...randomOpen(0), type: i % 3 === 0 ? 'food' : 'memo' });
+  game.realityNodes = game.seed ? [{ ...randomOpen(1), category: game.seed.category }] : [];
   reveal();
   const theme = themeNow();
-  els.weather.textContent = game.seed ? theme.label : '迷宮は入るたびに姿を変えます';
+  els.weather.textContent = game.seed ? `現実任務：${game.seed.title}` : '迷宮は入るたびに姿を変えます';
+  els.weather.title = game.seed?.title || '';
   els.floor.textContent = `${game.floor}F`;
   els.place.textContent = game.seed ? `${game.seed.place}の迷宮` : '今日の迷宮';
   showFloorFlash(`${game.floor}F`);
@@ -156,7 +158,7 @@ function randomOpen(skipRooms = 0) {
   const rooms = game.rooms.slice(skipRooms);
   for (let tries = 0; tries < 100; tries++) {
     const r = rooms[rand(rooms.length)], p = { x: r.x + rand(r.w), y: r.y + rand(r.h) };
-    if (!occupied(p.x, p.y) && key(p.x, p.y) !== key(game.stairs.x, game.stairs.y) && dist(p, game.player) > 3) return p;
+    if (!occupied(p.x, p.y) && !game.items.some(i=>i.x===p.x&&i.y===p.y) && !game.realityNodes.some(i=>i.x===p.x&&i.y===p.y) && key(p.x, p.y) !== key(game.stairs.x, game.stairs.y) && dist(p, game.player) > 3) return p;
   }
   return { x: game.rooms[1].cx, y: game.rooms[1].cy };
 }
@@ -184,6 +186,7 @@ function movePlayer(dx, dy) {
     game.player.x = nx; game.player.y = ny;
     if (!ally) followPlayer(old);
     collectItem();
+    collectReality();
     if (nx === game.stairs.x && ny === game.stairs.y) { descend(); return; }
   }
   finishPlayerTurn();
@@ -263,6 +266,39 @@ function collectItem() {
   }
 }
 
+function collectReality() {
+  const i = game.realityNodes.findIndex(v => v.x === game.player.x && v.y === game.player.y);
+  if (i < 0 || !game.seed) return;
+  game.realityNodes.splice(i, 1); game.realityFinds++;
+  const category = game.seed.category;
+  const effects = {
+    community: '地域の支え：調査隊全員のHPを回復',
+    climate: '環境観測：迷宮内の「熱だまり」を弱体化',
+    mobility: '交通情報：この階の地図をすべて開示',
+    science: '研究成果：通常攻撃を強化し、技能を再使用可能に'
+  };
+  if (category === 'community') {
+    game.player.hp = Math.min(game.player.maxHp, game.player.hp + 7);
+    game.team.forEach(a => a.hp = Math.min(a.maxHp, a.hp + 5));
+  } else if (category === 'climate') {
+    game.enemies.filter(e => e.type === 'heat').forEach(e => { e.hp = Math.max(1, e.hp - 3); e.atk = Math.max(1, e.atk - 1); });
+  } else if (category === 'mobility') {
+    for (let y=0;y<H;y++) for(let x=0;x<W;x++) if(game.map[y][x]===1) game.seen.add(key(x,y));
+    game.player.belly = Math.min(100, game.player.belly + 20);
+  } else if (category === 'science') {
+    game.player.attack++; game.observeCd = 0; game.flareCd = 0;
+  }
+  addLog('現実発見', game.seed.title);
+  setMessage(`現実地点を発見：「${game.seed.title}」`, '現');
+  const labels={community:'地域・文化',climate:'天気・環境',mobility:'交通・都市',science:'研究・技術'};
+  $('#realityCategory').textContent=labels[category];
+  $('#realityTitle').textContent=game.seed.title;
+  $('#realityFact').textContent=game.seed.fact;
+  $('#realityEffect').textContent=effects[category];
+  $('#realitySource').href=game.seed.source;
+  setTimeout(()=>openModal('realityModal'),0);
+}
+
 function finishPlayerTurn() {
   game.turn++;
   game.player.belly = Math.max(0, game.player.belly - 1);
@@ -338,7 +374,7 @@ function endGame(win) {
   $('#resultMark').textContent = win ? '✓' : '×';
   $('#resultTitle').textContent = win ? '現実の断片を持ち帰りました' : 'いったん拠点へ戻ります';
   $('#resultCopy').textContent = win ? '現象を倒すだけでなく、観測して仲間にしたことが今回の調査記録になります。' : '迷宮は次回も形を変えます。敵を避け、携帯食と救護メモを使ってください。';
-  $('#resultStats').innerHTML = `<div><b>${game.turn}</b><span>ターン</span></div><div><b>${game.kills}</b><span>観測した現象</span></div><div><b>${game.team.length}</b><span>仲間</span></div>`;
+  $('#resultStats').innerHTML = `<div><b>${game.turn}</b><span>ターン</span></div><div><b>${game.realityFinds}</b><span>現実地点</span></div><div><b>${game.team.length}</b><span>仲間</span></div>`;
   setTimeout(() => openModal('resultModal'), 350);
 }
 
@@ -366,6 +402,7 @@ function draw() {
   }
   if (game.seen.has(key(game.stairs.x,game.stairs.y))) drawStairs(game.stairs, theme.accent, now);
   game.items.forEach(i => { if (game.seen.has(key(i.x,i.y))) drawItem(i); });
+  game.realityNodes.forEach(i => { if (game.seen.has(key(i.x,i.y))) drawRealityNode(i, now); });
   game.enemies.forEach(e => { if (visible(e)) drawCreature(e, false, now); });
   game.team.forEach(a => drawCreature(a, true, now));
   drawPlayer(now);
@@ -383,6 +420,14 @@ function drawStairs(p, color, now) {
 function drawItem(i) {
   const x=i.x*TILE+24,y=i.y*TILE+25;
   ctx.save();ctx.shadowColor='rgba(255,220,100,.7)';ctx.shadowBlur=10;ctx.fillStyle=i.type==='food'?'#f3c957':'#9ce0c0';ctx.beginPath();ctx.roundRect(x-10,y-9,20,18,6);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#21473b';ctx.font='800 10px sans-serif';ctx.textAlign='center';ctx.fillText(i.type==='food'?'食':'＋',x,y+4);ctx.restore();
+}
+
+function drawRealityNode(node, now) {
+  const style={community:['会','#62c487'],climate:['温','#ef7957'],mobility:['駅','#e5b33e'],science:['研','#64c6d0']}[node.category];
+  const x=node.x*TILE+24,y=node.y*TILE+24,pulse=(Math.sin(now/220)+1)/2;
+  ctx.save();ctx.shadowColor=style[1];ctx.shadowBlur=12+pulse*8;ctx.fillStyle=style[1];ctx.beginPath();ctx.roundRect(x-15,y-15,30,30,8);ctx.fill();
+  ctx.shadowBlur=0;ctx.strokeStyle='#fff4b8';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#fff';ctx.font='900 12px "Noto Sans JP"';ctx.textAlign='center';ctx.fillText(style[0],x,y+4);
+  ctx.fillStyle='#fff4b8';ctx.font='700 7px "DM Mono"';ctx.fillText('REAL',x,y-20);ctx.restore();
 }
 
 function drawCreature(c, ally, now) {
