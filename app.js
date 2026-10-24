@@ -1,86 +1,400 @@
-const cards=[
-  {id:'printing',title:'活版印刷',year:'c. 1450',symbol:'印',type:'技術',tags:['複製','知識'],cost:0,color:'#765d3c',text:'次に使う〈知識〉カードを2回発動する。',fact:'グーテンベルクがヨーロッパで発展させた金属活字と印刷機の体系は、書物の複製速度と流通規模を大きく変えた。',mechanism:'情報を安価に複製する働きを、次の知識効果の複製として表現。',source:'https://www.britannica.com/technology/printing-press',effect:'printing'},
-  {id:'science',title:'科学的方法',year:'17世紀–',symbol:'理',type:'知識',tags:['観測','証拠'],cost:1,color:'#3f6874',text:'証拠を2得て、カードを1枚引く。',fact:'観察、仮説、実験、検証を組み合わせる科学的方法は、主張を再現可能な証拠へ結びつける枠組みとなった。',mechanism:'検証可能な知識を「証拠」として蓄え、産業カードの威力へ変える。',source:'https://www.britannica.com/science/scientific-method',effect:'science'},
-  {id:'telegraph',title:'電信網',year:'1844–',symbol:'電',type:'通信',tags:['通信','速度'],cost:1,color:'#376b78',text:'カードを2枚引き、勢いを1得る。',fact:'1844年、モールスはワシントン—ボルチモア間の電信線でメッセージを送り、情報伝達を輸送速度から切り離した。',mechanism:'情報の高速化を手札補充と行動の勢いに変換。',source:'https://www.loc.gov/collections/samuel-morse-papers/articles-and-essays/invention-of-the-telegraph/',effect:'telegraph'},
-  {id:'steam',title:'蒸気機関',year:'1760s–',symbol:'蒸',type:'産業',tags:['動力','攻撃'],cost:2,color:'#65564b',text:'7ダメージ。証拠と勢いをすべて消費して威力を上げる。',fact:'ワットらによる蒸気機関の改良は燃料効率と用途を広げ、工場、鉱山、交通の機械化を加速させた。',mechanism:'蓄積した知識とネットワークを、まとまった動力へ変換するフィニッシャー。',source:'https://www.britannica.com/technology/steam-engine',effect:'steam'},
-  {id:'assembly',title:'組立ライン',year:'1913–',symbol:'組',type:'産業',tags:['標準化','連続'],cost:2,color:'#665453',text:'4ダメージを2回。勢い2以上なら3回攻撃。',fact:'移動式組立ラインは作業工程を細分化・同期し、大量生産の速度と規模を大きく変えた。',mechanism:'同じ工程の反復を複数回攻撃として表現。',source:'https://www.britannica.com/technology/assembly-line',effect:'assembly'},
-  {id:'rule-law',title:'法の支配',year:'長期的形成',symbol:'法',type:'制度',tags:['防御','権利'],cost:1,color:'#58654f',text:'防御を7得る。恒久制度があればさらに3。',fact:'法の支配は、権力の行使も公に定められた法と手続きに拘束されるという統治原理である。',mechanism:'予測可能な手続きが恣意的な攻撃を受け止める防御になる。',source:'https://www.un.org/ruleoflaw/what-is-the-rule-of-law/',effect:'ruleLaw'},
-  {id:'vaccination',title:'予防接種計画',year:'1796–',symbol:'防',type:'公衆衛生',tags:['防御','回復'],cost:1,color:'#52705f',text:'防御を5得て、耐久力を3回復する。',fact:'ワクチン接種は個人の発症や重症化を防ぐだけでなく、集団的な感染症対策の重要な柱になった。',mechanism:'被害を未然に防ぐ働きを、防御と小回復で表現。',source:'https://www.who.int/health-topics/vaccines-and-immunization',effect:'vaccination'},
-  {id:'bookkeeping',title:'複式簿記',year:'15世紀–',symbol:'簿',type:'知識',tags:['資源','計算'],cost:1,color:'#6c5d3f',text:'行動力を2得て、カードを1枚引く。この戦闘では再使用しない。',fact:'複式簿記は取引を対応する借方・貸方として記録し、資産と負債の把握を体系化した。',mechanism:'資源の見通しを良くすることで、使える行動力を増やす。',source:'https://www.britannica.com/topic/double-entry-bookkeeping',effect:'bookkeeping',exhaust:true},
-  {id:'library',title:'公共図書館',year:'1850–',symbol:'書',type:'恒久制度',tags:['知識','公開'],cost:2,color:'#4d6670',text:'常設。各ターン最初の〈知識〉カードで追加ドロー。',fact:'19世紀以降の公共図書館制度は、書籍と情報へのアクセスを私的所有から公共サービスへ広げた。',mechanism:'知識カードから継続的に追加選択肢を得る恒久制度。',source:'https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/yourcountry/overview/librariesact/',effect:'library',institution:true},
-  {id:'standards',title:'国際標準',year:'1947–',symbol:'標',type:'恒久制度',tags:['標準化','通信'],cost:2,color:'#4e646c',text:'常設。〈通信〉カードのコストが1下がる。',fact:'共通の技術標準は、異なる組織や地域の製品・通信・手続きを相互運用しやすくする。',mechanism:'共通規格による接続費用の低下を通信カードのコスト軽減にする。',source:'https://www.iso.org/about-us.html',effect:'standards',institution:true},
-  {id:'container',title:'コンテナ輸送',year:'1956–',symbol:'箱',type:'通信',tags:['物流','勢い'],cost:2,color:'#4c6671',text:'6ダメージを与え、勢いを2得る。',fact:'標準化された海上コンテナは積み替えを効率化し、港湾・鉄道・道路を結ぶ物流網を変えた。',mechanism:'標準化された流れを即時攻撃と次の産業カード用の勢いに変える。',source:'https://www.britannica.com/technology/containerization',effect:'container'},
-  {id:'internet',title:'TCP/IP',year:'1983',symbol:'網',type:'通信',tags:['接続','知識'],cost:2,color:'#3c6d7d',text:'カードを3枚引き、証拠を1得る。',fact:'ARPANETのTCP/IP移行は、異なるネットワークを共通規約で接続するインターネット形成の重要な節目となった。',mechanism:'ネットワーク効果を大きな手札補充として表現。',source:'https://www.internetsociety.org/internet/history-internet/brief-history-internet/',effect:'internet'},
-  {id:'open-data',title:'オープンデータ',year:'21世紀',symbol:'開',type:'知識',tags:['公開','証拠'],cost:1,color:'#446c72',text:'防御を4得て、証拠を1得る。',fact:'オープンデータの取り組みは、政府や組織が保有するデータを再利用可能な形式で公開し、検証と新しい利用を促す。',mechanism:'透明性が攻撃への耐性と、次の技術に使える証拠を同時に生む。',source:'https://opendatacharter.net/principles/',effect:'openData'}
-];
+const W = 17, H = 13, TILE = 48;
+const canvas = document.querySelector('#dungeon');
+const ctx = canvas.getContext('2d');
 
-const intents=[
-  {title:'記録への攻撃',glyph:'7',text:'次のターン、7ダメージ',attack:7},
-  {title:'文脈の切断',glyph:'4+',text:'4ダメージ＋ノイズを混入',attack:4,noise:1},
-  {title:'自己正当化',glyph:'盾',text:'敵が防御を8得る',shield:8},
-  {title:'大量削除',glyph:'10',text:'次のターン、10ダメージ',attack:10},
-  {title:'偽りの接続',glyph:'5+',text:'5ダメージ＋ノイズ2枚',attack:5,noise:2},
-  {title:'完全消去',glyph:'14',text:'次のターン、14ダメージ',attack:14}
-];
-
-const echoPresets={
-  research:{type:'知識',symbol:'研',color:'#47727d',cost:0,text:'証拠を1得て、カードを1枚引く。戦闘中1回。',effect:'echoResearch',tags:['現実','研究'],exhaust:true},
-  infrastructure:{type:'通信',symbol:'路',color:'#536c76',cost:1,text:'勢いを1、防御を3得る。',effect:'echoInfrastructure',tags:['現実','接続']},
-  community:{type:'地域',symbol:'街',color:'#687155',cost:1,text:'防御を5得る。',effect:'echoCommunity',tags:['現実','地域']},
-  policy:{type:'知識',symbol:'策',color:'#596956',cost:1,text:'防御を4、証拠を1得る。',effect:'echoPolicy',tags:['現実','制度']}
+const enemyTypes = {
+  heat: { name: '熱だまり', glyph: '熱', color: '#e66c4d', hp: 7, atk: 3, note: '舗装や建物に熱が蓄積し、周囲より気温が高くなる都市の現象。' },
+  noise: { name: '情報の霧', glyph: '？', color: '#8b72c8', hp: 6, atk: 2, note: '断片的な情報が重なると、確かな事実を見分けにくくなる。' },
+  jam: { name: '交通の結び目', glyph: '詰', color: '#df9e38', hp: 9, atk: 3, note: '移動が一点に集中し、流れが遅くなっている状態。動きは遅いが頑丈。' },
+  bloom: { name: '繁茂の芽', glyph: '芽', color: '#4c9d69', hp: 5, atk: 2, note: '条件がそろった場所で急速に広がる生物の集団。' },
+  echo: { name: '反響する見出し', glyph: '響', color: '#428ca4', hp: 8, atk: 3, note: '入力した現実の出来事が、迷宮の中で形を持ったもの。' }
 };
 
-const $=id=>document.getElementById(id);let state;let comboTimer;
-function escapeHTML(value){return String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function loadEchoes(){try{const list=JSON.parse(localStorage.getItem('paradox-echoes')||'[]');return Array.isArray(list)?list.filter(c=>c&&c.custom&&c.title&&c.source).slice(-6):[]}catch{return[]}}
-function initialState(){const starterIds=['printing','science','telegraph','steam','rule-law'],starter=starterIds.map(id=>cards.find(c=>c.id===id));const rest=cards.filter(c=>!starterIds.includes(c.id));return{turn:1,hp:30,maxHp:30,block:0,energy:3,evidence:0,momentum:0,enemyHp:42,enemyMax:42,enemyBlock:0,intent:0,hand:[...starter],drawPile:shuffle([...rest,...loadEchoes()]),discard:[],institutions:[],repeatKnowledge:false,libraryUsed:false,log:[],ended:false,locked:false,cardsPlayed:0,damageDone:0}}
-function startGame(){state=initialState();addLog('接続開始','1450年、1844年、1983年の記録をつなぎ、検閲者を不安定化させる。');render();showDetail(state.hand[0]);$('resultModal').classList.remove('visible');$('resultModal').setAttribute('aria-hidden','true')}
+const categoryThemes = {
+  community: { floor: '#345847', floor2: '#3b6350', wall: '#17382e', accent: '#f1c75b', type: 'bloom', label: '人の気配が迷宮を満たしている' },
+  climate: { floor: '#40584e', floor2: '#49645a', wall: '#193932', accent: '#f08a5d', type: 'heat', label: '気温のゆらぎを感じる' },
+  mobility: { floor: '#3c5053', floor2: '#445b5e', wall: '#192f34', accent: '#efb84d', type: 'jam', label: '遠くで交通の音が響いている' },
+  science: { floor: '#374f59', floor2: '#405c67', wall: '#172f38', accent: '#79d8cf', type: 'noise', label: '未知の観測信号が漂っている' }
+};
 
-function effectiveCost(card){if(state.institutions.some(c=>c.id==='standards')&&card.type==='通信')return Math.max(0,card.cost-1);return card.cost}
-function render(){renderStats();renderIntent();renderHand();renderInstitutions();renderLog();renderTimeline()}
-function renderStats(){$('enemyHpText').textContent=`${Math.max(0,state.enemyHp)} / ${state.enemyMax}`;$('enemyHpBar').style.width=`${Math.max(0,state.enemyHp)/state.enemyMax*100}%`;$('playerHpText').textContent=`${Math.max(0,state.hp)} / ${state.maxHp}`;$('playerHpBar').style.width=`${Math.max(0,state.hp)/state.maxHp*100}%`;$('blockValue').textContent=state.block;$('evidenceValue').textContent=state.evidence;$('momentumValue').textContent=state.momentum;$('energyValue').textContent=state.energy;$('energyPips').innerHTML=Array.from({length:Math.max(3,state.energy)},(_,i)=>`<i class="${i<state.energy?'active':''}"></i>`).join('')}
-function renderIntent(){const intent=intents[Math.min(state.intent,intents.length-1)];$('intentGlyph').textContent=intent.glyph;$('intentTitle').textContent=intent.title;$('intentText').textContent=intent.text}
-function renderTimeline(){const anchors=document.querySelectorAll('.anchor');anchors[0].classList.toggle('restored',state.enemyHp<=42);anchors[1].classList.toggle('restored',state.enemyHp<=28);anchors[2].classList.toggle('restored',state.enemyHp<=14)}
-function renderInstitutions(){const slots=[...state.institutions];while(slots.length<3)slots.push(null);$('institutionSlots').innerHTML=slots.map(card=>card?`<span class="institution-card">${escapeHTML(card.title)}</span>`:'<i>空き</i>').join('')}
-function cardText(card){if(card.id==='steam'){const total=7+state.evidence*2+state.momentum;return`${total}ダメージ（証拠${state.evidence}・勢い${state.momentum}を消費）`}if(card.id==='assembly'&&state.momentum>=2)return'4ダメージを3回（勢い2を消費）';return card.text}
-function renderHand(){$('hand').innerHTML=state.hand.map((card,index)=>{const cost=effectiveCost(card),disabled=cost>state.energy||(card.institution&&state.institutions.length>=3);return`<button class="game-card ${disabled?'disabled':''}" data-index="${index}" style="--accent:${card.color}"><div class="card-art"><span class="cost">${cost}</span><span class="card-symbol">${escapeHTML(card.symbol)}</span></div><div class="card-copy"><small>${escapeHTML(card.type)}</small><h3>${escapeHTML(card.title)}</h3><p>${escapeHTML(cardText(card))}</p></div><div class="card-tags">${card.tags.map(t=>`<i>${escapeHTML(t)}</i>`).join('')}</div></button>`}).join('');$('hand').querySelectorAll('.game-card').forEach(button=>{const index=Number(button.dataset.index),card=state.hand[index];button.addEventListener('mouseenter',()=>showDetail(card));button.addEventListener('focus',()=>showDetail(card));button.addEventListener('click',()=>playCard(index))})}
-function renderLog(){$('combatLog').innerHTML=state.log.map(entry=>`<p><time>${escapeHTML(entry.time)}</time>${escapeHTML(entry.text)}</p>`).join('')}
-function showDetail(card){const custom=card.custom,noise=card.effect==='noise';$('cardDetail').innerHTML=`<div class="detail-year">${escapeHTML(noise?'異常':custom?card.year:card.year)}</div><div class="detail-symbol">${escapeHTML(card.symbol)}</div><span class="detail-type">${escapeHTML(card.type)} · ${custom?'REALITY ECHO':noise?'PARADOX':'HISTORICAL MECHANISM'}</span><h3>${escapeHTML(card.title)}</h3><p>${escapeHTML(card.fact||card.text)}</p><div class="mechanism"><span>カード能力への変換</span><p>${escapeHTML(card.mechanism||card.text)}</p></div>${card.source?`<a href="${escapeHTML(card.source)}" target="_blank" rel="noreferrer">出典を確認 ↗</a>`:''}`}
+let game;
+const $ = s => document.querySelector(s);
+const els = {
+  hpText: $('#hpText'), hpBar: $('#hpBar'), bellyText: $('#bellyText'), bellyBar: $('#bellyBar'),
+  floor: $('#floorLabel'), place: $('#placeLabel'), turn: $('#turnValue'), message: $('#message'), messageIcon: $('#messageIcon'),
+  team: $('#teamList'), teamCount: $('#teamCount'), note: $('#currentNote'), species: $('#speciesCount'), log: $('#activityLog'),
+  observe: $('#observeButton'), flare: $('#flareButton'), observeCd: $('#observeCooldown'), flareCd: $('#flareCooldown'),
+  flash: $('#floorFlash'), damage: $('#damageLayer'), weather: $('#weatherText')
+};
 
-function drawCards(count){for(let i=0;i<count;i++){if(!state.drawPile.length){state.drawPile=shuffle(state.discard);state.discard=[]}if(state.drawPile.length)state.hand.push(state.drawPile.pop())}}
-function playCard(index){if(state.ended||state.locked)return;const card=state.hand[index];if(!card)return;const cost=effectiveCost(card);if(cost>state.energy){message('行動力が足りません');return}if(card.institution&&state.institutions.length>=3){message('恒久制度は3枚までです');return}state.energy-=cost;state.hand.splice(index,1);state.cardsPlayed++;showDetail(card);const repeat=state.repeatKnowledge&&card.type==='知識';if(repeat){state.repeatKnowledge=false;showCombo(`活版印刷 × ${card.title}`)}applyCard(card);if(repeat)applyCard(card,true);if(state.institutions.some(c=>c.id==='library')&&card.type==='知識'&&!state.libraryUsed){state.libraryUsed=true;drawCards(1);showCombo('公共図書館：追加ドロー')}if(card.institution)state.institutions.push(card);else if(!card.exhaust&&card.effect!=='noise')state.discard.push(card);render();if(state.enemyHp<=0)finish(true)}
-function applyCard(card,repeated=false){switch(card.effect){
-  case'printing':state.repeatKnowledge=true;showCombo('次の知識カードを複製');break;
-  case'science':state.evidence+=2;drawCards(1);break;
-  case'telegraph':drawCards(2);state.momentum++;break;
-  case'steam':{const damage=7+state.evidence*2+state.momentum;dealDamage(damage);if(state.evidence||state.momentum)showCombo(`証拠と勢いを動力へ：${damage}`);state.evidence=0;state.momentum=0;break}
-  case'assembly':{const hits=state.momentum>=2?3:2;for(let i=0;i<hits;i++)dealDamage(4);if(hits===3){state.momentum-=2;showCombo('連続生産：3回攻撃')}break}
-  case'ruleLaw':state.block+=7+(state.institutions.length?3:0);break;
-  case'vaccination':state.block+=5;state.hp=Math.min(state.maxHp,state.hp+3);break;
-  case'bookkeeping':state.energy+=2;drawCards(1);showCombo('資源を再計算：行動力 +2');break;
-  case'container':dealDamage(6);state.momentum+=2;break;
-  case'internet':drawCards(3);state.evidence++;break;
-  case'openData':state.block+=4;state.evidence++;break;
-  case'echoResearch':state.evidence++;drawCards(1);break;
-  case'echoInfrastructure':state.momentum++;state.block+=3;break;
-  case'echoCommunity':state.block+=5;break;
-  case'echoPolicy':state.block+=4;state.evidence++;break;
-  case'noise':showCombo('ノイズを除去');break;
-  case'library':case'standards':break;
-}}
-function dealDamage(amount){const blocked=Math.min(state.enemyBlock,amount),actual=amount-blocked;state.enemyBlock-=blocked;state.enemyHp-=actual;state.damageDone+=actual;floatNumber($('enemyCore'),`−${actual}`);const core=$('enemyCore');core.classList.remove('hit');void core.offsetWidth;core.classList.add('hit');addLog(`第${state.turn}ターン`,`${actual}ダメージ。検閲者の整合性を崩した。`)}
-function endTurn(){if(state.ended||state.locked)return;state.locked=true;state.discard.push(...state.hand.filter(c=>c.effect!=='noise'));state.discard.push(...state.hand.filter(c=>c.effect==='noise'));state.hand=[];renderHand();setTimeout(enemyAction,420)}
-function enemyAction(){state.enemyBlock=0;const intent=intents[Math.min(state.intent,intents.length-1)];if(intent.attack){const absorbed=Math.min(state.block,intent.attack),damage=intent.attack-absorbed;state.hp-=damage;floatNumber(document.querySelector('.portrait'),`−${damage}`);addLog(`敵・第${state.turn}ターン`,`${intent.title}。防御${absorbed}、被害${damage}。`)}if(intent.shield){state.enemyBlock=intent.shield;addLog(`敵・第${state.turn}ターン`,`検閲者が防御${intent.shield}を得た。`)}if(intent.noise){for(let i=0;i<intent.noise;i++)state.discard.push(makeNoise());addLog('異常混入',`デッキへノイズ${intent.noise}枚が入った。`)}state.block=0;if(state.hp<=0){render();finish(false);return}setTimeout(nextTurn,450)}
-function nextTurn(){state.turn++;state.intent=Math.min(state.intent+1,intents.length-1);state.energy=3;state.libraryUsed=false;drawCards(5+(state.institutions.some(c=>c.id==='library')?1:0));state.locked=false;message(`第${state.turn}ターン。敵の次行動を確認してください。`);render()}
-function makeNoise(){return{id:`noise-${Date.now()}-${Math.random()}`,title:'文脈ノイズ',year:'PARADOX',symbol:'?',type:'異常',tags:['除去'],cost:1,color:'#59444f',text:'行動力1を使って除去する。放置すると再び山札へ戻る。',fact:'検閲者が混入させた、史実ではない断片。',mechanism:'デッキの回転を悪化させる妨害カード。',effect:'noise',exhaust:true}}
-function message(text){$('battleMessage').textContent=text}
-function addLog(time,text){state.log.unshift({time,text});state.log=state.log.slice(0,12)}
-function showCombo(text){clearTimeout(comboTimer);$('comboBanner').textContent=text;$('comboBanner').classList.add('visible');comboTimer=setTimeout(()=>$('comboBanner').classList.remove('visible'),1100)}
-function floatNumber(target,text){const rect=target.getBoundingClientRect(),el=document.createElement('span');el.className='damage-number';el.textContent=text;el.style.left=`${rect.left+rect.width/2}px`;el.style.top=`${rect.top+rect.height/3}px`;document.body.append(el);setTimeout(()=>el.remove(),900)}
-function finish(win){state.ended=true;$('resultSymbol').textContent=win?'✓':'×';$('resultTitle').textContent=win?'時間軸を修復しました':'アーカイブが消去されました';$('resultText').textContent=win?'個々の史実ではなく、複製・通信・検証・動力という仕組みをつないだ結果です。':'敵の次行動を見て、防御を確保してからコンボを組み直してください。';$('resultStats').innerHTML=`<span>${state.turn}ターン</span><span>${state.cardsPlayed}枚使用</span><span>${state.damageDone}ダメージ</span>`;openModal('resultModal')}
+function rand(n) { return Math.floor(Math.random() * n); }
+function key(x, y) { return `${x},${y}`; }
+function dist(a, b) { return Math.abs(a.x - b.x) + Math.abs(a.y - b.y); }
+function esc(v) { return String(v).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+function isModalOpen() { return !!document.querySelector('.modal.open'); }
 
-function openModal(id){$(id).classList.add('visible');$(id).setAttribute('aria-hidden','false')}function closeModal(id){$(id).classList.remove('visible');$(id).setAttribute('aria-hidden','true');if(id==='helpModal')localStorage.setItem('paradox-tutorial','seen')}
-$('endTurnButton').addEventListener('click',endTurn);$('helpButton').addEventListener('click',()=>openModal('helpModal'));$('echoButton').addEventListener('click',()=>openModal('echoModal'));$('restartButton').addEventListener('click',startGame);document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>closeModal(button.dataset.close)));
-const echoForm=$('echoForm');echoForm.elements.date.value=new Date().toISOString().slice(0,10);echoForm.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(echoForm);let url;try{url=new URL(String(data.get('source')));if(!['http:','https:'].includes(url.protocol))throw new Error()}catch{$('echoError').textContent='確認できる http または https のURLを入力してください。';return}const preset=echoPresets[data.get('category')],card={...preset,id:`echo-${Date.now()}`,custom:true,title:String(data.get('title')).trim(),year:String(data.get('date')),fact:String(data.get('fact')).trim(),source:url.href,mechanism:'現在の小さな事実を、今回の戦闘だけを助ける控えめな反響として扱う。'};if(!card.title||!card.fact){$('echoError').textContent='見出しと確認できた事実を入力してください。';return}const saved=[...loadEchoes(),card].slice(-6);localStorage.setItem('paradox-echoes',JSON.stringify(saved));state.discard.push(card);showDetail(card);addLog('現実の反響',`「${card.title}」を次の山札へ加えた。`);$('echoError').textContent='';closeModal('echoModal');echoForm.reset();echoForm.elements.date.value=new Date().toISOString().slice(0,10);showCombo('現実の反響をデッキへ追加');renderLog()});
-startGame();if(!localStorage.getItem('paradox-tutorial'))setTimeout(()=>openModal('helpModal'),250);
+function savedSeed() {
+  try { return JSON.parse(localStorage.getItem('reality-dungeon-seed')) || null; } catch { return null; }
+}
+
+function startGame() {
+  const seed = savedSeed();
+  game = {
+    floor: 1, turn: 0, ended: false, map: [], rooms: [], seen: new Set(), enemies: [], items: [], stairs: null,
+    player: { x: 0, y: 0, hp: 24, maxHp: 24, belly: 100, attack: 4 },
+    team: [], known: new Set(), kills: 0, observeCd: 0, flareCd: 0, seed,
+    logs: []
+  };
+  generateFloor();
+  addLog('調査開始', '今日の迷宮へ入りました');
+  setMessage('光っている階段を探してください。', '◆');
+  updateUI();
+}
+
+function generateFloor() {
+  game.map = Array.from({ length: H }, () => Array(W).fill(0));
+  game.rooms = [];
+  game.seen = new Set();
+  const attempts = 80;
+  for (let i = 0; i < attempts && game.rooms.length < 6; i++) {
+    const w = 3 + rand(4), h = 3 + rand(3), x = 1 + rand(W - w - 2), y = 1 + rand(H - h - 2);
+    const room = { x, y, w, h, cx: x + Math.floor(w / 2), cy: y + Math.floor(h / 2) };
+    if (game.rooms.some(r => x < r.x + r.w + 1 && x + w + 1 > r.x && y < r.y + r.h + 1 && y + h + 1 > r.y)) continue;
+    game.rooms.push(room);
+    carveRoom(room);
+  }
+  if (game.rooms.length < 3) return generateFloor();
+  for (let i = 1; i < game.rooms.length; i++) connect(game.rooms[i - 1], game.rooms[i]);
+  const first = game.rooms[0], last = game.rooms[game.rooms.length - 1];
+  game.player.x = first.cx; game.player.y = first.cy;
+  game.stairs = { x: last.cx, y: last.cy };
+  game.enemies = []; game.items = [];
+  game.team.forEach((a, i) => { a.x = first.cx + (i % 2 ? -1 : 1); a.y = first.cy + (i > 1 ? 1 : 0); });
+  const enemyCount = 4 + game.floor * 2;
+  for (let i = 0; i < enemyCount; i++) {
+    const pos = randomOpen(1);
+    const possible = ['heat', 'noise', 'jam', 'bloom'];
+    let type = possible[rand(possible.length)];
+    if (game.seed && i === 0) type = 'echo';
+    else if (game.seed && Math.random() < .38) type = categoryThemes[game.seed.category].type;
+    const base = enemyTypes[type];
+    const bonus = game.floor - 1;
+    game.enemies.push({ ...pos, type, hp: base.hp + bonus * 2, maxHp: base.hp + bonus * 2, atk: base.atk + Math.floor(bonus / 2), observed: false, id: crypto.randomUUID?.() || `${Date.now()}-${i}` });
+  }
+  for (let i = 0; i < 3 + game.floor; i++) game.items.push({ ...randomOpen(0), type: i % 3 === 0 ? 'food' : 'memo' });
+  reveal();
+  const theme = themeNow();
+  els.weather.textContent = game.seed ? theme.label : '迷宮は入るたびに姿を変えます';
+  els.floor.textContent = `${game.floor}F`;
+  els.place.textContent = game.seed ? `${game.seed.place}の迷宮` : '今日の迷宮';
+  showFloorFlash(`${game.floor}F`);
+}
+
+function carveRoom(r) { for (let y = r.y; y < r.y + r.h; y++) for (let x = r.x; x < r.x + r.w; x++) game.map[y][x] = 1; }
+function connect(a, b) {
+  let x = a.cx, y = a.cy;
+  if (Math.random() < .5) {
+    while (x !== b.cx) { game.map[y][x] = 1; x += Math.sign(b.cx - x); }
+    while (y !== b.cy) { game.map[y][x] = 1; y += Math.sign(b.cy - y); }
+  } else {
+    while (y !== b.cy) { game.map[y][x] = 1; y += Math.sign(b.cy - y); }
+    while (x !== b.cx) { game.map[y][x] = 1; x += Math.sign(b.cx - x); }
+  }
+  game.map[b.cy][b.cx] = 1;
+}
+
+function randomOpen(skipRooms = 0) {
+  const rooms = game.rooms.slice(skipRooms);
+  for (let tries = 0; tries < 100; tries++) {
+    const r = rooms[rand(rooms.length)], p = { x: r.x + rand(r.w), y: r.y + rand(r.h) };
+    if (!occupied(p.x, p.y) && key(p.x, p.y) !== key(game.stairs.x, game.stairs.y) && dist(p, game.player) > 3) return p;
+  }
+  return { x: game.rooms[1].cx, y: game.rooms[1].cy };
+}
+
+function occupied(x, y, ignore) {
+  if (game.player.x === x && game.player.y === y && ignore !== game.player) return true;
+  if (game.enemies.some(e => e !== ignore && e.x === x && e.y === y)) return true;
+  return game.team.some(a => a !== ignore && a.x === x && a.y === y);
+}
+
+function isFloor(x, y) { return x >= 0 && y >= 0 && x < W && y < H && game.map[y][x] === 1; }
+
+function movePlayer(dx, dy) {
+  if (game.ended || isModalOpen()) return;
+  const nx = game.player.x + dx, ny = game.player.y + dy;
+  if (!isFloor(nx, ny)) { setMessage('そこは壁です。別の道を探しましょう。', '■'); return; }
+  const enemy = game.enemies.find(e => e.x === nx && e.y === ny);
+  if (enemy) {
+    hitEnemy(enemy, game.player.attack, '通常攻撃');
+  } else {
+    const old = { x: game.player.x, y: game.player.y };
+    const ally = game.team.find(a => a.x === nx && a.y === ny);
+    if (ally) { ally.x = old.x; ally.y = old.y; }
+    else if (occupied(nx, ny)) return;
+    game.player.x = nx; game.player.y = ny;
+    if (!ally) followPlayer(old);
+    collectItem();
+    if (nx === game.stairs.x && ny === game.stairs.y) { descend(); return; }
+  }
+  finishPlayerTurn();
+}
+
+function followPlayer(old) {
+  let target = old;
+  game.team.forEach(a => {
+    const prev = { x: a.x, y: a.y };
+    if (isFloor(target.x, target.y) && !occupied(target.x, target.y, a)) { a.x = target.x; a.y = target.y; }
+    target = prev;
+  });
+}
+
+function waitTurn() { if (!game.ended && !isModalOpen()) { setMessage('周囲の様子をうかがった。', '…'); finishPlayerTurn(); } }
+
+function observe() {
+  if (game.ended || isModalOpen() || game.observeCd > 0) return;
+  const targets = game.enemies.filter(e => dist(e, game.player) <= 5).sort((a, b) => dist(a, game.player) - dist(b, game.player));
+  if (!targets.length) { setMessage('観測できる敵が近くにいません。', '？'); return; }
+  const e = targets[0]; e.observed = true; game.observeCd = 5;
+  const t = enemyTypes[e.type];
+  setMessage(`${t.name}を観測。倒せば仲間になります。`, '◎');
+  showNote(e);
+  hitEnemy(e, 2, '観測');
+  finishPlayerTurn();
+}
+
+function flare() {
+  if (game.ended || isModalOpen() || game.flareCd > 0) return;
+  const targets = game.enemies.filter(e => dist(e, game.player) <= 2);
+  if (!targets.length) { setMessage('信号弾が届く範囲に敵がいません。', '！'); return; }
+  game.flareCd = 7;
+  targets.slice().forEach(e => hitEnemy(e, 5, '信号弾'));
+  setMessage(`信号弾！ 周囲の${targets.length}体を照らした。`, '✦');
+  finishPlayerTurn();
+}
+
+function hitEnemy(enemy, amount, source) {
+  enemy.hp -= amount;
+  floatNumber(enemy.x, enemy.y, amount);
+  const t = enemyTypes[enemy.type];
+  showNote(enemy);
+  addLog(source, `${t.name}に${amount}ダメージ`);
+  if (enemy.hp <= 0) defeatEnemy(enemy);
+  else setMessage(`${t.name}に ${amount} ダメージ。`, '⚡');
+}
+
+function defeatEnemy(enemy) {
+  const idx = game.enemies.indexOf(enemy), t = enemyTypes[enemy.type];
+  if (idx >= 0) game.enemies.splice(idx, 1);
+  game.kills++; game.known.add(enemy.type);
+  if (enemy.observed && game.team.length < 3) {
+    game.team.push({ type: enemy.type, name: t.name, hp: 10, maxHp: 10, x: enemy.x, y: enemy.y });
+    setMessage(`${t.name}を理解した。調査隊に加わった！`, '＋');
+    addLog('仲間', `${t.name}が調査隊に加わった`);
+  } else {
+    setMessage(`${t.name}を静めた。`, '✓');
+  }
+  if (game.kills % 3 === 0) {
+    game.player.maxHp += 2; game.player.hp = Math.min(game.player.maxHp, game.player.hp + 5); game.player.attack++;
+    addLog('成長', '観測レベルが上がり、攻撃とHPが増えた');
+  }
+}
+
+function collectItem() {
+  const i = game.items.findIndex(v => v.x === game.player.x && v.y === game.player.y);
+  if (i < 0) return;
+  const item = game.items.splice(i, 1)[0];
+  if (item.type === 'food') {
+    game.player.belly = Math.min(100, game.player.belly + 30);
+    setMessage('携帯食を見つけた。おなかが30回復。', '●'); addLog('発見', '携帯食でおなかを回復');
+  } else {
+    const before = game.player.hp; game.player.hp = Math.min(game.player.maxHp, game.player.hp + 6);
+    floatNumber(game.player.x, game.player.y, game.player.hp - before, true);
+    setMessage('救護メモを発見。HPが回復した。', '＋'); addLog('発見', '救護メモでHPを回復');
+  }
+}
+
+function finishPlayerTurn() {
+  game.turn++;
+  game.player.belly = Math.max(0, game.player.belly - 1);
+  if (game.player.belly === 0) damagePlayer(1, '空腹');
+  allyTurn();
+  enemyTurn();
+  game.observeCd = Math.max(0, game.observeCd - 1); game.flareCd = Math.max(0, game.flareCd - 1);
+  reveal(); updateUI();
+}
+
+function allyTurn() {
+  game.team.forEach(a => {
+    const adjacent = game.enemies.find(e => dist(e, a) === 1);
+    if (adjacent) { hitEnemy(adjacent, 2, a.name); return; }
+    const nearby = game.enemies.slice().sort((x, y) => dist(x, a) - dist(y, a))[0];
+    const target = nearby && dist(nearby, a) <= 4 ? nearby : game.player;
+    stepToward(a, target);
+  });
+}
+
+function enemyTurn() {
+  game.enemies.slice().forEach(e => {
+    if (!game.enemies.includes(e) || game.ended) return;
+    const ally = game.team.find(a => dist(a, e) === 1);
+    if (dist(e, game.player) === 1) { damagePlayer(e.atk, enemyTypes[e.type].name); return; }
+    if (ally) { damageAlly(ally, e.atk, e); return; }
+    if (e.type === 'jam' && game.turn % 2 === 1) return;
+    if (dist(e, game.player) <= 7) stepToward(e, game.player);
+    else if (Math.random() < .45) {
+      const dirs = [[1,0],[-1,0],[0,1],[0,-1]], d = dirs[rand(4)], nx = e.x+d[0], ny=e.y+d[1];
+      if (isFloor(nx,ny) && !occupied(nx,ny,e)) { e.x=nx;e.y=ny; }
+    }
+  });
+}
+
+function stepToward(actor, target) {
+  const options = [
+    { x: actor.x + Math.sign(target.x - actor.x), y: actor.y },
+    { x: actor.x, y: actor.y + Math.sign(target.y - actor.y) }
+  ].sort((a,b)=>dist(a,target)-dist(b,target));
+  const p = options.find(v => isFloor(v.x,v.y) && !occupied(v.x,v.y,actor));
+  if (p) { actor.x=p.x; actor.y=p.y; }
+}
+
+function damagePlayer(amount, source) {
+  game.player.hp = Math.max(0, game.player.hp - amount); floatNumber(game.player.x, game.player.y, amount);
+  addLog('被害', `${source}から${amount}ダメージ`);
+  if (game.player.hp <= 0) endGame(false);
+}
+
+function damageAlly(ally, amount, enemy) {
+  ally.hp -= amount; floatNumber(ally.x, ally.y, amount);
+  if (ally.hp <= 0) {
+    game.team.splice(game.team.indexOf(ally), 1);
+    addLog('離脱', `${ally.name}は調査隊から離れた`);
+    setMessage(`${ally.name}は安全な場所へ退避した。`, '！');
+  } else addLog('被害', `${ally.name}が${enemyTypes[enemy.type].name}から${amount}ダメージ`);
+}
+
+function descend() {
+  if (game.floor >= 3) { endGame(true); return; }
+  game.floor++;
+  game.player.hp = Math.min(game.player.maxHp, game.player.hp + 6);
+  game.team.forEach(a => a.hp = Math.min(a.maxHp, a.hp + 4));
+  addLog('進行', `${game.floor}Fへ到達。HPを少し回復`);
+  setMessage(`${game.floor}Fへ。敵が少し強くなります。`, '▼');
+  generateFloor(); updateUI();
+}
+
+function endGame(win) {
+  game.ended = true;
+  $('#resultEyebrow').textContent = win ? 'RESCUE COMPLETE' : 'EXPEDITION FAILED';
+  $('#resultMark').textContent = win ? '✓' : '×';
+  $('#resultTitle').textContent = win ? '現実の断片を持ち帰りました' : 'いったん拠点へ戻ります';
+  $('#resultCopy').textContent = win ? '現象を倒すだけでなく、観測して仲間にしたことが今回の調査記録になります。' : '迷宮は次回も形を変えます。敵を避け、携帯食と救護メモを使ってください。';
+  $('#resultStats').innerHTML = `<div><b>${game.turn}</b><span>ターン</span></div><div><b>${game.kills}</b><span>観測した現象</span></div><div><b>${game.team.length}</b><span>仲間</span></div>`;
+  setTimeout(() => openModal('resultModal'), 350);
+}
+
+function reveal() {
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (Math.hypot(x-game.player.x,y-game.player.y) <= 4.2) game.seen.add(key(x,y));
+  const room = game.rooms.find(r => game.player.x>=r.x && game.player.x<r.x+r.w && game.player.y>=r.y && game.player.y<r.y+r.h);
+  if (room) for (let y=room.y-1;y<=room.y+room.h;y++) for(let x=room.x-1;x<=room.x+room.w;x++) game.seen.add(key(x,y));
+}
+
+function visible(p) { return Math.hypot(p.x-game.player.x,p.y-game.player.y) <= 4.5; }
+function themeNow() { return categoryThemes[game.seed?.category] || categoryThemes.community; }
+
+function draw() {
+  if (!game) return requestAnimationFrame(draw);
+  const theme = themeNow(), now = performance.now();
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for (let y=0;y<H;y++) for(let x=0;x<W;x++) {
+    const seen = game.seen.has(key(x,y)), floor = game.map[y][x] === 1;
+    ctx.fillStyle = floor ? ((x+y)%2 ? theme.floor : theme.floor2) : theme.wall;
+    ctx.fillRect(x*TILE,y*TILE,TILE,TILE);
+    if (floor && seen) {
+      ctx.fillStyle='rgba(255,255,255,.035)';ctx.fillRect(x*TILE+5,y*TILE+5,3,3);ctx.fillRect(x*TILE+33,y*TILE+28,2,2);
+    }
+    if (!seen) {ctx.fillStyle='rgba(4,18,14,.73)';ctx.fillRect(x*TILE,y*TILE,TILE,TILE);}
+  }
+  if (game.seen.has(key(game.stairs.x,game.stairs.y))) drawStairs(game.stairs, theme.accent, now);
+  game.items.forEach(i => { if (game.seen.has(key(i.x,i.y))) drawItem(i); });
+  game.enemies.forEach(e => { if (visible(e)) drawCreature(e, false, now); });
+  game.team.forEach(a => drawCreature(a, true, now));
+  drawPlayer(now);
+  requestAnimationFrame(draw);
+}
+
+function drawStairs(p, color, now) {
+  const x=p.x*TILE,y=p.y*TILE,pulse=(Math.sin(now/260)+1)/2;
+  ctx.fillStyle=`rgba(255,220,100,${.12+pulse*.13})`;ctx.beginPath();ctx.arc(x+24,y+24,19+pulse*3,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle=color;ctx.lineWidth=4;ctx.lineCap='round';
+  for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(x+13+i*5,y+33-i*6);ctx.lineTo(x+34,y+33-i*6);ctx.stroke();}
+  ctx.fillStyle='#fff3b0';ctx.font='700 9px "DM Mono"';ctx.textAlign='center';ctx.fillText('EXIT',x+24,y+12);
+}
+
+function drawItem(i) {
+  const x=i.x*TILE+24,y=i.y*TILE+25;
+  ctx.save();ctx.shadowColor='rgba(255,220,100,.7)';ctx.shadowBlur=10;ctx.fillStyle=i.type==='food'?'#f3c957':'#9ce0c0';ctx.beginPath();ctx.roundRect(x-10,y-9,20,18,6);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#21473b';ctx.font='800 10px sans-serif';ctx.textAlign='center';ctx.fillText(i.type==='food'?'食':'＋',x,y+4);ctx.restore();
+}
+
+function drawCreature(c, ally, now) {
+  const t=enemyTypes[c.type],x=c.x*TILE+24,y=c.y*TILE+27,bob=Math.sin(now/260+c.x)*1.6;
+  ctx.save();ctx.translate(x,y+bob);ctx.shadowColor='rgba(0,0,0,.28)';ctx.shadowBlur=5;ctx.shadowOffsetY=4;
+  ctx.fillStyle=ally?'#54bd83':t.color;ctx.beginPath();ctx.roundRect(-15,-15,30,28,10);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#fff';ctx.font='900 13px "Noto Sans JP"';ctx.textAlign='center';ctx.fillText(t.glyph,0,4);
+  if (!ally && c.observed) {ctx.strokeStyle='#ffe77a';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,19,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#ffe77a';ctx.font='900 10px sans-serif';ctx.fillText('◎',13,-13);}
+  ctx.restore();
+  const ratio=Math.max(0,c.hp/c.maxHp);ctx.fillStyle='rgba(10,24,20,.7)';ctx.fillRect(x-14,y+18,28,3);ctx.fillStyle=ally?'#8df0ae':'#ff9a75';ctx.fillRect(x-14,y+18,28*ratio,3);
+}
+
+function drawPlayer(now) {
+  const x=game.player.x*TILE+24,y=game.player.y*TILE+25,bob=Math.sin(now/230)*1.4;
+  ctx.save();ctx.translate(x,y+bob);ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=7;ctx.shadowOffsetY=4;ctx.fillStyle='#f5f0d9';ctx.beginPath();ctx.roundRect(-16,-17,32,31,11);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#1d7058';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle='#1d7058';ctx.beginPath();ctx.arc(-6,-2,2.4,0,Math.PI*2);ctx.arc(6,-2,2.4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(-5,7);ctx.lineTo(0,10);ctx.lineTo(5,7);ctx.stroke();ctx.fillStyle='#f1c957';ctx.beginPath();ctx.moveTo(-13,-15);ctx.lineTo(0,-24);ctx.lineTo(13,-15);ctx.fill();ctx.restore();
+}
+
+function floatNumber(x,y,n,heal=false) {
+  if (!n) return;
+  const div=document.createElement('div');div.className=`float-number${heal?' heal':''}`;div.textContent=`${heal?'+':'−'}${n}`;div.style.left=`${(x+.5)/W*100}%`;div.style.top=`${(y+.45)/H*100}%`;els.damage.appendChild(div);setTimeout(()=>div.remove(),750);
+}
+
+function showNote(enemy) {
+  const t=enemyTypes[enemy.type];game.known.add(enemy.type);
+  const source = enemy.type==='echo' && game.seed ? `<a href="${esc(game.seed.source)}" target="_blank" rel="noopener">入力した出典を開く ↗</a>` : '';
+  const fact = enemy.type==='echo' && game.seed ? esc(game.seed.fact) : t.note;
+  els.note.innerHTML=`<div class="note-icon" style="background:${t.color}">${t.glyph}</div><div><b>${t.name}</b><p>${fact}</p>${source}</div>`;
+}
+
+function updateUI() {
+  const p=game.player;els.hpText.textContent=`${p.hp} / ${p.maxHp}`;els.hpBar.style.width=`${p.hp/p.maxHp*100}%`;els.bellyText.textContent=`${p.belly} / 100`;els.bellyBar.style.width=`${p.belly}%`;els.turn.textContent=game.turn;els.floor.textContent=`${game.floor}F`;els.species.textContent=`${game.known.size}種`;
+  els.observe.disabled=game.observeCd>0;els.flare.disabled=game.flareCd>0;els.observeCd.textContent=game.observeCd?`あと${game.observeCd}ターン`:'使用可';els.flareCd.textContent=game.flareCd?`あと${game.flareCd}ターン`:'使用可';
+  els.teamCount.textContent=`${game.team.length+1} / 4`;
+  els.team.innerHTML=`<div class="team-member"><div class="creature-icon" style="background:#1b6b54">観</div><div><b>フィールド観測員</b><small>リーダー</small><div class="mini-hp"><i style="width:${p.hp/p.maxHp*100}%"></i></div></div></div>`+game.team.map(a=>{const t=enemyTypes[a.type];return `<div class="team-member"><div class="creature-icon" style="background:${t.color}">${t.glyph}</div><div><b>${t.name}</b><small>理解した現象</small><div class="mini-hp"><i style="width:${a.hp/a.maxHp*100}%"></i></div></div></div>`}).join('');
+}
+
+function addLog(kind,text){game.logs.unshift({turn:game.turn,kind,text});game.logs=game.logs.slice(0,20);els.log.innerHTML=game.logs.map(l=>`<div class="log-item"><b>T${String(l.turn).padStart(2,'0')} · ${esc(l.kind)}</b>${esc(l.text)}</div>`).join('');}
+function setMessage(text,icon='◆'){els.message.textContent=text;els.messageIcon.textContent=icon;}
+function showFloorFlash(text){els.flash.textContent=text;els.flash.classList.add('show');setTimeout(()=>els.flash.classList.remove('show'),550);}
+function openModal(id){const m=document.getElementById(id);m.classList.add('open');m.setAttribute('aria-hidden','false');}
+function closeModal(id){const m=document.getElementById(id);m.classList.remove('open');m.setAttribute('aria-hidden','true');}
+
+document.querySelectorAll('[data-move]').forEach(b=>b.addEventListener('click',()=>{const [x,y]=b.dataset.move.split(',').map(Number);movePlayer(x,y);}));
+document.querySelector('[data-wait]').addEventListener('click',waitTurn);
+els.observe.addEventListener('click',observe);els.flare.addEventListener('click',flare);
+$('#helpButton').addEventListener('click',()=>openModal('helpModal'));$('#newsButton').addEventListener('click',()=>openModal('newsModal'));
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
+$('#restartButton').addEventListener('click',startGame);$('#resultRestart').addEventListener('click',()=>{closeModal('resultModal');startGame();});
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m && m.id!=='resultModal')closeModal(m.id);}));
+
+$('#newsForm').addEventListener('submit',e=>{
+  e.preventDefault();const d=new FormData(e.currentTarget);const seed={title:d.get('title').trim(),place:d.get('place').trim(),category:d.get('category'),fact:d.get('fact').trim(),source:d.get('source').trim()};
+  try { const u=new URL(seed.source); if(!['http:','https:'].includes(u.protocol)) throw new Error(); } catch { e.currentTarget.querySelector('[name="source"]').setCustomValidity('http または https のURLを入力してください');e.currentTarget.reportValidity();return; }
+  localStorage.setItem('reality-dungeon-seed',JSON.stringify(seed));closeModal('newsModal');startGame();setMessage(`「${seed.title}」から迷宮が生まれました。`,'◎');addLog('現実接続',seed.title);
+});
+$('#newsForm [name="source"]').addEventListener('input', e => e.target.setCustomValidity(''));
+
+window.addEventListener('keydown',e=>{
+  if(isModalOpen())return;const k=e.key.toLowerCase(),moves={arrowup:[0,-1],w:[0,-1],arrowdown:[0,1],s:[0,1],arrowleft:[-1,0],a:[-1,0],arrowright:[1,0],d:[1,0]};
+  if(moves[k]){e.preventDefault();movePlayer(...moves[k]);}else if(k==='q')observe();else if(k==='e')flare();else if(k===' '){e.preventDefault();waitTurn();}
+});
+
+startGame();draw();
+if(!localStorage.getItem('reality-dungeon-tutorial')){openModal('helpModal');localStorage.setItem('reality-dungeon-tutorial','seen');}

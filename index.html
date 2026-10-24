@@ -2,65 +2,77 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#090d13" />
-    <title>PARADOX ARCHIVE</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#12231e" />
+    <title>現象救助隊｜REALITY DUNGEON</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="noise"></div>
-    <main class="app">
+    <main class="game-shell">
       <header class="topbar">
-        <div class="brand"><span class="brand-glyph">⌁</span><div><p>A HISTORICAL DECKBUILDER</p><h1>PARADOX <b>ARCHIVE</b></h1></div></div>
-        <div class="chapter"><span>修復記録</span><strong>CHAPTER 01 · 消された知識</strong></div>
-        <div class="top-actions"><button id="echoButton">＋ 現実のニュース</button><button id="helpButton">?</button></div>
+        <div class="brand"><div class="brand-mark">R</div><div><p>REALITY DUNGEON</p><h1>現象救助隊</h1></div></div>
+        <div class="location"><span id="placeLabel">今日の迷宮</span><strong id="floorLabel">1F</strong></div>
+        <div class="header-actions"><button id="newsButton">＋ 現実を追加</button><button class="icon-button" id="helpButton" aria-label="遊び方">?</button></div>
       </header>
 
-      <section class="battle">
-        <div class="enemy-panel">
-          <div class="enemy-name"><span>PARADOX ENTITY</span><h2>検閲者 <small>THE CENSOR</small></h2><p>記録同士のつながりを切り、歴史を白紙へ戻そうとしている。</p></div>
-          <div class="enemy-health"><div><span>敵の整合性</span><b id="enemyHpText">42 / 42</b></div><div class="health-track"><i id="enemyHpBar"></i></div></div>
-          <div class="intent-box"><span>NEXT ACTION</span><div class="intent-glyph" id="intentGlyph">7</div><div><strong id="intentTitle">記録への攻撃</strong><p id="intentText">次のターン、7ダメージ</p></div></div>
-        </div>
-
-        <div class="arena">
-          <div class="timeline" id="timeline">
-            <span class="timeline-line"></span>
-            <i class="anchor restored">1450</i><i class="anchor">1844</i><i class="anchor">1983</i>
+      <section class="play-layout">
+        <aside class="left-panel panel">
+          <p class="eyebrow">EXPEDITION</p><h2>出口を探そう</h2>
+          <p class="mission-copy">迷宮を歩き、<b>光る階段</b>へ。あなたが1回動くと、敵も1回動きます。</p>
+          <div class="hero-card"><div class="hero-avatar">観</div><div><span>あなた</span><strong>フィールド観測員</strong></div></div>
+          <div class="meter-block"><div><span>HP</span><b id="hpText">24 / 24</b></div><div class="meter hp"><i id="hpBar"></i></div></div>
+          <div class="meter-block"><div><span>おなか</span><b id="bellyText">100 / 100</b></div><div class="meter belly"><i id="bellyBar"></i></div></div>
+          <div class="objective-list">
+            <div class="active"><i>1</i><span><b>歩く</b><small>矢印キー / ボタン</small></span></div>
+            <div><i>2</i><span><b>ぶつかって攻撃</b><small>敵の方向へ進む</small></span></div>
+            <div><i>3</i><span><b>階段へ行く</b><small>3Fから脱出で成功</small></span></div>
           </div>
-          <div class="enemy-core" id="enemyCore"><div class="rings"><i></i><i></i><i></i></div><span class="core-symbol">∅</span><small>ERASURE IN PROGRESS</small></div>
-          <div class="battle-message" id="battleMessage">歴史の仕組みをつなぎ、検閲者の整合性を崩してください。</div>
-          <div class="player-status">
-            <div class="portrait">記</div>
-            <div class="integrity"><span>アーカイブ耐久力</span><strong id="playerHpText">30 / 30</strong><div><i id="playerHpBar"></i></div></div>
-            <div class="guard"><span>防御</span><b id="blockValue">0</b></div>
-            <div class="resource evidence"><span>証拠</span><b id="evidenceValue">0</b></div>
-            <div class="resource momentum"><span>勢い</span><b id="momentumValue">0</b></div>
+          <button class="secondary" id="restartButton">↻ 新しい迷宮</button>
+        </aside>
+
+        <section class="dungeon-wrap">
+          <div class="dungeon-topline">
+            <div><span class="live-dot"></span><b>ターン <em id="turnValue">0</em></b></div><p id="weatherText">迷宮は入るたびに姿を変えます</p>
+            <div class="legend"><span><i class="ally-key"></i>仲間</span><span><i class="enemy-key"></i>敵</span></div>
           </div>
-        </div>
-
-        <div class="institution-row"><span>恒久制度 <small>最大3枚</small></span><div id="institutionSlots"><i>空き</i><i>空き</i><i>空き</i></div></div>
-
-        <section class="hand-zone">
-          <div class="hand-heading"><div><span>YOUR HAND</span><h2>歴史の仕組みを使う</h2></div><div class="energy"><span>行動力</span><div id="energyPips"></div><b id="energyValue">3</b></div></div>
-          <div class="hand" id="hand"></div>
-          <div class="turn-actions"><p id="turnHint">カード左上の数字がコストです。敵の次行動は上に表示されています。</p><button id="endTurnButton">ターン終了 →</button></div>
+          <div class="canvas-frame" id="canvasFrame">
+            <canvas id="dungeon" width="816" height="624" aria-label="迷宮のマップ"></canvas><div class="floor-flash" id="floorFlash"></div><div class="damage-layer" id="damageLayer"></div>
+          </div>
+          <div class="message-bar"><span id="messageIcon">◆</span><p id="message">光っている階段を探してください。</p></div>
+          <div class="controls">
+            <div class="dpad" aria-label="移動ボタン">
+              <button data-move="0,-1" aria-label="上">▲</button><button data-move="-1,0" aria-label="左">◀</button><button data-wait aria-label="その場で待つ">●</button><button data-move="1,0" aria-label="右">▶</button><button data-move="0,1" aria-label="下">▼</button>
+            </div>
+            <div class="skills">
+              <button id="observeButton"><span>Q</span><b>観測</b><small>近い敵を理解する</small><em id="observeCooldown">使用可</em></button>
+              <button id="flareButton"><span>E</span><b>信号弾</b><small>周囲をまとめて攻撃</small><em id="flareCooldown">使用可</em></button>
+            </div>
+          </div>
         </section>
-      </section>
 
-      <aside class="archive">
-        <section class="mission"><p>MISSION</p><h2>敵を0にすれば勝利</h2><div><span>カードをクリック</span><b>効果がすぐ発動</b></div><div><span>敵の攻撃</span><b>防御で受け止める</b></div><div><span>コンボ</span><b>カード同士をつなぐ</b></div></section>
-        <section class="card-detail" id="cardDetail"></section>
-        <section class="combat-log"><header><span>COMBAT LOG</span><b>修復の記録</b></header><div id="combatLog"></div></section>
-      </aside>
+        <aside class="right-panel panel">
+          <section><div class="section-title"><span>RESCUE TEAM</span><b id="teamCount">1 / 4</b></div><div id="teamList" class="team-list"></div><p class="team-tip">「観測」した敵を倒すと、理解して仲間にできます。</p></section>
+          <section class="field-guide"><div class="section-title"><span>FIELD NOTE</span><b id="speciesCount">0種</b></div><div id="currentNote" class="current-note"><div class="note-icon">?</div><p>現象に近づくと、ここに正体が表示されます。</p></div></section>
+          <section class="log-section"><div class="section-title"><span>ACTIVITY</span><b>観測ログ</b></div><div class="activity-log" id="activityLog"></div></section>
+        </aside>
+      </section>
     </main>
 
-    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card tutorial"><button class="close" data-close="helpModal">×</button><p class="kicker">HOW TO PLAY</p><h2>敵を0にする。それだけです。</h2><div class="tutorial-grid"><article><b>①</b><h3>カードをクリック</h3><p>左上の数字だけ行動力を使います。攻撃、ドロー、防御がすぐ発動します。</p></article><article><b>②</b><h3>次の攻撃を見る</h3><p>敵が次に何をするかは公開されています。必要なら防御カードを使います。</p></article><article><b>③</b><h3>仕組みをつなぐ</h3><p>活版印刷で知識を複製し、電信で手札を増やし、証拠と勢いを攻撃へ変えます。</p></article></div><button class="primary" data-close="helpModal">戦闘を始める</button></div></div>
+    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card">
+      <button class="modal-close" data-close="helpModal">×</button><p class="eyebrow">HOW TO PLAY</p><h2>歩けば、世界も動く。</h2>
+      <div class="how-grid"><article><i>01</i><h3>階段を探す</h3><p>方向キーか画面の矢印で移動。光る階段に乗ると次の階へ進みます。</p></article><article><i>02</i><h3>ぶつかって戦う</h3><p>敵がいる方向へ進むと通常攻撃。こちらの行動後、敵も一斉に動きます。</p></article><article><i>03</i><h3>観測して仲間に</h3><p>Qの「観測」で印をつけ、その敵を倒すと現象を理解して仲間にできます。</p></article></div>
+      <p class="key-guide">PC: 矢印 / WASDで移動　・　Qで観測　・　Eで信号弾　・　Spaceで待機</p><button class="primary" data-close="helpModal">調査を始める</button>
+    </div></div>
 
-    <div class="modal" id="echoModal" aria-hidden="true"><form class="modal-card echo-form" id="echoForm"><button class="close" type="button" data-close="echoModal">×</button><p class="kicker">REALITY ECHO</p><h2>現実のニュースを一時カードにする</h2><p class="form-note">ニュースは史実級の攻撃カードにはなりません。出典付きの「現実の反響」として、今回のデッキを少し助けます。</p><div class="form-grid"><label class="wide"><span>見出し</span><input name="title" required maxlength="40" /></label><label><span>日付</span><input name="date" required type="date" /></label><label><span>分野</span><select name="category"><option value="research">研究</option><option value="infrastructure">交通・技術</option><option value="community">地域・文化</option><option value="policy">制度・政策</option></select></label><label class="wide"><span>確認できた事実</span><textarea name="fact" required maxlength="200"></textarea></label><label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label></div><button class="primary" type="submit">反響カードとして加える</button><p class="form-error" id="echoError"></p></form></div>
+    <div class="modal" id="newsModal" aria-hidden="true"><form class="modal-card news-form" id="newsForm">
+      <button type="button" class="modal-close" data-close="newsModal">×</button><p class="eyebrow">WORLD SEED</p><h2>小さなニュースから迷宮を作る</h2><p class="modal-lead">見出しを攻撃カードにはしません。場所・分野・事実を、次の迷宮の地形や出会う現象に変換します。</p>
+      <label><span>ニュースの見出し</span><input name="title" maxlength="60" required placeholder="例：駅前広場で夜市が始まる" /></label>
+      <div class="form-row"><label><span>場所</span><input name="place" maxlength="30" required placeholder="例：○○市" /></label><label><span>分野</span><select name="category"><option value="community">地域・文化</option><option value="climate">天気・環境</option><option value="mobility">交通・都市</option><option value="science">研究・技術</option></select></label></div>
+      <label><span>確認できた事実</span><textarea name="fact" maxlength="180" required placeholder="意見ではなく、起きたことを短く"></textarea></label><label><span>出典URL</span><input name="source" type="url" required placeholder="https://..." /></label>
+      <button class="primary" type="submit">このニュースから出発する</button>
+    </form></div>
 
-    <div class="modal" id="resultModal" aria-hidden="true"><div class="modal-card result"><p class="kicker">BATTLE COMPLETE</p><div class="result-symbol" id="resultSymbol">✓</div><h2 id="resultTitle">時間軸を修復しました</h2><p id="resultText"></p><div id="resultStats"></div><button class="primary" id="restartButton">もう一度戦う</button></div></div>
-    <div class="combo-banner" id="comboBanner"></div>
+    <div class="modal" id="resultModal" aria-hidden="true"><div class="modal-card result-card"><p class="eyebrow" id="resultEyebrow">RESCUE COMPLETE</p><div class="result-mark" id="resultMark">✓</div><h2 id="resultTitle">調査から帰還しました</h2><p id="resultCopy"></p><div class="result-stats" id="resultStats"></div><button class="primary" id="resultRestart">もう一度、別の迷宮へ</button></div></div>
     <script src="app.js"></script>
   </body>
 </html>
