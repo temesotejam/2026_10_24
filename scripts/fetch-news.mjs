@@ -10,7 +10,8 @@ const feeds = [
   url: `https://news.google.com/rss/search?q=${encodeURIComponent(feed.query)}&hl=ja&gl=JP&ceid=JP:ja`
 }));
 
-const excluded = /死亡|死者|殺害|逮捕|容疑|事件|事故|災害|地震|津波|豪雨|洪水|火災|戦争|攻撃|侵攻|空爆|負傷|被害|訃報|感染|倒産|不祥事|虐待|遺体|行方不明/;
+const excluded = /死亡|死者|殺害|逮捕|容疑|事件|事故|災害|地震|津波|豪雨|洪水|火災|戦争|攻撃|侵攻|空爆|負傷|被害|訃報|感染|倒産|不祥事|虐待|遺体|行方不明|防衛|軍事|がん|余命/;
+const excludedSource = /Vietnam\.vn|BigGo/i;
 
 function decode(value = '') {
   const entities = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
@@ -57,7 +58,7 @@ const unique = new Map();
 for (const result of settled) {
   if (result.status !== 'fulfilled') { console.warn(result.reason?.message || result.reason); continue; }
   for (const item of result.value) {
-    if (!item.title || !item.url || excluded.test(item.title)) continue;
+    if (!item.title || !item.url || excluded.test(item.title) || excludedSource.test(item.source)) continue;
     const fingerprint = item.title.replace(/[\s　「」『』【】]/g, '').toLowerCase();
     if (!unique.has(fingerprint)) unique.set(fingerprint, item);
   }

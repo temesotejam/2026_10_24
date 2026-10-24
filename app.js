@@ -45,7 +45,9 @@ async function loadAutomaticNews() {
     if (!response.ok) throw new Error('feed unavailable');
     const data = await response.json();
     const allowed = new Set(Object.keys(categoryThemes));
-    autoNews = (Array.isArray(data.items) ? data.items : []).filter(n => n && n.title && n.url).slice(0, 24).map(n => ({
+    const unsafe = /死亡|死者|殺害|逮捕|容疑|事件|事故|災害|地震|津波|豪雨|洪水|火災|戦争|攻撃|侵攻|空爆|負傷|被害|訃報|感染|倒産|不祥事|虐待|遺体|行方不明|防衛|軍事|がん|余命/;
+    const badSource = /Vietnam\.vn|BigGo/i;
+    autoNews = (Array.isArray(data.items) ? data.items : []).filter(n => n && n.title && n.url && !unsafe.test(n.title) && !badSource.test(n.source || '')).slice(0, 24).map(n => ({
       title: String(n.title).slice(0, 80), place: String(n.source || '国内ニュース').slice(0, 30),
       category: allowed.has(n.category) ? n.category : 'community', fact: String(n.summary || n.title).slice(0, 180),
       source: String(n.url), publishedAt: n.publishedAt || '', automatic: true
