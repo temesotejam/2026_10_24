@@ -2,115 +2,83 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#11100e" />
-    <title>CHRONICLE — 歴史の奔流</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d1110" />
+    <title>CHRONICLE: TIPPING POINT</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
     <main class="app">
       <header class="topbar">
-        <div class="brand">
-          <span class="brand-seal">C</span>
-          <div><p>HISTORICAL CARD STRATEGY</p><h1>CHRONICLE <small>歴史の奔流</small></h1></div>
-        </div>
-        <div class="era-track" aria-label="時代">
-          <span data-era="0">中世</span><i></i><span data-era="1">近世</span><i></i><span data-era="2">近代</span><i></i><span data-era="3">現代</span>
-        </div>
-        <div class="top-actions">
-          <button class="news-button" id="newsButton">＋ 現実をカード化</button>
-          <button class="icon-button" id="helpButton" aria-label="遊び方">?</button>
-        </div>
+        <div class="brand"><span class="seal">C</span><div><p>HISTORICAL DECKBUILDING</p><h1>CHRONICLE <small>TIPPING POINT</small></h1></div></div>
+        <div class="turn-track" id="turnTrack" aria-label="全8ターン"></div>
+        <div class="top-actions"><button id="newsButton">＋ 現実を記録</button><button id="helpButton" aria-label="遊び方">?</button></div>
       </header>
 
-      <section class="battlefield">
-        <div class="opponent-zone">
-          <div class="leader enemy-leader"><div class="leader-emblem">帝</div><div><span>対戦相手</span><strong>覇権の年代記</strong></div></div>
-          <div class="stats enemy-stats">
-            <div><span>影響力</span><b id="enemyInfluence">0</b><small>/ 20</small></div>
-            <div><span>安定</span><b id="enemyStability">10</b></div>
-            <div><span>知識</span><b id="enemyKnowledge">0</b></div>
-          </div>
-          <div class="enemy-hand" id="enemyHand" aria-label="相手の手札"></div>
+      <section class="game">
+        <div class="crisis-ribbon">
+          <div class="scenario"><span>SCENARIO 01</span><strong>複合危機の時代</strong></div>
+          <div class="intent current-intent"><span>現在の圧力</span><div class="intent-icon" id="crisisIcon">穀</div><div><strong id="crisisTitle">穀物価格の上昇</strong><p id="crisisEffect">ターン終了時、生活基盤 −1</p></div></div>
+          <div class="intent next-intent"><span>NEXT</span><div><strong id="nextTitle">流言の拡散</strong><p id="nextEffect">公共圏 −2</p></div></div>
         </div>
 
-        <div class="timeline-zone">
-          <div class="world-state"><span>世界情勢</span><strong id="worldState">交易網の拡大</strong><p id="worldEffect">〈交易〉カードの影響力 +1</p></div>
-          <div class="history-line">
-            <div class="played-card enemy-played empty" id="enemyPlayed"><span>相手の選択</span></div>
-            <div class="turn-marker"><small>TURN</small><b id="turnNumber">1</b><i></i></div>
-            <div class="played-card player-played empty" id="playerPlayed"><span>あなたの選択</span></div>
-          </div>
-          <div class="chronicle-strip" id="chronicleStrip"><span class="chronicle-empty">歴史はまだ、何も刻んでいない。</span></div>
+        <div class="world-board" id="worldBoard">
+          <article class="domain life" data-domain="life">
+            <header><div class="domain-symbol">暮</div><div><span>FOUNDATION</span><h2>生活基盤</h2></div><b class="domain-value" id="lifeValue">7</b></header>
+            <div class="meter"><i id="lifeMeter"></i></div><p class="domain-desc">食料・健康・人口・環境</p>
+            <div class="shield" id="lifeShield">防護 0</div>
+            <div class="institutions" id="lifeInstitutions"><span>制度枠</span></div>
+          </article>
+          <article class="domain institution" data-domain="institution">
+            <header><div class="domain-symbol">制</div><div><span>INSTITUTIONS</span><h2>制度</h2></div><b class="domain-value" id="institutionValue">7</b></header>
+            <div class="meter"><i id="institutionMeter"></i></div><p class="domain-desc">法律・行政・経済</p>
+            <div class="shield" id="institutionShield">防護 0</div>
+            <div class="institutions" id="institutionInstitutions"><span>制度枠</span></div>
+          </article>
+          <article class="domain public" data-domain="public">
+            <header><div class="domain-symbol">公</div><div><span>PUBLIC SPHERE</span><h2>公共圏</h2></div><b class="domain-value" id="publicValue">7</b></header>
+            <div class="meter"><i id="publicMeter"></i></div><p class="domain-desc">知識・情報・文化・信頼</p>
+            <div class="shield" id="publicShield">防護 0</div>
+            <div class="institutions" id="publicInstitutions"><span>制度枠</span></div>
+          </article>
         </div>
 
-        <div class="player-zone">
-          <div class="leader player-leader"><div class="leader-emblem">記</div><div><span>あなた</span><strong>変革の年代記</strong></div></div>
-          <div class="stats player-stats">
-            <div><span>影響力</span><b id="playerInfluence">0</b><small>/ 20</small></div>
-            <div><span>安定</span><b id="playerStability">10</b></div>
-            <div><span>知識</span><b id="playerKnowledge">0</b></div>
+        <section class="phase-panel signal-phase" id="signalPhase">
+          <div class="phase-heading"><div><span>PHASE 1 · OBSERVE</span><h2>今期に記録する兆候を選ぶ</h2><p>選ばなかった事実も消えません。資料庫へ送られ、別の年代記を待ちます。</p></div><div class="legend"><i></i> 3つ集めると潮流へ</div></div>
+          <div class="signal-feed" id="signalFeed"></div>
+        </section>
+
+        <section class="phase-panel response-phase hidden" id="responsePhase">
+          <div class="phase-heading">
+            <div><span>PHASE 2 · RESPOND</span><h2>予告された危機へ備える</h2><p>対応カードは使い切りではなく、捨て札から再び巡ってきます。</p></div>
+            <div class="energy"><span>時代力</span><div id="energyPips"></div><b id="energyValue">3</b></div>
           </div>
-          <div class="hand-wrap">
-            <div class="hand-heading">
-              <div><span>YOUR HAND</span><strong>カードを1枚選ぶ</strong></div>
-              <div class="action-points"><span>時代力</span><div id="actionPips"><i></i><i></i><i></i><i></i><i></i></div><b id="actionValue">3</b></div>
-            </div>
-            <div class="hand" id="playerHand"></div>
-          </div>
-        </div>
+          <div class="response-hand" id="responseHand"></div>
+          <div class="response-footer"><span id="reserveHint">残った時代力は最大2まで次期へ持ち越せます。</span><button id="resolveButton">情勢を進める →</button></div>
+        </section>
+
+        <section class="legacy-row">
+          <div class="legacy-heading"><span>LEGACIES</span><strong>遺産</strong><small>2つ完成で勝利</small></div>
+          <div class="legacy" id="lifeLegacy"><i>暮</i><div><span>生活の兆候 <b id="lifeSignals">0</b>/3</span><strong>公衆衛生網</strong></div></div>
+          <div class="legacy" id="institutionLegacy"><i>制</i><div><span>制度の兆候 <b id="institutionSignals">0</b>/3</span><strong>応答する行政</strong></div></div>
+          <div class="legacy" id="publicLegacy"><i>公</i><div><span>公共圏の兆候 <b id="publicSignals">0</b>/3</span><strong>公共知識網</strong></div></div>
+        </section>
       </section>
 
-      <aside class="side-panel">
-        <section class="archive-header"><p>THE ARCHIVE</p><h2>史実記録</h2><span>カードを選ぶと、その出来事が世界をどう変えたか表示します。</span></section>
-        <section class="fact-view" id="factView"></section>
-        <section class="battle-log">
-          <div class="section-label"><span>BATTLE LOG</span><b>歴史の記録</b></div>
-          <div id="battleLog"><p><time>序章</time>二つの年代記が、同じ世界の未来を巡って競い始めた。</p></div>
-        </section>
+      <aside class="archive">
+        <header><p>THE LIVING ARCHIVE</p><h2>資料庫</h2><span>事実とゲーム上の解釈を分けて記録します。</span></header>
+        <section class="record" id="recordView"></section>
+        <section class="chronicle"><div><span>CHRONICLE</span><b>今回の年代記</b></div><div id="chronicleLog"></div></section>
       </aside>
     </main>
 
-    <div class="modal" id="helpModal" aria-hidden="true">
-      <div class="modal-card">
-        <button class="modal-close" data-close="helpModal">×</button>
-        <p class="modal-kicker">HOW TO PLAY</p><h2>歴史は、連鎖で動く。</h2>
-        <div class="rule-grid">
-          <article><b>1</b><h3>史実を選ぶ</h3><p>時代力以内のカードを1枚選びます。</p></article>
-          <article><b>2</b><h3>連鎖を作る</h3><p>すでに使ったカードと同じタグなら連鎖ボーナスが発生します。</p></article>
-          <article><b>3</b><h3>歴史を制する</h3><p>影響力20、または相手の安定を0にすれば勝利です。</p></article>
-        </div>
-        <p class="rule-note">カード効果は、出来事が歴史に与えた影響をゲーム用に抽象化したものです。カード右下の「史実」で出典を確認できます。</p>
-        <button class="primary-button" data-close="helpModal">年代記を始める</button>
-      </div>
-    </div>
+    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card help-card"><button class="close" data-close="helpModal">×</button><p class="kicker">HOW TO PLAY</p><h2>事件ではなく、社会の対応を組み立てる。</h2><div class="rules"><article><b>1</b><h3>兆候を記録</h3><p>出典付きの事実を1つ選びます。同じ領域を3つ集めると遺産になります。</p></article><article><b>2</b><h3>危機へ対応</h3><p>次に起きる圧力は公開済みです。3時代力で回復・防護・制度化します。</p></article><article><b>3</b><h3>8期を生きる</h3><p>領域を崩壊させず、2つの遺産を完成させれば勝利です。</p></article></div><p class="note">史実カードは攻撃力ではありません。事実は世界の兆候として残り、プレイヤーのカードは社会がどう応答するかを表します。</p><button class="primary" data-close="helpModal">年代記を始める</button></div></div>
 
-    <div class="modal result-modal" id="resultModal" aria-hidden="true">
-      <div class="modal-card result-card">
-        <p class="modal-kicker">THE CHRONICLE IS WRITTEN</p><div class="result-seal" id="resultSeal">勝</div>
-        <h2 id="resultTitle">あなたの歴史が残った</h2><p id="resultText">知識と変革の連鎖が、次の時代を切り開いた。</p>
-        <button class="primary-button" id="restartButton">もう一度歴史を編む</button>
-      </div>
-    </div>
+    <div class="modal" id="newsModal" aria-hidden="true"><form class="modal-card news-card" id="newsForm"><button class="close" type="button" data-close="newsModal">×</button><p class="kicker">ADD A VERIFIED SIGNAL</p><h2>現実の小さな事実を記録する</h2><p class="note">入力内容は補完・創作しません。出典と確認できた範囲だけを保存し、次の兆候候補に加えます。</p><div class="form-grid"><label class="wide"><span>見出し</span><input name="title" required maxlength="42" placeholder="例：市立図書館が夜間開館を開始" /></label><label><span>日付</span><input name="date" required type="date" /></label><label><span>領域</span><select name="domain"><option value="life">生活基盤</option><option value="institution">制度</option><option value="public">公共圏</option></select></label><label class="wide"><span>確認できた事実</span><textarea name="fact" required maxlength="220"></textarea></label><label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label></div><button class="primary" type="submit">資料庫へ記録する</button><p class="form-error" id="newsError"></p></form></div>
 
-    <div class="modal" id="newsModal" aria-hidden="true">
-      <form class="modal-card news-forge" id="newsForm">
-        <button class="modal-close" type="button" data-close="newsModal">×</button>
-        <p class="modal-kicker">THE LIVING ARCHIVE</p><h2>現実をカードに刻む</h2>
-        <p class="forge-intro">大事件でなくても構いません。地域の変化、新しい研究、身近な制度や文化のニュースを、出典とともに小さな歴史カードへ変換します。</p>
-        <div class="form-grid">
-          <label class="wide"><span>ニュースの見出し</span><input name="title" required maxlength="32" placeholder="例：市立図書館が夜間開館を開始" /></label>
-          <label><span>日付</span><input name="date" required type="date" /></label>
-          <label><span>分野</span><select name="category"><option value="society">社会・制度</option><option value="science">科学・研究</option><option value="technology">技術・情報</option><option value="environment">環境・気候</option><option value="economy">経済・交易</option><option value="culture">文化・地域</option></select></label>
-          <label class="wide"><span>確認できた事実</span><textarea name="summary" required maxlength="180" placeholder="誰が、何を、どこで発表・実施したかを短く記述してください。"></textarea></label>
-          <label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label>
-        </div>
-        <div class="forge-policy"><b>カード化の原則</b><span>効果はニュースの重要度ではなく分野から機械的に決定します。入力内容をAIが事実として補完することはありません。</span></div>
-        <button class="primary-button" type="submit">この事実をカードにする</button>
-        <p class="form-error" id="newsError" role="alert"></p>
-      </form>
-    </div>
+    <div class="modal result-modal" id="resultModal" aria-hidden="true"><div class="modal-card result-card"><p class="kicker">THE CHRONICLE CLOSES</p><div class="result-seal" id="resultSeal">遺</div><h2 id="resultTitle">社会は危機を越えた</h2><p id="resultText"></p><div class="result-stats" id="resultStats"></div><button class="primary" id="restartButton">別の年代記を始める</button></div></div>
+    <div class="toast" id="toast" role="status"></div>
     <script src="app.js"></script>
   </body>
 </html>
