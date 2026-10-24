@@ -2,84 +2,65 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0d1110" />
-    <title>CHRONICLE: TIPPING POINT</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#090d13" />
+    <title>PARADOX ARCHIVE</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="grain" aria-hidden="true"></div>
+    <div class="noise"></div>
     <main class="app">
       <header class="topbar">
-        <div class="brand"><span class="seal">C</span><div><p>HISTORICAL DECKBUILDING</p><h1>CHRONICLE <small>TIPPING POINT</small></h1></div></div>
-        <div class="turn-track" id="turnTrack" aria-label="全8ターン"></div>
-        <div class="top-actions"><button id="newsButton">＋ 現実を記録</button><button id="helpButton" aria-label="遊び方">?</button></div>
+        <div class="brand"><span class="brand-glyph">⌁</span><div><p>A HISTORICAL DECKBUILDER</p><h1>PARADOX <b>ARCHIVE</b></h1></div></div>
+        <div class="chapter"><span>修復記録</span><strong>CHAPTER 01 · 消された知識</strong></div>
+        <div class="top-actions"><button id="echoButton">＋ 現実のニュース</button><button id="helpButton">?</button></div>
       </header>
 
-      <section class="game">
-        <div class="crisis-ribbon">
-          <div class="scenario"><span>SCENARIO 01</span><strong>複合危機の時代</strong></div>
-          <div class="intent current-intent"><span>現在の圧力</span><div class="intent-icon" id="crisisIcon">穀</div><div><strong id="crisisTitle">穀物価格の上昇</strong><p id="crisisEffect">ターン終了時、生活基盤 −1</p></div></div>
-          <div class="intent next-intent"><span>NEXT</span><div><strong id="nextTitle">流言の拡散</strong><p id="nextEffect">公共圏 −2</p></div></div>
+      <section class="battle">
+        <div class="enemy-panel">
+          <div class="enemy-name"><span>PARADOX ENTITY</span><h2>検閲者 <small>THE CENSOR</small></h2><p>記録同士のつながりを切り、歴史を白紙へ戻そうとしている。</p></div>
+          <div class="enemy-health"><div><span>敵の整合性</span><b id="enemyHpText">42 / 42</b></div><div class="health-track"><i id="enemyHpBar"></i></div></div>
+          <div class="intent-box"><span>NEXT ACTION</span><div class="intent-glyph" id="intentGlyph">7</div><div><strong id="intentTitle">記録への攻撃</strong><p id="intentText">次のターン、7ダメージ</p></div></div>
         </div>
 
-        <div class="world-board" id="worldBoard">
-          <article class="domain life" data-domain="life">
-            <header><div class="domain-symbol">暮</div><div><span>LIFE</span><h2>暮らし</h2></div><b class="domain-value" id="lifeValue">7</b></header>
-            <div class="meter"><i id="lifeMeter"></i></div><p class="domain-desc">食料・健康・人口・環境</p>
-            <div class="shield" id="lifeShield">防護 0</div>
-            <div class="institutions" id="lifeInstitutions"><span>備え</span></div>
-          </article>
-          <article class="domain institution" data-domain="institution">
-            <header><div class="domain-symbol">制</div><div><span>GOVERNMENT</span><h2>行政</h2></div><b class="domain-value" id="institutionValue">7</b></header>
-            <div class="meter"><i id="institutionMeter"></i></div><p class="domain-desc">法律・行政・経済</p>
-            <div class="shield" id="institutionShield">防護 0</div>
-            <div class="institutions" id="institutionInstitutions"><span>備え</span></div>
-          </article>
-          <article class="domain public" data-domain="public">
-            <header><div class="domain-symbol">公</div><div><span>INFORMATION</span><h2>情報と信頼</h2></div><b class="domain-value" id="publicValue">7</b></header>
-            <div class="meter"><i id="publicMeter"></i></div><p class="domain-desc">知識・情報・文化・信頼</p>
-            <div class="shield" id="publicShield">防護 0</div>
-            <div class="institutions" id="publicInstitutions"><span>備え</span></div>
-          </article>
-        </div>
-
-        <section class="phase-panel signal-phase" id="signalPhase">
-          <div class="phase-heading"><div><span>STEP 1 / 2</span><h2>同じ色を3枚集める：記録を1枚選ぶ</h2><p>まずは金・緑・青のどれか一色を3枚にしましょう。</p></div><div class="legend"><i></i> 同じ色3枚で「備え」完成</div></div>
-          <div class="signal-feed" id="signalFeed"></div>
-        </section>
-
-        <section class="phase-panel response-phase hidden" id="responsePhase">
-          <div class="phase-heading">
-            <div><span>STEP 2 / 2</span><h2>上の赤い予告に備える：カードを使う</h2><p>カードは何枚でも使えます。数字が時代力以内なら使用できます。</p></div>
-            <div class="energy"><span>時代力</span><div id="energyPips"></div><b id="energyValue">3</b></div>
+        <div class="arena">
+          <div class="timeline" id="timeline">
+            <span class="timeline-line"></span>
+            <i class="anchor restored">1450</i><i class="anchor">1844</i><i class="anchor">1983</i>
           </div>
-          <div class="response-hand" id="responseHand"></div>
-          <div class="response-footer"><span id="reserveHint">残った時代力は最大2まで次のターンへ持ち越せます。</span><button id="resolveButton">ターン終了：予告を受ける →</button></div>
-        </section>
+          <div class="enemy-core" id="enemyCore"><div class="rings"><i></i><i></i><i></i></div><span class="core-symbol">∅</span><small>ERASURE IN PROGRESS</small></div>
+          <div class="battle-message" id="battleMessage">歴史の仕組みをつなぎ、検閲者の整合性を崩してください。</div>
+          <div class="player-status">
+            <div class="portrait">記</div>
+            <div class="integrity"><span>アーカイブ耐久力</span><strong id="playerHpText">30 / 30</strong><div><i id="playerHpBar"></i></div></div>
+            <div class="guard"><span>防御</span><b id="blockValue">0</b></div>
+            <div class="resource evidence"><span>証拠</span><b id="evidenceValue">0</b></div>
+            <div class="resource momentum"><span>勢い</span><b id="momentumValue">0</b></div>
+          </div>
+        </div>
 
-        <section class="legacy-row">
-          <div class="legacy-heading"><span>WIN GOAL</span><strong>同じ色3枚</strong><small>2色完成で勝利</small></div>
-          <div class="legacy" id="lifeLegacy"><i>暮</i><div><span>金色 <b id="lifeSignals">0</b>/3</span><strong>健康への備え</strong></div></div>
-          <div class="legacy" id="institutionLegacy"><i>制</i><div><span>緑色 <b id="institutionSignals">0</b>/3</span><strong>動ける行政</strong></div></div>
-          <div class="legacy" id="publicLegacy"><i>公</i><div><span>青色 <b id="publicSignals">0</b>/3</span><strong>信頼できる情報網</strong></div></div>
+        <div class="institution-row"><span>恒久制度 <small>最大3枚</small></span><div id="institutionSlots"><i>空き</i><i>空き</i><i>空き</i></div></div>
+
+        <section class="hand-zone">
+          <div class="hand-heading"><div><span>YOUR HAND</span><h2>歴史の仕組みを使う</h2></div><div class="energy"><span>行動力</span><div id="energyPips"></div><b id="energyValue">3</b></div></div>
+          <div class="hand" id="hand"></div>
+          <div class="turn-actions"><p id="turnHint">カード左上の数字がコストです。敵の次行動は上に表示されています。</p><button id="endTurnButton">ターン終了 →</button></div>
         </section>
       </section>
 
       <aside class="archive">
-        <section class="quick-guide"><p>YOUR GOAL</p><h2>8ターンを生き残る</h2><ul><li><b>0になると敗北</b><span>暮らし・行政・情報を守る</span></li><li><b>同じ色3枚 × 2色</b><span>二つの備えを完成させる</span></li></ul><div class="now-guide"><span>いまやること</span><strong id="nowGuide">3枚から記録を1枚選ぶ</strong><small id="nowDetail">同じ色を集めると有利になります。</small></div></section>
-        <header><p>CARD DETAILS</p><h2>カードの説明</h2><span>カードに触れると、ここに詳しい内容が出ます。</span></header>
-        <section class="record" id="recordView"></section>
-        <section class="chronicle"><div><span>CHRONICLE</span><b>今回の年代記</b></div><div id="chronicleLog"></div></section>
+        <section class="mission"><p>MISSION</p><h2>敵を0にすれば勝利</h2><div><span>カードをクリック</span><b>効果がすぐ発動</b></div><div><span>敵の攻撃</span><b>防御で受け止める</b></div><div><span>コンボ</span><b>カード同士をつなぐ</b></div></section>
+        <section class="card-detail" id="cardDetail"></section>
+        <section class="combat-log"><header><span>COMBAT LOG</span><b>修復の記録</b></header><div id="combatLog"></div></section>
       </aside>
     </main>
 
-    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card help-card"><button class="close" data-close="helpModal">×</button><p class="kicker">2 STEPS ONLY</p><h2>やることは、毎ターン二つだけ。</h2><div class="rules"><article><b>①</b><h3>色を選ぶ</h3><p>金・緑・青から記録を1枚選びます。同じ色3枚で備えが完成します。</p></article><article><b>②</b><h3>赤い予告を防ぐ</h3><p>上に表示された被害を見て、回復や防護カードを使います。</p></article><article><b>✓</b><h3>勝利条件</h3><p>8ターン生存し、同じ色3枚を二組完成させます。どれかが0なら敗北です。</p></article></div><p class="note">カード左上の数字がコストです。時代力は毎ターン3。余りは最大2まで次へ持ち越せます。</p><button class="primary" data-close="helpModal">わかりました</button></div></div>
+    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card tutorial"><button class="close" data-close="helpModal">×</button><p class="kicker">HOW TO PLAY</p><h2>敵を0にする。それだけです。</h2><div class="tutorial-grid"><article><b>①</b><h3>カードをクリック</h3><p>左上の数字だけ行動力を使います。攻撃、ドロー、防御がすぐ発動します。</p></article><article><b>②</b><h3>次の攻撃を見る</h3><p>敵が次に何をするかは公開されています。必要なら防御カードを使います。</p></article><article><b>③</b><h3>仕組みをつなぐ</h3><p>活版印刷で知識を複製し、電信で手札を増やし、証拠と勢いを攻撃へ変えます。</p></article></div><button class="primary" data-close="helpModal">戦闘を始める</button></div></div>
 
-    <div class="modal" id="newsModal" aria-hidden="true"><form class="modal-card news-card" id="newsForm"><button class="close" type="button" data-close="newsModal">×</button><p class="kicker">ADD A VERIFIED SIGNAL</p><h2>現実の小さな事実を記録する</h2><p class="note">入力内容は補完・創作しません。出典と確認できた範囲だけを保存し、次の兆候候補に加えます。</p><div class="form-grid"><label class="wide"><span>見出し</span><input name="title" required maxlength="42" placeholder="例：市立図書館が夜間開館を開始" /></label><label><span>日付</span><input name="date" required type="date" /></label><label><span>領域</span><select name="domain"><option value="life">生活基盤</option><option value="institution">制度</option><option value="public">公共圏</option></select></label><label class="wide"><span>確認できた事実</span><textarea name="fact" required maxlength="220"></textarea></label><label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label></div><button class="primary" type="submit">資料庫へ記録する</button><p class="form-error" id="newsError"></p></form></div>
+    <div class="modal" id="echoModal" aria-hidden="true"><form class="modal-card echo-form" id="echoForm"><button class="close" type="button" data-close="echoModal">×</button><p class="kicker">REALITY ECHO</p><h2>現実のニュースを一時カードにする</h2><p class="form-note">ニュースは史実級の攻撃カードにはなりません。出典付きの「現実の反響」として、今回のデッキを少し助けます。</p><div class="form-grid"><label class="wide"><span>見出し</span><input name="title" required maxlength="40" /></label><label><span>日付</span><input name="date" required type="date" /></label><label><span>分野</span><select name="category"><option value="research">研究</option><option value="infrastructure">交通・技術</option><option value="community">地域・文化</option><option value="policy">制度・政策</option></select></label><label class="wide"><span>確認できた事実</span><textarea name="fact" required maxlength="200"></textarea></label><label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label></div><button class="primary" type="submit">反響カードとして加える</button><p class="form-error" id="echoError"></p></form></div>
 
-    <div class="modal result-modal" id="resultModal" aria-hidden="true"><div class="modal-card result-card"><p class="kicker">THE CHRONICLE CLOSES</p><div class="result-seal" id="resultSeal">遺</div><h2 id="resultTitle">社会は危機を越えた</h2><p id="resultText"></p><div class="result-stats" id="resultStats"></div><button class="primary" id="restartButton">別の年代記を始める</button></div></div>
-    <div class="toast" id="toast" role="status"></div>
+    <div class="modal" id="resultModal" aria-hidden="true"><div class="modal-card result"><p class="kicker">BATTLE COMPLETE</p><div class="result-symbol" id="resultSymbol">✓</div><h2 id="resultTitle">時間軸を修復しました</h2><p id="resultText"></p><div id="resultStats"></div><button class="primary" id="restartButton">もう一度戦う</button></div></div>
+    <div class="combo-banner" id="comboBanner"></div>
     <script src="app.js"></script>
   </body>
 </html>
