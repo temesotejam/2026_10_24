@@ -25,55 +25,56 @@
 
         <div class="world-board" id="worldBoard">
           <article class="domain life" data-domain="life">
-            <header><div class="domain-symbol">暮</div><div><span>FOUNDATION</span><h2>生活基盤</h2></div><b class="domain-value" id="lifeValue">7</b></header>
+            <header><div class="domain-symbol">暮</div><div><span>LIFE</span><h2>暮らし</h2></div><b class="domain-value" id="lifeValue">7</b></header>
             <div class="meter"><i id="lifeMeter"></i></div><p class="domain-desc">食料・健康・人口・環境</p>
             <div class="shield" id="lifeShield">防護 0</div>
-            <div class="institutions" id="lifeInstitutions"><span>制度枠</span></div>
+            <div class="institutions" id="lifeInstitutions"><span>備え</span></div>
           </article>
           <article class="domain institution" data-domain="institution">
-            <header><div class="domain-symbol">制</div><div><span>INSTITUTIONS</span><h2>制度</h2></div><b class="domain-value" id="institutionValue">7</b></header>
+            <header><div class="domain-symbol">制</div><div><span>GOVERNMENT</span><h2>行政</h2></div><b class="domain-value" id="institutionValue">7</b></header>
             <div class="meter"><i id="institutionMeter"></i></div><p class="domain-desc">法律・行政・経済</p>
             <div class="shield" id="institutionShield">防護 0</div>
-            <div class="institutions" id="institutionInstitutions"><span>制度枠</span></div>
+            <div class="institutions" id="institutionInstitutions"><span>備え</span></div>
           </article>
           <article class="domain public" data-domain="public">
-            <header><div class="domain-symbol">公</div><div><span>PUBLIC SPHERE</span><h2>公共圏</h2></div><b class="domain-value" id="publicValue">7</b></header>
+            <header><div class="domain-symbol">公</div><div><span>INFORMATION</span><h2>情報と信頼</h2></div><b class="domain-value" id="publicValue">7</b></header>
             <div class="meter"><i id="publicMeter"></i></div><p class="domain-desc">知識・情報・文化・信頼</p>
             <div class="shield" id="publicShield">防護 0</div>
-            <div class="institutions" id="publicInstitutions"><span>制度枠</span></div>
+            <div class="institutions" id="publicInstitutions"><span>備え</span></div>
           </article>
         </div>
 
         <section class="phase-panel signal-phase" id="signalPhase">
-          <div class="phase-heading"><div><span>PHASE 1 · OBSERVE</span><h2>今期に記録する兆候を選ぶ</h2><p>選ばなかった事実も消えません。資料庫へ送られ、別の年代記を待ちます。</p></div><div class="legend"><i></i> 3つ集めると潮流へ</div></div>
+          <div class="phase-heading"><div><span>STEP 1 / 2</span><h2>同じ色を3枚集める：記録を1枚選ぶ</h2><p>まずは金・緑・青のどれか一色を3枚にしましょう。</p></div><div class="legend"><i></i> 同じ色3枚で「備え」完成</div></div>
           <div class="signal-feed" id="signalFeed"></div>
         </section>
 
         <section class="phase-panel response-phase hidden" id="responsePhase">
           <div class="phase-heading">
-            <div><span>PHASE 2 · RESPOND</span><h2>予告された危機へ備える</h2><p>対応カードは使い切りではなく、捨て札から再び巡ってきます。</p></div>
+            <div><span>STEP 2 / 2</span><h2>上の赤い予告に備える：カードを使う</h2><p>カードは何枚でも使えます。数字が時代力以内なら使用できます。</p></div>
             <div class="energy"><span>時代力</span><div id="energyPips"></div><b id="energyValue">3</b></div>
           </div>
           <div class="response-hand" id="responseHand"></div>
-          <div class="response-footer"><span id="reserveHint">残った時代力は最大2まで次期へ持ち越せます。</span><button id="resolveButton">情勢を進める →</button></div>
+          <div class="response-footer"><span id="reserveHint">残った時代力は最大2まで次のターンへ持ち越せます。</span><button id="resolveButton">ターン終了：予告を受ける →</button></div>
         </section>
 
         <section class="legacy-row">
-          <div class="legacy-heading"><span>LEGACIES</span><strong>遺産</strong><small>2つ完成で勝利</small></div>
-          <div class="legacy" id="lifeLegacy"><i>暮</i><div><span>生活の兆候 <b id="lifeSignals">0</b>/3</span><strong>公衆衛生網</strong></div></div>
-          <div class="legacy" id="institutionLegacy"><i>制</i><div><span>制度の兆候 <b id="institutionSignals">0</b>/3</span><strong>応答する行政</strong></div></div>
-          <div class="legacy" id="publicLegacy"><i>公</i><div><span>公共圏の兆候 <b id="publicSignals">0</b>/3</span><strong>公共知識網</strong></div></div>
+          <div class="legacy-heading"><span>WIN GOAL</span><strong>同じ色3枚</strong><small>2色完成で勝利</small></div>
+          <div class="legacy" id="lifeLegacy"><i>暮</i><div><span>金色 <b id="lifeSignals">0</b>/3</span><strong>健康への備え</strong></div></div>
+          <div class="legacy" id="institutionLegacy"><i>制</i><div><span>緑色 <b id="institutionSignals">0</b>/3</span><strong>動ける行政</strong></div></div>
+          <div class="legacy" id="publicLegacy"><i>公</i><div><span>青色 <b id="publicSignals">0</b>/3</span><strong>信頼できる情報網</strong></div></div>
         </section>
       </section>
 
       <aside class="archive">
-        <header><p>THE LIVING ARCHIVE</p><h2>資料庫</h2><span>事実とゲーム上の解釈を分けて記録します。</span></header>
+        <section class="quick-guide"><p>YOUR GOAL</p><h2>8ターンを生き残る</h2><ul><li><b>0になると敗北</b><span>暮らし・行政・情報を守る</span></li><li><b>同じ色3枚 × 2色</b><span>二つの備えを完成させる</span></li></ul><div class="now-guide"><span>いまやること</span><strong id="nowGuide">3枚から記録を1枚選ぶ</strong><small id="nowDetail">同じ色を集めると有利になります。</small></div></section>
+        <header><p>CARD DETAILS</p><h2>カードの説明</h2><span>カードに触れると、ここに詳しい内容が出ます。</span></header>
         <section class="record" id="recordView"></section>
         <section class="chronicle"><div><span>CHRONICLE</span><b>今回の年代記</b></div><div id="chronicleLog"></div></section>
       </aside>
     </main>
 
-    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card help-card"><button class="close" data-close="helpModal">×</button><p class="kicker">HOW TO PLAY</p><h2>事件ではなく、社会の対応を組み立てる。</h2><div class="rules"><article><b>1</b><h3>兆候を記録</h3><p>出典付きの事実を1つ選びます。同じ領域を3つ集めると遺産になります。</p></article><article><b>2</b><h3>危機へ対応</h3><p>次に起きる圧力は公開済みです。3時代力で回復・防護・制度化します。</p></article><article><b>3</b><h3>8期を生きる</h3><p>領域を崩壊させず、2つの遺産を完成させれば勝利です。</p></article></div><p class="note">史実カードは攻撃力ではありません。事実は世界の兆候として残り、プレイヤーのカードは社会がどう応答するかを表します。</p><button class="primary" data-close="helpModal">年代記を始める</button></div></div>
+    <div class="modal" id="helpModal" aria-hidden="true"><div class="modal-card help-card"><button class="close" data-close="helpModal">×</button><p class="kicker">2 STEPS ONLY</p><h2>やることは、毎ターン二つだけ。</h2><div class="rules"><article><b>①</b><h3>色を選ぶ</h3><p>金・緑・青から記録を1枚選びます。同じ色3枚で備えが完成します。</p></article><article><b>②</b><h3>赤い予告を防ぐ</h3><p>上に表示された被害を見て、回復や防護カードを使います。</p></article><article><b>✓</b><h3>勝利条件</h3><p>8ターン生存し、同じ色3枚を二組完成させます。どれかが0なら敗北です。</p></article></div><p class="note">カード左上の数字がコストです。時代力は毎ターン3。余りは最大2まで次へ持ち越せます。</p><button class="primary" data-close="helpModal">わかりました</button></div></div>
 
     <div class="modal" id="newsModal" aria-hidden="true"><form class="modal-card news-card" id="newsForm"><button class="close" type="button" data-close="newsModal">×</button><p class="kicker">ADD A VERIFIED SIGNAL</p><h2>現実の小さな事実を記録する</h2><p class="note">入力内容は補完・創作しません。出典と確認できた範囲だけを保存し、次の兆候候補に加えます。</p><div class="form-grid"><label class="wide"><span>見出し</span><input name="title" required maxlength="42" placeholder="例：市立図書館が夜間開館を開始" /></label><label><span>日付</span><input name="date" required type="date" /></label><label><span>領域</span><select name="domain"><option value="life">生活基盤</option><option value="institution">制度</option><option value="public">公共圏</option></select></label><label class="wide"><span>確認できた事実</span><textarea name="fact" required maxlength="220"></textarea></label><label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label></div><button class="primary" type="submit">資料庫へ記録する</button><p class="form-error" id="newsError"></p></form></div>
 

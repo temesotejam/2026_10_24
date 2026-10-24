@@ -11,3 +11,19 @@
 @media(max-width:1100px){.app{grid-template-columns:minmax(720px,1fr) 285px}.game{padding:13px}.response-card{height:172px}.archive{padding:20px 16px}}
 @media(max-width:900px){.app{display:block}.topbar{height:65px;grid-template-columns:1fr auto}.turn-track{display:none}.game{min-height:auto}.archive{min-height:auto;border-left:0;border-top:1px solid var(--line)}.crisis-ribbon{grid-template-columns:145px 1fr}.next-intent{display:none}.legacy-row{grid-template-columns:repeat(3,1fr);height:auto}.legacy-heading{grid-column:1/-1;height:42px;align-items:center}.legacy{height:58px}.signal-feed{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.topbar{padding:0 11px}.brand h1{font-size:15px}.brand h1 small{display:none}.seal{width:34px;height:34px}.top-actions button:first-child{width:32px;padding:0;font-size:0}.top-actions button:first-child::after{content:'＋';font-size:15px}.game{padding:9px}.crisis-ribbon{height:auto;min-height:93px;grid-template-columns:105px 1fr}.scenario{padding:0 10px}.scenario strong{font-size:11px}.intent{padding:10px;gap:8px}.intent-icon{width:34px;height:34px}.world-board{grid-template-columns:1fr;gap:6px}.domain{padding:10px 12px}.domain header{float:left;width:58%}.domain .meter{margin-top:15px}.domain-desc{clear:both;padding-top:6px}.institutions{height:24px}.phase-panel{padding:13px 11px}.phase-heading p,.legend{display:none}.signal-feed{grid-template-columns:1fr}.signal-card{min-height:132px}.signal-art{height:44px}.signal-art b{font-size:16px}.signal-copy h3{font-size:12px}.response-hand{grid-template-columns:1fr 1fr}.response-card{height:157px}.response-footer{align-items:flex-end}.response-footer span{max-width:55%}.legacy-row{grid-template-columns:1fr}.legacy-heading{grid-column:1}.legacy{height:53px}.modal-card{padding:31px 16px;max-height:94vh;overflow:auto}.rules,.form-grid{grid-template-columns:1fr}.form-grid .wide{grid-column:1}.rules article{padding:10px}.archive{padding:19px 15px}}
+
+/* Clarity layer: keep the two-step loop and current danger visible. */
+.domain.threatened{border-color:rgba(168,93,80,.62);box-shadow:inset 0 0 25px rgba(168,93,80,.07)}
+.domain.threatened::after{content:'今回ここが減ります';float:right;margin-top:-18px;color:#d08375;font-size:6px}
+.response-card.recommended{border-color:rgba(218,169,99,.86);box-shadow:0 0 19px rgba(199,125,74,.13)}
+.response-card.recommended::after{content:'おすすめ';position:absolute;right:7px;bottom:7px;padding:2px 5px;border-radius:8px;background:#9b6442;color:#f2ddad;font-size:6px}
+.response-card.recommended .response-tags{bottom:25px}
+.quick-guide{padding-bottom:15px;border-bottom:1px solid var(--line)}
+.quick-guide>p{margin:0;color:var(--gold);font-size:7px;letter-spacing:.2em}
+.quick-guide h2{margin:3px 0 9px;font:18px "Yu Mincho",serif}
+.quick-guide ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.quick-guide li{display:flex;justify-content:space-between;padding:7px 8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.018)}
+.quick-guide li b{color:#d0c2a2;font-size:8px}.quick-guide li span{color:#79756b;font-size:7px}
+.now-guide{margin-top:9px;padding:10px;border-left:2px solid var(--gold);background:rgba(199,168,98,.06)}
+.now-guide span,.now-guide strong,.now-guide small{display:block}.now-guide span{color:var(--gold);font-size:6px;letter-spacing:.14em}.now-guide strong{margin:4px 0 2px;font:11px "Yu Mincho",serif}.now-guide small{color:#8f897e;font-size:7px;line-height:1.5}
+.archive{padding-top:19px}.archive>header{padding-top:15px}.record{min-height:300px}#chronicleLog{max-height:180px}
