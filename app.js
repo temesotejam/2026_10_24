@@ -38,9 +38,10 @@ function key(x, y) { return `${x},${y}`; }
 function dist(a, b) { return Math.abs(a.x - b.x) + Math.abs(a.y - b.y); }
 function esc(v) { return String(v).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
 function isModalOpen() { return !!document.querySelector('.modal.open'); }
+function safeHttpUrl(value) { try { const u=new URL(value); return ['http:','https:'].includes(u.protocol)?u.href:''; } catch { return ''; } }
 
 function savedSeed() {
-  try { return JSON.parse(localStorage.getItem('reality-dungeon-seed')) || null; } catch { return null; }
+  try { const seed=JSON.parse(localStorage.getItem('reality-dungeon-seed')); if(!seed||!safeHttpUrl(seed.source))return null;seed.source=safeHttpUrl(seed.source);seed.userProvided=true;return seed; } catch { return null; }
 }
 
 async function loadAutomaticNews() {
@@ -52,10 +53,10 @@ async function loadAutomaticNews() {
     const unsafe = /死亡|死者|殺害|逮捕|容疑|事件|事故|災害|地震|津波|豪雨|洪水|火災|戦争|攻撃|侵攻|空爆|負傷|被害|訃報|感染|倒産|不祥事|虐待|遺体|行方不明|防衛|軍事|がん|余命/;
     const badSource = /Vietnam\.vn|BigGo/i;
     autoNews = (Array.isArray(data.items) ? data.items : []).filter(n => n && n.title && n.url && !unsafe.test(n.title) && !badSource.test(n.source || '')).slice(0, 24).map(n => ({
-      title: String(n.title).slice(0, 80), place: String(n.source || '国内ニュース').slice(0, 30),
+      title: String(n.title).slice(0, 80), publisher: String(n.source || '国内ニュース').slice(0, 30), place: '',
       category: allowed.has(n.category) ? n.category : 'community', fact: String(n.summary || n.title).slice(0, 180),
-      source: String(n.url), publishedAt: n.publishedAt || '', automatic: true
-    }));
+      source: safeHttpUrl(String(n.url)), publishedAt: n.publishedAt || '', automatic: true, factVerified: false
+    })).filter(n=>n.source);
   } catch { autoNews = []; }
   renderAutomaticNews();
 }
@@ -73,7 +74,7 @@ function renderAutomaticNews() {
     const cat = { community: '地域', climate: '環境', mobility: '交通', science: '科学' }[news.category];
     const meta = document.createElement('span'); meta.textContent = `${date} · ${cat}`;
     const title = document.createElement('b'); title.textContent = news.title;
-    const source = document.createElement('small'); source.textContent = news.place;
+    const source = document.createElement('small'); source.textContent = news.publisher;
     b.append(meta, title, source);
     b.addEventListener('click', () => { selectedSeed = autoNews[i]; localStorage.removeItem('reality-dungeon-seed'); closeModal('newsModal'); startGame(); setMessage(`「${selectedSeed.title}」を調査します。`, '◎'); });
     list.appendChild(b);
@@ -91,7 +92,7 @@ function startGame(rotateNews = false) {
   game = {
     floor: 1, turn: 0, ended: false, map: [], rooms: [], seen: new Set(), enemies: [], items: [], realityNodes: [], stairs: null,
     player: { x: 0, y: 0, hp: 24, maxHp: 24, belly: 100, attack: 4 },
-    team: [], known: new Set(), kills: 0, realityFinds: 0, observeCd: 0, flareCd: 0, seed,
+    team: [], known: new Set(), kills: 0, realityFinds: 0, observeCd: 0, flareCd: 0, seed, investigationPlan: null, pendingReality: false,
     logs: []
   };
   generateFloor();
@@ -124,21 +125,36 @@ function generateFloor() {
     const pos = randomOpen(1);
     const possible = ['heat', 'noise', 'jam', 'bloom'];
     let type = possible[rand(possible.length)];
-    if (game.seed && i === 0) type = 'echo';
-    else if (game.seed && Math.random() < .38) type = categoryThemes[game.seed.category].type;
+    if (game.seed && Math.random() < .38) type = categoryThemes[game.seed.category].type;
     const base = enemyTypes[type];
     const bonus = game.floor - 1;
     game.enemies.push({ ...pos, type, hp: base.hp + bonus * 2, maxHp: base.hp + bonus * 2, atk: base.atk + Math.floor(bonus / 2), observed: false, id: crypto.randomUUID?.() || `${Date.now()}-${i}` });
   }
   for (let i = 0; i < 3 + game.floor; i++) game.items.push({ ...randomOpen(0), type: i % 3 === 0 ? 'food' : 'memo' });
   game.realityNodes = game.seed ? [{ ...randomOpen(1), category: game.seed.category }] : [];
+  applyInvestigationPlan();
   reveal();
   const theme = themeNow();
   els.weather.textContent = game.seed ? `現実任務：${game.seed.title}` : '迷宮は入るたびに姿を変えます';
   els.weather.title = game.seed?.title || '';
   els.floor.textContent = `${game.floor}F`;
-  els.place.textContent = game.seed ? `${game.seed.place}の迷宮` : '今日の迷宮';
+  els.place.textContent = game.seed ? '今日のニュース迷宮' : '今日の迷宮';
   showFloorFlash(`${game.floor}F`);
+}
+
+function applyInvestigationPlan() {
+  const plan=game.investigationPlan;
+  if(!plan||!game.seed||game.floor===1)return;
+  const type=categoryThemes[game.seed.category].type;
+  if(plan==='respond'){
+    for(let i=0;i<1;i++){const base=enemyTypes[type],pos=randomOpen(1),bonus=game.floor-1;game.enemies.push({...pos,type,hp:base.hp+bonus*2,maxHp:base.hp+bonus*2,atk:base.atk+Math.floor(bonus/2),observed:false,id:`plan-${game.floor}-${i}`});}
+    setTimeout(()=>setMessage('ゲーム上の難度調整として、関連タイプが1体追加されました。','！'),0);
+  }else{
+    const same=game.enemies.filter(e=>e.type===type);
+    same.slice(0,2).forEach(e=>{e.hp=Math.max(1,e.hp-2);e.maxHp=Math.max(e.hp,e.maxHp-2);e.atk=Math.max(1,e.atk-1);});
+    setTimeout(()=>setMessage('慎重な進行を選んだため、関連タイプ2体が弱体化しました。','◎'),0);
+  }
+  game.investigationPlan=null;
 }
 
 function carveRoom(r) { for (let y = r.y; y < r.y + r.h; y++) for (let x = r.x; x < r.x + r.w; x++) game.map[y][x] = 1; }
@@ -272,44 +288,56 @@ function collectReality() {
   game.realityNodes.splice(i, 1); game.realityFinds++;
   const category = game.seed.category;
   const effects = {
-    community: '地域の支え：調査隊全員のHPを回復',
-    climate: '環境観測：迷宮内の「熱だまり」を弱体化',
-    mobility: '交通情報：この階の地図をすべて開示',
-    science: '研究成果：通常攻撃を強化し、技能を再使用可能に'
+    community: '地域の検索テーマを、調査隊の回復効果へ変換',
+    climate: '環境の検索テーマを、熱だまりの弱体化へ変換',
+    mobility: '交通の検索テーマを、地図の開示へ変換',
+    science: '科学の検索テーマを、観測能力の強化へ変換'
   };
-  if (category === 'community') {
-    game.player.hp = Math.min(game.player.maxHp, game.player.hp + 7);
-    game.team.forEach(a => a.hp = Math.min(a.maxHp, a.hp + 5));
-  } else if (category === 'climate') {
-    game.enemies.filter(e => e.type === 'heat').forEach(e => { e.hp = Math.max(1, e.hp - 3); e.atk = Math.max(1, e.atk - 1); });
-  } else if (category === 'mobility') {
-    for (let y=0;y<H;y++) for(let x=0;x<W;x++) if(game.map[y][x]===1) game.seen.add(key(x,y));
-    game.player.belly = Math.min(100, game.player.belly + 20);
-  } else if (category === 'science') {
-    game.player.attack++; game.observeCd = 0; game.flareCd = 0;
-  }
   addLog('現実発見', game.seed.title);
   setMessage(`現実地点を発見：「${game.seed.title}」`, '現');
-  const labels={community:'地域・文化',climate:'天気・環境',mobility:'交通・都市',science:'研究・技術'};
+  const labels={community:'収集テーマ：地域・文化',climate:'収集テーマ：天気・環境',mobility:'収集テーマ：交通・都市',science:'収集テーマ：研究・技術'};
   $('#realityCategory').textContent=labels[category];
   $('#realityTitle').textContent=game.seed.title;
-  $('#realityFact').textContent=game.seed.fact;
+  const date=game.seed.publishedAt?new Date(game.seed.publishedAt).toLocaleString('ja-JP'):'日時情報なし';
+  $('#realityFact').textContent=game.seed.automatic?`RSS見出し情報｜配信元：${game.seed.publisher||'不明'}｜配信日時：${date}。記事本文の意味や因果関係を判定したものではありません。`:`入力された事実：${game.seed.fact}`;
   $('#realityEffect').textContent=effects[category];
-  $('#realitySource').href=game.seed.source;
-  setTimeout(()=>openModal('realityModal'),0);
+  const source=safeHttpUrl(game.seed.source);$('#realitySource').href=source;$('#realitySource').hidden=!source;
+  $('#realityChoices').style.display=game.floor<3?'grid':'none';
+  $('#realityRecord').style.display=game.floor===3?'block':'none';
+  game.pendingReality=true;
+}
+
+function applyRealityEffect() {
+  const category=game.seed?.category;if(!category)return;
+  if(category==='community'){game.player.hp=Math.min(game.player.maxHp,game.player.hp+7);game.team.forEach(a=>a.hp=Math.min(a.maxHp,a.hp+5));}
+  else if(category==='climate')game.enemies.filter(e=>e.type==='heat').forEach(e=>{e.hp=Math.max(1,e.hp-3);e.atk=Math.max(1,e.atk-1);});
+  else if(category==='mobility'){for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(game.map[y][x]===1)game.seen.add(key(x,y));game.player.belly=Math.min(100,game.player.belly+20);}
+  else if(category==='science'){game.player.attack=Math.min(7,game.player.attack+1);game.observeCd=0;game.flareCd=0;}
+}
+
+function chooseInvestigationPlan(plan) {
+  if(!game||game.ended)return;
+  game.investigationPlan=plan;
+  if(plan==='respond'){applyRealityEffect();setMessage('現在のゲーム効果を使用。次の階では関連タイプが1体増えます。','現');}
+  else{game.player.hp=Math.min(game.player.maxHp,game.player.hp+3);setMessage('慎重な進行を選択。次の階では関連タイプ2体が弱体化します。','◎');}
+  addLog('進行方針',plan==='respond'?'現在の効果を使用':'慎重に進む');closeModal('realityModal');updateUI();
 }
 
 function finishPlayerTurn() {
   game.turn++;
   game.player.belly = Math.max(0, game.player.belly - 1);
   if (game.player.belly === 0) damagePlayer(1, '空腹');
+  if(game.ended){updateUI();return;}
   allyTurn();
+  if(game.ended){updateUI();return;}
   enemyTurn();
   game.observeCd = Math.max(0, game.observeCd - 1); game.flareCd = Math.max(0, game.flareCd - 1);
   reveal(); updateUI();
+  if(game.pendingReality&&!game.ended){game.pendingReality=false;openModal('realityModal');}
 }
 
 function allyTurn() {
+  if(game.ended)return;
   game.team.forEach(a => {
     const adjacent = game.enemies.find(e => dist(e, a) === 1);
     if (adjacent) { hitEnemy(adjacent, 2, a.name); return; }
@@ -370,6 +398,7 @@ function descend() {
 
 function endGame(win) {
   game.ended = true;
+  game.pendingReality=false;closeModal('realityModal');
   $('#resultEyebrow').textContent = win ? 'RESCUE COMPLETE' : 'EXPEDITION FAILED';
   $('#resultMark').textContent = win ? '✓' : '×';
   $('#resultTitle').textContent = win ? '現実の断片を持ち帰りました' : 'いったん拠点へ戻ります';
@@ -452,13 +481,15 @@ function floatNumber(x,y,n,heal=false) {
 
 function showNote(enemy) {
   const t=enemyTypes[enemy.type];game.known.add(enemy.type);
-  const source = enemy.type==='echo' && game.seed ? `<a href="${esc(game.seed.source)}" target="_blank" rel="noopener">${game.seed.automatic?'ニュース':'入力した情報'}の出典を開く ↗</a>` : '';
+  const safeSource=game.seed?safeHttpUrl(game.seed.source):'';
+  const source = enemy.type==='echo' && safeSource ? `<a href="${esc(safeSource)}" target="_blank" rel="noopener">${game.seed.automatic?'ニュース':'入力した情報'}の出典を開く ↗</a>` : '';
   const fact = enemy.type==='echo' && game.seed ? esc(game.seed.fact) : t.note;
   els.note.innerHTML=`<div class="note-icon" style="background:${t.color}">${t.glyph}</div><div><b>${t.name}</b><p>${fact}</p>${source}</div>`;
 }
 
 function updateUI() {
   const p=game.player;els.hpText.textContent=`${p.hp} / ${p.maxHp}`;els.hpBar.style.width=`${p.hp/p.maxHp*100}%`;els.bellyText.textContent=`${p.belly} / 100`;els.bellyBar.style.width=`${p.belly}%`;els.turn.textContent=game.turn;els.floor.textContent=`${game.floor}F`;els.species.textContent=`${game.known.size}種`;
+  $('#mobileHp').textContent=`${p.hp}/${p.maxHp}`;$('#mobileBelly').textContent=p.belly;$('#mobileFloor').textContent=`${game.floor}F`;$('#mobileTurn').textContent=game.turn;
   els.observe.disabled=game.observeCd>0;els.flare.disabled=game.flareCd>0;els.observeCd.textContent=game.observeCd?`あと${game.observeCd}ターン`:'使用可';els.flareCd.textContent=game.flareCd?`あと${game.flareCd}ターン`:'使用可';
   els.teamCount.textContent=`${game.team.length+1} / 4`;
   els.team.innerHTML=`<div class="team-member"><div class="creature-icon" style="background:#1b6b54">観</div><div><b>フィールド観測員</b><small>リーダー</small><div class="mini-hp"><i style="width:${p.hp/p.maxHp*100}%"></i></div></div></div>`+game.team.map(a=>{const t=enemyTypes[a.type];return `<div class="team-member"><div class="creature-icon" style="background:${t.color}">${t.glyph}</div><div><b>${t.name}</b><small>理解した現象</small><div class="mini-hp"><i style="width:${a.hp/a.maxHp*100}%"></i></div></div></div>`}).join('');
@@ -475,11 +506,13 @@ document.querySelector('[data-wait]').addEventListener('click',waitTurn);
 els.observe.addEventListener('click',observe);els.flare.addEventListener('click',flare);
 $('#helpButton').addEventListener('click',()=>openModal('helpModal'));$('#newsButton').addEventListener('click',()=>openModal('newsModal'));
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
+document.querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',()=>chooseInvestigationPlan(b.dataset.plan)));
+$('#realityRecord').addEventListener('click',()=>{if(game&&!game.ended){applyRealityEffect();setMessage('見出し情報を調査記録へ保存しました。','✓');updateUI();}});
 $('#restartButton').addEventListener('click',()=>startGame(true));$('#resultRestart').addEventListener('click',()=>{closeModal('resultModal');startGame(true);});
-document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m && m.id!=='resultModal')closeModal(m.id);}));
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m && !['resultModal','realityModal'].includes(m.id))closeModal(m.id);}));
 
 $('#newsForm').addEventListener('submit',e=>{
-  e.preventDefault();const d=new FormData(e.currentTarget);const seed={title:d.get('title').trim(),place:d.get('place').trim(),category:d.get('category'),fact:d.get('fact').trim(),source:d.get('source').trim()};
+  e.preventDefault();const d=new FormData(e.currentTarget);const seed={title:d.get('title').trim(),place:d.get('place').trim(),publisher:'手入力',category:d.get('category'),fact:d.get('fact').trim(),source:d.get('source').trim(),userProvided:true};
   try { const u=new URL(seed.source); if(!['http:','https:'].includes(u.protocol)) throw new Error(); } catch { e.currentTarget.querySelector('[name="source"]').setCustomValidity('http または https のURLを入力してください');e.currentTarget.reportValidity();return; }
   selectedSeed=seed;localStorage.setItem('reality-dungeon-seed',JSON.stringify(seed));closeModal('newsModal');startGame();setMessage(`「${seed.title}」から迷宮が生まれました。`,'◎');addLog('現実接続',seed.title);
 });
