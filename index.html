@@ -3,87 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101c2a" />
-    <title>雨を食べる庭</title>
+    <meta name="theme-color" content="#11100e" />
+    <title>CHRONICLE — 歴史の奔流</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="shell">
+    <div class="grain" aria-hidden="true"></div>
+    <main class="app">
       <header class="topbar">
         <div class="brand">
-          <span class="brand-mark" aria-hidden="true">✦</span>
-          <div>
-            <p class="eyebrow">A LIVING WEATHER GARDEN</p>
-            <h1>雨を食べる庭</h1>
-          </div>
+          <span class="brand-seal">C</span>
+          <div><p>HISTORICAL CARD STRATEGY</p><h1>CHRONICLE <small>歴史の奔流</small></h1></div>
         </div>
-        <div class="weather-chip" id="weatherChip">
-          <span class="weather-icon" id="weatherIcon">☁</span>
-          <div><strong id="weatherName">薄明の雨</strong><small id="weatherDetail">天候デモを再生中</small></div>
+        <div class="era-track" aria-label="時代">
+          <span data-era="0">中世</span><i></i><span data-era="1">近世</span><i></i><span data-era="2">近代</span><i></i><span data-era="3">現代</span>
+        </div>
+        <div class="top-actions">
+          <button class="news-button" id="newsButton">＋ 現実をカード化</button>
+          <button class="icon-button" id="helpButton" aria-label="遊び方">?</button>
         </div>
       </header>
 
-      <section class="game-card" id="gameCard">
-        <canvas id="garden" aria-label="雨の庭にいる小さな生き物ルゥ"></canvas>
-
-        <div class="garden-title">
-          <span class="day-label">DAY <b id="dayNumber">01</b></span>
-          <p id="gardenHint">ルゥは、あなたの気配に気づいた。</p>
+      <section class="battlefield">
+        <div class="opponent-zone">
+          <div class="leader enemy-leader"><div class="leader-emblem">帝</div><div><span>対戦相手</span><strong>覇権の年代記</strong></div></div>
+          <div class="stats enemy-stats">
+            <div><span>影響力</span><b id="enemyInfluence">0</b><small>/ 20</small></div>
+            <div><span>安定</span><b id="enemyStability">10</b></div>
+            <div><span>知識</span><b id="enemyKnowledge">0</b></div>
+          </div>
+          <div class="enemy-hand" id="enemyHand" aria-label="相手の手札"></div>
         </div>
 
-        <div class="sound-toggle">
-          <button id="soundButton" class="round-button" type="button" aria-label="音を切り替える">♪</button>
+        <div class="timeline-zone">
+          <div class="world-state"><span>世界情勢</span><strong id="worldState">交易網の拡大</strong><p id="worldEffect">〈交易〉カードの影響力 +1</p></div>
+          <div class="history-line">
+            <div class="played-card enemy-played empty" id="enemyPlayed"><span>相手の選択</span></div>
+            <div class="turn-marker"><small>TURN</small><b id="turnNumber">1</b><i></i></div>
+            <div class="played-card player-played empty" id="playerPlayed"><span>あなたの選択</span></div>
+          </div>
+          <div class="chronicle-strip" id="chronicleStrip"><span class="chronicle-empty">歴史はまだ、何も刻んでいない。</span></div>
         </div>
 
-        <div class="actions" aria-label="庭ですること">
-          <button class="action-button" data-action="pet" type="button">
-            <span class="action-icon">♡</span><span><b>撫でる</b><small>心を近づける</small></span>
-          </button>
-          <button class="action-button" data-action="rain" type="button">
-            <span class="action-icon">⌁</span><span><b>雨を呼ぶ</b><small>水の記憶を与える</small></span>
-          </button>
-          <button class="action-button" data-action="seed" type="button">
-            <span class="action-icon">♧</span><span><b>種を置く</b><small>庭に未来を残す</small></span>
-          </button>
+        <div class="player-zone">
+          <div class="leader player-leader"><div class="leader-emblem">記</div><div><span>あなた</span><strong>変革の年代記</strong></div></div>
+          <div class="stats player-stats">
+            <div><span>影響力</span><b id="playerInfluence">0</b><small>/ 20</small></div>
+            <div><span>安定</span><b id="playerStability">10</b></div>
+            <div><span>知識</span><b id="playerKnowledge">0</b></div>
+          </div>
+          <div class="hand-wrap">
+            <div class="hand-heading">
+              <div><span>YOUR HAND</span><strong>カードを1枚選ぶ</strong></div>
+              <div class="action-points"><span>時代力</span><div id="actionPips"><i></i><i></i><i></i><i></i><i></i></div><b id="actionValue">3</b></div>
+            </div>
+            <div class="hand" id="playerHand"></div>
+          </div>
         </div>
       </section>
 
-      <aside class="journal">
-        <div class="journal-heading">
-          <div><p class="eyebrow">FIELD NOTES</p><h2>庭の記憶</h2></div>
-          <span class="moon-phase">◐</span>
-        </div>
-
-        <div class="creature-card">
-          <div class="portrait" id="portrait"><span>✦</span></div>
-          <div class="creature-copy">
-            <p class="eyebrow">YOUR LITTLE ONE</p>
-            <h3>ルゥ <small id="formName">雨待ちの姿</small></h3>
-            <div class="bond-row"><span>きずな</span><div class="bond-track"><i id="bondFill"></i></div><b id="bondValue">12</b></div>
-          </div>
-        </div>
-
-        <blockquote id="thought">「雨の匂いがする。あなたは、だれ？」</blockquote>
-
-        <div class="memory-list" id="memoryList">
-          <article class="memory active"><time>たった今</time><p>眠っていた種から、小さなルゥが目を覚ました。</p></article>
-          <article class="memory muted"><time>まだ見ぬ記憶</time><p>この庭は、触れられたことを覚えている。</p></article>
-        </div>
-
-        <div class="evolution-note">
-          <span>次の変化</span><b id="evolutionText">あと 4 つの記憶</b>
-          <div class="star-row" id="starRow"><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
+      <aside class="side-panel">
+        <section class="archive-header"><p>THE ARCHIVE</p><h2>史実記録</h2><span>カードを選ぶと、その出来事が世界をどう変えたか表示します。</span></section>
+        <section class="fact-view" id="factView"></section>
+        <section class="battle-log">
+          <div class="section-label"><span>BATTLE LOG</span><b>歴史の記録</b></div>
+          <div id="battleLog"><p><time>序章</time>二つの年代記が、同じ世界の未来を巡って競い始めた。</p></div>
+        </section>
       </aside>
     </main>
 
-    <div class="evolution-overlay" id="evolutionOverlay" aria-hidden="true">
-      <div class="evolution-bloom"></div>
-      <p>THE GARDEN REMEMBERS</p>
-      <h2>ルゥが、新しい雨の音を覚えた</h2>
-      <button id="continueButton" type="button">庭へ戻る</button>
+    <div class="modal" id="helpModal" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-close" data-close="helpModal">×</button>
+        <p class="modal-kicker">HOW TO PLAY</p><h2>歴史は、連鎖で動く。</h2>
+        <div class="rule-grid">
+          <article><b>1</b><h3>史実を選ぶ</h3><p>時代力以内のカードを1枚選びます。</p></article>
+          <article><b>2</b><h3>連鎖を作る</h3><p>すでに使ったカードと同じタグなら連鎖ボーナスが発生します。</p></article>
+          <article><b>3</b><h3>歴史を制する</h3><p>影響力20、または相手の安定を0にすれば勝利です。</p></article>
+        </div>
+        <p class="rule-note">カード効果は、出来事が歴史に与えた影響をゲーム用に抽象化したものです。カード右下の「史実」で出典を確認できます。</p>
+        <button class="primary-button" data-close="helpModal">年代記を始める</button>
+      </div>
     </div>
 
+    <div class="modal result-modal" id="resultModal" aria-hidden="true">
+      <div class="modal-card result-card">
+        <p class="modal-kicker">THE CHRONICLE IS WRITTEN</p><div class="result-seal" id="resultSeal">勝</div>
+        <h2 id="resultTitle">あなたの歴史が残った</h2><p id="resultText">知識と変革の連鎖が、次の時代を切り開いた。</p>
+        <button class="primary-button" id="restartButton">もう一度歴史を編む</button>
+      </div>
+    </div>
+
+    <div class="modal" id="newsModal" aria-hidden="true">
+      <form class="modal-card news-forge" id="newsForm">
+        <button class="modal-close" type="button" data-close="newsModal">×</button>
+        <p class="modal-kicker">THE LIVING ARCHIVE</p><h2>現実をカードに刻む</h2>
+        <p class="forge-intro">大事件でなくても構いません。地域の変化、新しい研究、身近な制度や文化のニュースを、出典とともに小さな歴史カードへ変換します。</p>
+        <div class="form-grid">
+          <label class="wide"><span>ニュースの見出し</span><input name="title" required maxlength="32" placeholder="例：市立図書館が夜間開館を開始" /></label>
+          <label><span>日付</span><input name="date" required type="date" /></label>
+          <label><span>分野</span><select name="category"><option value="society">社会・制度</option><option value="science">科学・研究</option><option value="technology">技術・情報</option><option value="environment">環境・気候</option><option value="economy">経済・交易</option><option value="culture">文化・地域</option></select></label>
+          <label class="wide"><span>確認できた事実</span><textarea name="summary" required maxlength="180" placeholder="誰が、何を、どこで発表・実施したかを短く記述してください。"></textarea></label>
+          <label class="wide"><span>出典URL</span><input name="source" required type="url" placeholder="https://..." /></label>
+        </div>
+        <div class="forge-policy"><b>カード化の原則</b><span>効果はニュースの重要度ではなく分野から機械的に決定します。入力内容をAIが事実として補完することはありません。</span></div>
+        <button class="primary-button" type="submit">この事実をカードにする</button>
+        <p class="form-error" id="newsError" role="alert"></p>
+      </form>
+    </div>
     <script src="app.js"></script>
   </body>
 </html>

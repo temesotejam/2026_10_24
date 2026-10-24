@@ -1,168 +1,118 @@
-const canvas = document.querySelector('#garden');
-const ctx = canvas.getContext('2d');
-const gameCard = document.querySelector('#gameCard');
-const hint = document.querySelector('#gardenHint');
-const thought = document.querySelector('#thought');
-const memoryList = document.querySelector('#memoryList');
-const bondFill = document.querySelector('#bondFill');
-const bondValue = document.querySelector('#bondValue');
-const evolutionText = document.querySelector('#evolutionText');
-const overlay = document.querySelector('#evolutionOverlay');
-const starRow = [...document.querySelectorAll('#starRow i')];
+const cards = [
+  {id:'silkroad',title:'シルクロード',year:'2世紀 BCE–',type:'交易・交流',symbol:'路',cost:1,color:'#7b583c',tags:['交易','文化'],effect:'影響力 +2。カードを1枚引く。',fact:'シルクロードは単一の道ではなく、東アジア・中央アジア・地中海世界を結んだ交易路網だった。物品だけでなく宗教・技術・疫病も移動した。',mechanic:'交流は選択肢と影響力を増やす一方、危機も運びうる。',source:'https://education.nationalgeographic.org/resource/silk-road/',influence:2,draw:1},
+  {id:'magna',title:'マグナ・カルタ',year:'1215',type:'制度・法',symbol:'法',cost:2,color:'#594f69',tags:['制度','権利'],effect:'安定 +2。相手が〈権力〉なら影響力 +2。',fact:'1215年のマグナ・カルタは当初、イングランド王と反乱諸侯の和平文書だったが、後世には統治者も法に拘束されるという理念の象徴になった。',mechanic:'権力を法で制限する動きは、強権への対抗として力を得る。',source:'https://www.parliament.uk/magnacarta/',influence:1,stability:2,counter:'権力'},
+  {id:'littleice',title:'小氷期',year:'c. 1300–1850',type:'気候・環境',symbol:'氷',cost:2,color:'#4d6870',tags:['環境','危機'],effect:'双方の安定 −1。環境への備えがない相手はさらに −1。',fact:'小氷期は特に北大西洋地域で寒冷傾向が見られた時期を指す。開始・終了時期や影響は地域により異なり、単純な全球同時現象ではない。',mechanic:'環境変化への備えの有無が、社会の被害を左右する。',source:'https://www.britannica.com/science/Little-Ice-Age',influence:1,bothStability:-1,punishMissing:['環境',-1]},
+  {id:'plague',title:'黒死病',year:'1347–1351',type:'疫病・社会',symbol:'疫',cost:3,color:'#514d3f',tags:['危機','労働'],effect:'双方の安定 −2。知識が多い側は被害を1軽減。',fact:'14世紀の黒死病はヨーロッパ、北アフリカ、西アジアを含む広域で甚大な人口損失を引き起こし、労働・社会・宗教に長期的影響を与えた。',mechanic:'疫病は全員を傷つけるが、蓄積した知識が被害を和らげる。',source:'https://www.britannica.com/event/Black-Death',influence:1,bothStability:-2,crisis:true},
+  {id:'printing',title:'活版印刷',year:'c. 1450',type:'技術・情報',symbol:'印',cost:2,color:'#725936',tags:['知識','思想'],effect:'知識 +2。次に使う〈思想〉の影響力 +2。',fact:'ヨハネス・グーテンベルクがヨーロッパで実用化した金属活字と印刷機の体系は、書物の複製速度と流通規模を大きく変えた。',mechanic:'情報を複製する技術が、その後の思想普及を加速させる。',source:'https://www.britannica.com/technology/printing-press',influence:2,knowledge:2,setup:'思想'},
+  {id:'columbian',title:'コロンブス交換',year:'1492–',type:'生態・交流',symbol:'交',cost:3,color:'#5d714d',tags:['交易','生態'],effect:'影響力 +4、安定 −1。双方が1枚引く。',fact:'1492年以降、旧世界と新世界の間で作物、家畜、人間、病原体が大規模に移動した。利益と人口増加だけでなく、先住民社会への壊滅的な疫病も伴った。',mechanic:'巨大な交換は成長を生むが、その利益と被害は対称ではない。',source:'https://www.britannica.com/event/Columbian-exchange',influence:4,stability:-1,draw:1,enemyDraw:1},
+  {id:'reformation',title:'宗教改革',year:'1517–',type:'思想・宗教',symbol:'改',cost:3,color:'#64484a',tags:['思想','権利'],effect:'知識 +1、影響力 +4、双方の安定 −1。',fact:'16世紀の宗教改革は西方キリスト教世界を分裂させ、宗教だけでなく教育・政治・国家形成にも大きな変化をもたらした。',mechanic:'広まった思想は大きな影響を生むが、既存秩序も揺さぶる。',source:'https://www.britannica.com/event/Reformation',influence:4,knowledge:1,stability:-1,enemyStability:-1},
+  {id:'company',title:'オランダ東インド会社',year:'1602',type:'制度・交易',symbol:'商',cost:3,color:'#655233',tags:['交易','権力'],effect:'影響力 +3。〈交易〉連鎖ならさらに +2。',fact:'1602年設立のオランダ東インド会社（VOC）は、株式による資本調達を行い、交易だけでなく条約締結や軍事行動も担った。',mechanic:'企業制度と国家権力の結合を、強力だが危うい交易カードとして表す。',source:'https://www.britannica.com/topic/Dutch-East-India-Company',influence:3,tagBonus:['交易',2]},
+  {id:'science',title:'科学革命',year:'16–17世紀',type:'知識・思想',symbol:'理',cost:3,color:'#405d68',tags:['知識','思想'],effect:'知識 +3。知識5以上なら影響力 +4。',fact:'16～17世紀のヨーロッパでは、観察・実験・数学を重視する自然研究が進展し、宇宙観や知識の方法が大きく変化した。',mechanic:'知識は蓄積してこそ、社会を動かす影響力になる。',source:'https://www.britannica.com/science/Scientific-Revolution',influence:1,knowledge:3,knowledgeThreshold:[5,3]},
+  {id:'steam',title:'蒸気機関の改良',year:'1760s–',type:'技術・産業',symbol:'蒸',cost:4,color:'#514d49',tags:['技術','産業'],effect:'影響力 +5。次ターンの時代力 +1。',fact:'ジェームズ・ワットらによる蒸気機関の改良は燃料効率と用途を広げ、工場・鉱山・交通の機械化を加速させた。',mechanic:'動力の革新は一度の得点だけでなく、次の行動能力を増やす。',source:'https://www.britannica.com/technology/steam-engine',influence:5,nextEnergy:1},
+  {id:'haiti',title:'ハイチ革命',year:'1791–1804',type:'革命・権利',symbol:'解',cost:4,color:'#75433c',tags:['権利','革命'],effect:'影響力 +6、安定 −2。相手の〈権力〉で強化。',fact:'ハイチ革命は奴隷化された人々が主導した革命で、1804年に独立国家ハイチが成立した。近代史上、奴隷反乱から国家独立へ至った画期的事例である。',mechanic:'抑圧的な権力が蓄積するほど、解放革命の歴史的影響が増す。',source:'https://www.britannica.com/topic/Haitian-Revolution',influence:6,stability:-2,enemyTagScale:['権力',1]},
+  {id:'telegraph',title:'電信網',year:'1844–',type:'技術・情報',symbol:'電',cost:2,color:'#3c5d69',tags:['技術','知識'],effect:'知識 +1、影響力 +3。次の解決で先手。',fact:'1844年、ワシントン—ボルチモア間でモールスの電信が実演された。電信網は情報伝達を輸送速度から切り離した。',mechanic:'情報速度の優位を、次ターンの先手として表現する。',source:'https://www.loc.gov/collections/samuel-morse-papers/articles-and-essays/invention-of-the-telegraph/',influence:3,knowledge:1,initiative:true},
+  {id:'meiji',title:'明治維新',year:'1868',type:'制度・近代化',symbol:'新',cost:4,color:'#694842',tags:['制度','技術'],effect:'知識 +2、安定 +1。タグ3種以上なら影響力 +6。',fact:'1868年前後の明治維新は、幕府体制から中央集権国家への政治変革と、その後の制度・軍事・教育・産業の急速な再編につながった。',mechanic:'複数分野を組み合わせた制度変革ほど、大きな影響を得る。',source:'https://www.britannica.com/event/Meiji-Restoration',influence:2,knowledge:2,stability:1,diversityThreshold:[3,4]},
+  {id:'influenza',title:'1918年インフルエンザ',year:'1918–1920',type:'疫病・社会',symbol:'熱',cost:3,color:'#5e5544',tags:['危機','社会'],effect:'双方の安定 −2。知識3以上なら自分は1回復。',fact:'1918～1920年のインフルエンザ・パンデミックは世界規模で広がり、第一次世界大戦下の移動や情報環境とも重なって甚大な被害を出した。',mechanic:'疫病の衝撃と、公衆衛生知識による回復力を同時に表す。',source:'https://www.cdc.gov/flu-pandemic/about/1918-pandemic-h1n1.html',influence:2,bothStability:-2,knowledgeHeal:[3,1]},
+  {id:'bretton',title:'ブレトンウッズ体制',year:'1944',type:'制度・経済',symbol:'協',cost:3,color:'#555d48',tags:['制度','交易'],effect:'安定 +2、影響力 +3。双方が安定なら +2。',fact:'1944年のブレトンウッズ会議は戦後の国際通貨秩序を構想し、IMFと世界銀行につながる制度を生んだ。',mechanic:'安定した参加者同士の協調は、制度の影響をより大きくする。',source:'https://www.britannica.com/event/Bretton-Woods-Conference',influence:3,stability:2,mutualStable:[6,2]},
+  {id:'greenrev',title:'緑の革命',year:'1940s–1960s',type:'技術・農業',symbol:'穂',cost:3,color:'#557047',tags:['技術','環境'],effect:'安定 +3、影響力 +2。環境連鎖なら知識 +1。',fact:'高収量品種、灌漑、肥料などの導入は各地で穀物生産を増加させた一方、環境負荷や地域間格差などの問題も伴った。',mechanic:'食料供給による安定と、持続可能性という両面を持たせる。',source:'https://www.britannica.com/event/green-revolution',influence:2,stability:3,tagKnowledge:['環境',1]},
+  {id:'oilshock',title:'第一次石油危機',year:'1973',type:'資源・経済',symbol:'油',cost:3,color:'#584a31',tags:['危機','交易'],effect:'相手の安定 −2。相手の〈産業〉で被害増加。',fact:'1973年の石油危機では、OAPECによる禁輸と価格上昇が石油輸入国の経済・エネルギー政策に大きな衝撃を与えた。',mechanic:'化石燃料依存が高いほど、資源ショックの被害が大きくなる。',source:'https://history.state.gov/milestones/1969-1976/oil-embargo',influence:2,enemyStability:-2,enemyTagDamage:['産業',1]},
+  {id:'internet',title:'インターネット標準化',year:'1983',type:'技術・情報',symbol:'網',cost:4,color:'#3f6170',tags:['技術','知識'],effect:'知識 +3、2枚引く。知識7以上なら影響力 +5。',fact:'1983年、ARPANETがTCP/IPへ移行したことは、異なるネットワークを相互接続する現在のインターネット形成における重要な節目となった。',mechanic:'ネットワーク効果を、知識と選択肢が急増する終盤カードにする。',source:'https://www.internetsociety.org/internet/history-internet/brief-history-internet/',influence:1,knowledge:3,draw:2,knowledgeThreshold:[7,4]}
+];
 
-const state = {
-  width: 1000, height: 700, time: 0, pointer: { x: 500, y: 330 },
-  rain: true, rainStrength: .65, targetRain: .65, bond: 12, memories: 0,
-  evolved: false, flowers: [], ripples: [], motes: [], hearts: [], audio: false,
-  weatherIndex: 0, lastAction: 0
+const newsPresets={
+  society:{type:'現在・社会',symbol:'社',color:'#675367',tags:['制度','社会'],cost:1,effect:'安定 +1、影響力 +1。',influence:1,stability:1,mechanic:'地域や制度の小さな変化を、社会の安定と継続的な影響として扱う。'},
+  science:{type:'現在・研究',symbol:'研',color:'#41616b',tags:['知識','科学'],cost:1,effect:'知識 +2。',influence:1,knowledge:2,mechanic:'新しい観測や研究成果を、将来の連鎖に使える知識として蓄積する。'},
+  technology:{type:'現在・技術',symbol:'技',color:'#496572',tags:['技術','知識'],cost:2,effect:'知識 +1、影響力 +2。',influence:2,knowledge:1,mechanic:'実用化された小さな技術変化を、情報と影響の広がりとして表す。'},
+  environment:{type:'現在・環境',symbol:'環',color:'#55704f',tags:['環境','社会'],cost:1,effect:'安定 +1。〈環境〉連鎖なら影響力 +2。',influence:1,stability:1,tagBonus:['環境',1],mechanic:'地域の観測や保全活動を、環境変化への備えとして積み重ねる。'},
+  economy:{type:'現在・経済',symbol:'経',color:'#6e5b3b',tags:['交易','社会'],cost:2,effect:'影響力 +2。カードを1枚引く。',influence:2,draw:1,mechanic:'価格・店舗・交通などの変化を、人と物の流れを変える小さな交易として扱う。'},
+  culture:{type:'現在・文化',symbol:'文',color:'#73514d',tags:['文化','社会'],cost:1,effect:'影響力 +2。',influence:2,mechanic:'催事や作品、地域活動を、価値観を共有する文化的影響として残す。'}
 };
+function loadNewsCards(){try{const stored=JSON.parse(localStorage.getItem('chronicle-news-cards')||'[]');if(Array.isArray(stored))stored.filter(c=>c&&c.isNews&&c.title&&c.source).slice(-20).forEach(c=>cards.push(c))}catch(error){console.warn('Saved news cards could not be loaded.',error)}}
+loadNewsCards();
 
-const memories = {
-  pet: ['ルゥは目を細め、あなたの指先の温度を覚えた。', '撫でられた場所に、小さな星の模様が灯った。'],
-  rain: ['空から落ちた一粒を、ルゥがおいしそうに飲みこんだ。', '水たまりの底で、忘れられた雨の歌が響いた。'],
-  seed: ['置かれた種のそばで、ルゥは朝まで眠ることにした。', '新しい芽が、ルゥの呼吸に合わせて揺れている。']
-};
+const worlds=[
+  {name:'交易網の拡大',effect:'〈交易〉カードの影響力 +1',tag:'交易',bonus:1},
+  {name:'知識への渇望',effect:'〈知識〉使用時、知識 +1',tag:'知識',knowledge:1},
+  {name:'旧秩序の動揺',effect:'〈権利〉と〈革命〉の影響力 +1',tags:['権利','革命'],bonus:1},
+  {name:'資源の逼迫',effect:'コスト4は影響力 +2、安定 −1',highCost:true},
+  {name:'国際協調',effect:'〈制度〉使用時、安定 +1',tag:'制度',stability:1}
+];
+const ids=['playerHand','enemyHand','playerInfluence','enemyInfluence','playerStability','enemyStability','playerKnowledge','enemyKnowledge','turnNumber','actionValue','actionPips','playerPlayed','enemyPlayed','chronicleStrip','worldState','worldEffect','factView','battleLog','resultModal','resultTitle','resultText','resultSeal'];
+const els=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+let state;
 
-function resize() {
-  const rect = gameCard.getBoundingClientRect();
-  const dpr = Math.min(devicePixelRatio || 1, 2);
-  canvas.width = Math.floor(rect.width * dpr);
-  canvas.height = Math.floor(rect.height * dpr);
-  canvas.style.width = `${rect.width}px`;
-  canvas.style.height = `${rect.height}px`;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  state.width = rect.width; state.height = rect.height;
+function escapeHTML(value){return String(value).replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]))}
+
+function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function buildDeck(){return shuffle([...cards,...cards.map((c,i)=>({...c,uid:`${c.id}-${i}`}))])}
+function drawCards(side,count){for(let i=0;i<count;i++){if(!state.deck.length)state.deck=buildDeck();side.hand.push(state.deck.pop())}}
+function newGame(){
+  state={turn:1,energy:3,player:{influence:0,stability:10,knowledge:0,tags:[],hand:[],nextEnergy:0,initiative:false},enemy:{influence:0,stability:10,knowledge:0,tags:[],hand:[],nextEnergy:0,initiative:false},deck:buildDeck(),world:worlds[0],history:[],locked:false};
+  drawCards(state.player,5);drawCards(state.enemy,5);
+  if(!state.player.hand.some(c=>c.cost<=3)){state.player.hand[0]=cards.find(c=>c.cost===1)}
+  els.battleLog.innerHTML='<p><time>序章</time>二つの年代記が、同じ世界の未来を巡って競い始めた。</p>';
+  resetPlayed();els.resultModal.classList.remove('visible');els.resultModal.setAttribute('aria-hidden','true');render();showFact(cards[4]);
 }
-
-function lerp(a, b, t) { return a + (b - a) * t; }
-function rand(a, b) { return a + Math.random() * (b - a); }
-function roundRect(x, y, w, h, r) {
-  ctx.beginPath(); ctx.roundRect(x, y, w, h, r); ctx.fill();
+function render(){
+  ['player','enemy'].forEach(who=>{els[`${who}Influence`].textContent=state[who].influence;els[`${who}Stability`].textContent=Math.max(0,state[who].stability);els[`${who}Knowledge`].textContent=state[who].knowledge});
+  els.turnNumber.textContent=state.turn;els.actionValue.textContent=state.energy;els.actionPips.innerHTML=Array.from({length:5},(_,i)=>`<i class="${i<state.energy?'active':''}"></i>`).join('');
+  els.worldState.textContent=state.world.name;els.worldEffect.textContent=state.world.effect;
+  document.querySelectorAll('.era-track span').forEach((e,i)=>e.classList.toggle('active',i===Math.min(3,Math.floor((state.turn-1)/3))));renderHand();renderEnemyHand();renderChronicle();
 }
-
-function gradientSky() {
-  const g = ctx.createLinearGradient(0, 0, 0, state.height);
-  const warmth = 1 - state.rainStrength;
-  g.addColorStop(0, warmth > .5 ? '#34495a' : '#182d3a');
-  g.addColorStop(.55, warmth > .5 ? '#6f7668' : '#315256');
-  g.addColorStop(1, '#253e38');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, state.width, state.height);
-  const glow = ctx.createRadialGradient(state.width * .73, state.height * .18, 1, state.width * .73, state.height * .18, state.width * .42);
-  glow.addColorStop(0, `rgba(238,208,145,${.24 * warmth})`); glow.addColorStop(1, 'rgba(238,208,145,0)');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, state.width, state.height);
+function cardHTML(card,index){const disabled=card.cost>state.energy;return `<button class="history-card ${disabled?'unaffordable':''}" style="--card-color:${card.color}" data-index="${index}" ${disabled?'aria-disabled="true"':''}><div class="card-art" data-symbol="${escapeHTML(card.symbol)}"><span class="card-cost">${card.cost}</span><span class="card-year">${escapeHTML(card.year)}</span></div><div class="card-body"><span class="card-type">${escapeHTML(card.type)}</span><strong class="card-title">${escapeHTML(card.title)}</strong><p class="card-effect">${escapeHTML(card.effect)}</p></div><div class="card-footer"><div class="tags">${card.tags.map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('')}</div><span class="fact-button">${card.isNews?'出典':'史実'} ↗</span></div></button>`}
+function renderHand(){els.playerHand.innerHTML=state.player.hand.map(cardHTML).join('');els.playerHand.querySelectorAll('.history-card').forEach(button=>{const index=Number(button.dataset.index);button.addEventListener('mouseenter',()=>showFact(state.player.hand[index]));button.addEventListener('focus',()=>showFact(state.player.hand[index]));button.addEventListener('click',e=>{showFact(state.player.hand[index]);if(e.target.closest('.fact-button'))return;if(state.player.hand[index].cost<=state.energy)playTurn(index);else logEntry('選択不可',`「${state.player.hand[index].title}」には時代力が足りない。`)})})}
+function renderEnemyHand(){els.enemyHand.innerHTML=state.enemy.hand.slice(0,5).map((_,i)=>`<div class="card-back" style="--i:${i}"></div>`).join('')}
+function renderChronicle(){if(!state.history.length){els.chronicleStrip.innerHTML='<span class="chronicle-empty">歴史はまだ、何も刻んでいない。</span>';return}els.chronicleStrip.innerHTML=state.history.slice(-12).map((h,i)=>`${i?'<i class="chronicle-link"></i>':''}<span class="chronicle-node" style="--node-color:${h.color}" title="${h.title}">${h.symbol}</span>`).join('')}
+function showFact(card){els.factView.innerHTML=`<div class="fact-year">${escapeHTML(card.year)}</div><div class="fact-symbol">${escapeHTML(card.symbol)}</div><span class="fact-type">${escapeHTML(card.type)}</span><h3>${escapeHTML(card.title)}</h3><p>${escapeHTML(card.fact)}</p><div class="mechanic"><span>ゲームへの変換</span><p>${escapeHTML(card.mechanic)}</p></div><a href="${escapeHTML(card.source)}" target="_blank" rel="noreferrer">出典を確認 ↗</a>`}
+function chooseEnemyCard(){const energy=Math.min(5,3+state.enemy.nextEnergy+Math.floor((state.turn-1)/4));const options=state.enemy.hand.map((card,index)=>({card,index})).filter(x=>x.card.cost<=energy);if(!options.length)return 0;options.forEach(o=>{o.score=o.card.influence+(o.card.stability&&state.enemy.stability<6?o.card.stability*.8:0)+(o.card.knowledge&&state.enemy.knowledge<5?o.card.knowledge*.5:0)+Math.random()*2});options.sort((a,b)=>b.score-a.score);return options[0].index}
+function hasTag(side,tag){return side.tags.includes(tag)}function countTag(side,tag){return side.tags.filter(t=>t===tag).length}function diversity(side){return new Set(side.tags).size}
+function resolveCard(card,self,other,opponentCard){
+  let influence=card.influence||0;const notes=[];const prior=[...self.tags];
+  if(card.tags.some(t=>prior.includes(t))){influence++;notes.push('連鎖 +1')}
+  if((state.world.tag&&card.tags.includes(state.world.tag))||(state.world.tags&&card.tags.some(t=>state.world.tags.includes(t)))){influence+=state.world.bonus||0;self.knowledge+=state.world.knowledge||0;self.stability+=state.world.stability||0;notes.push('世界情勢')}
+  if(state.world.highCost&&card.cost===4){influence+=2;self.stability--;notes.push('資源逼迫')}
+  if(self.pendingTag&&card.tags.includes(self.pendingTag)){influence+=2;notes.push(`${self.pendingTag}への布石 +2`);self.pendingTag=null}
+  self.knowledge+=card.knowledge||0;self.stability+=card.stability||0;other.stability+=card.enemyStability||0;
+  if(card.bothStability){self.stability+=card.bothStability;other.stability+=card.bothStability}
+  if(card.crisis&&self.knowledge>other.knowledge){self.stability++;notes.push('知識で軽減')}
+  if(card.counter&&opponentCard.tags.includes(card.counter)){influence+=2;notes.push('対抗 +2')}
+  if(card.tagBonus&&prior.includes(card.tagBonus[0])){influence+=card.tagBonus[1];notes.push(`${card.tagBonus[0]}連鎖 +${card.tagBonus[1]}`)}
+  if(card.knowledgeThreshold&&self.knowledge>=card.knowledgeThreshold[0]){influence+=card.knowledgeThreshold[1];notes.push(`知識蓄積 +${card.knowledgeThreshold[1]}`)}
+  if(card.punishMissing&&!hasTag(other,card.punishMissing[0])){other.stability+=card.punishMissing[1];notes.push('備えなし')}
+  if(card.enemyTagScale){const n=countTag(other,card.enemyTagScale[0]);influence+=n*card.enemyTagScale[1];if(n)notes.push(`反動 +${n}`)}
+  if(card.enemyTagDamage){const n=countTag(other,card.enemyTagDamage[0]);other.stability-=n*card.enemyTagDamage[1];if(n)notes.push(`依存被害 −${n}`)}
+  if(card.diversityThreshold&&diversity(self)>=card.diversityThreshold[0]){influence+=card.diversityThreshold[1];notes.push(`多分野改革 +${card.diversityThreshold[1]}`)}
+  if(card.mutualStable&&self.stability>=card.mutualStable[0]&&other.stability>=card.mutualStable[0]){influence+=card.mutualStable[1];notes.push(`協調 +${card.mutualStable[1]}`)}
+  if(card.knowledgeHeal&&self.knowledge>=card.knowledgeHeal[0]){self.stability+=card.knowledgeHeal[1];notes.push('公衆衛生で回復')}
+  if(card.tagKnowledge&&prior.includes(card.tagKnowledge[0]))self.knowledge+=card.tagKnowledge[1];
+  if(card.setup)self.pendingTag=card.setup;if(card.nextEnergy)self.nextEnergy+=card.nextEnergy;if(card.initiative)self.initiative=true;
+  self.influence+=influence;self.tags.push(...card.tags);if(card.draw)drawCards(self,card.draw);if(card.enemyDraw)drawCards(other,card.enemyDraw);return{influence,notes}
 }
-
-function drawHills() {
-  const h = state.height;
-  ctx.fillStyle = 'rgba(21,50,49,.8)'; ctx.beginPath(); ctx.moveTo(0, h*.43);
-  ctx.bezierCurveTo(state.width*.18,h*.31,state.width*.3,h*.48,state.width*.47,h*.36);
-  ctx.bezierCurveTo(state.width*.66,h*.23,state.width*.78,h*.44,state.width,h*.3); ctx.lineTo(state.width,h); ctx.lineTo(0,h); ctx.fill();
-  ctx.fillStyle = '#18362f'; ctx.beginPath(); ctx.moveTo(0,h*.57);
-  ctx.bezierCurveTo(state.width*.19,h*.44,state.width*.34,h*.59,state.width*.53,h*.49);
-  ctx.bezierCurveTo(state.width*.72,h*.39,state.width*.83,h*.54,state.width,h*.46); ctx.lineTo(state.width,h); ctx.lineTo(0,h); ctx.fill();
-  for (let i=0;i<18;i++) {
-    const x = (i * 83) % (state.width + 80) - 30;
-    const y = h * (.42 + .075*Math.sin(i*2.1));
-    ctx.save(); ctx.translate(x,y); ctx.rotate(Math.sin(i)*.16); ctx.fillStyle = i%2 ? '#234f43' : '#2c5a49';
-    ctx.beginPath(); ctx.ellipse(-3,-22,5,25,.15,0,Math.PI*2); ctx.ellipse(5,-16,4,19,-.25,0,Math.PI*2); ctx.fill(); ctx.restore();
-  }
+function playTurn(playerIndex){
+  if(state.locked)return;state.locked=true;const playerCard=state.player.hand.splice(playerIndex,1)[0];const enemyIndex=chooseEnemyCard();const enemyCard=state.enemy.hand.splice(enemyIndex,1)[0];state.energy-=playerCard.cost;
+  showPlayed(els.playerPlayed,playerCard);setTimeout(()=>showPlayed(els.enemyPlayed,enemyCard),280);
+  const playerFirst=state.player.initiative||(!state.enemy.initiative&&Math.random()>.5);state.player.initiative=false;state.enemy.initiative=false;
+  setTimeout(()=>{const first=playerFirst?[playerCard,state.player,state.enemy,enemyCard]:[enemyCard,state.enemy,state.player,playerCard];const second=playerFirst?[enemyCard,state.enemy,state.player,playerCard]:[playerCard,state.player,state.enemy,enemyCard];const firstResult=resolveCard(...first),secondResult=resolveCard(...second);const playerResult=playerFirst?firstResult:secondResult,enemyResult=playerFirst?secondResult:firstResult;state.history.push(playerCard,enemyCard);logEntry(`第${state.turn}ターン`,`あなたは「${playerCard.title}」で影響力 +${playerResult.influence}${playerResult.notes.length?`（${playerResult.notes.join('・')}）`:''}。相手は「${enemyCard.title}」で +${enemyResult.influence}。`);floatGain(els.playerInfluence,`+${playerResult.influence}`);floatGain(els.enemyInfluence,`+${enemyResult.influence}`);clampState();render();showFact(playerCard);const result=checkResult();if(result){setTimeout(()=>showResult(result),850);return}setTimeout(nextTurn,900)},650)
 }
-
-function drawPond() {
-  const cx = state.width*.53, cy = state.height*.7;
-  const g = ctx.createRadialGradient(cx,cy,5,cx,cy,state.width*.35);
-  g.addColorStop(0,'rgba(87,146,135,.55)'); g.addColorStop(.72,'rgba(35,78,70,.85)'); g.addColorStop(1,'rgba(21,51,44,0)');
-  ctx.fillStyle=g; ctx.beginPath(); ctx.ellipse(cx,cy,state.width*.43,state.height*.2,0,0,Math.PI*2); ctx.fill();
-  ctx.strokeStyle='rgba(180,220,200,.12)'; ctx.lineWidth=1;
-  for(let i=0;i<4;i++){ ctx.beginPath(); ctx.ellipse(cx+Math.sin(i)*35,cy+i*8,state.width*(.18+i*.05),22+i*7,0,0,Math.PI*2); ctx.stroke(); }
-  state.ripples.forEach((r) => { ctx.globalAlpha = Math.max(0,1-r.life); ctx.strokeStyle='#b8ded1'; ctx.beginPath(); ctx.ellipse(r.x,r.y,r.life*28,r.life*8,0,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;r.life+=.018; });
-  state.ripples=state.ripples.filter(r=>r.life<1);
-}
-
-function drawPlants() {
-  const baseY=state.height*.73;
-  for(let i=0;i<24;i++){
-    const x=((i*97+37)%Math.max(1,state.width)); const y=baseY+35*Math.sin(i*3.2);
-    const sway=Math.sin(state.time*.0015+i)*5; ctx.strokeStyle=i%3?'#53765b':'#73906a';ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(x,y+55);ctx.quadraticCurveTo(x+sway,y+25,x+sway*.5,y);ctx.stroke();
-    ctx.fillStyle=i%4?'#466f55':'#7f9870';ctx.beginPath();ctx.ellipse(x+sway*.7-5,y+20,9,4,-.5,0,Math.PI*2);ctx.ellipse(x+sway*.5+5,y+31,8,3,.6,0,Math.PI*2);ctx.fill();
-  }
-  state.flowers.forEach(f=>{
-    const age=Math.min(1,(state.time-f.born)/800); const y=f.y+22*(1-age);
-    ctx.strokeStyle='#75966d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(f.x,f.y+28);ctx.quadraticCurveTo(f.x+5,y+12,f.x,y);ctx.stroke();
-    ctx.fillStyle=f.color; for(let p=0;p<5;p++){const a=p*Math.PI*2/5;ctx.beginPath();ctx.ellipse(f.x+Math.cos(a)*6*age,y+Math.sin(a)*6*age,5*age,3*age,a,0,Math.PI*2);ctx.fill();}
-    ctx.fillStyle='#f2d68a';ctx.beginPath();ctx.arc(f.x,y,2.5*age,0,Math.PI*2);ctx.fill();
-  });
-}
-
-function drawCreature() {
-  const cx=state.width*.53, base=state.height*.59;
-  const bob=Math.sin(state.time*.0025)*4; const blink=(state.time%4800)>4550;
-  const lookX=Math.max(-4,Math.min(4,(state.pointer.x-cx)/70)); const lookY=Math.max(-2,Math.min(3,(state.pointer.y-base)/100));
-  ctx.save();ctx.translate(cx,base+bob);
-  const aura=ctx.createRadialGradient(0,0,5,0,0,state.evolved?110:70);aura.addColorStop(0,state.evolved?'rgba(142,222,196,.22)':'rgba(235,211,145,.09)');aura.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=aura;ctx.beginPath();ctx.arc(0,0,state.evolved?110:70,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(7,24,24,.25)';ctx.beginPath();ctx.ellipse(0,70,70,17,0,0,Math.PI*2);ctx.fill();
-  const body=ctx.createRadialGradient(-19,-22,5,0,8,82);body.addColorStop(0,state.evolved?'#d6dfb8':'#d8d2ae');body.addColorStop(.68,state.evolved?'#93b797':'#9bac8c');body.addColorStop(1,'#597369');
-  ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(-56,8);ctx.bezierCurveTo(-54,-42,-29,-69,0,-69);ctx.bezierCurveTo(38,-70,59,-38,57,9);ctx.bezierCurveTo(55,56,35,72,0,72);ctx.bezierCurveTo(-35,72,-58,51,-56,8);ctx.fill();
-  // leaf ears
-  ctx.save();ctx.rotate(-.1+Math.sin(state.time*.001)*.03);ctx.fillStyle=state.evolved?'#8ac5a4':'#738f72';ctx.beginPath();ctx.moveTo(-28,-56);ctx.bezierCurveTo(-72,-104,-71,-137,-50,-139);ctx.bezierCurveTo(-22,-128,-17,-91,-17,-65);ctx.fill();ctx.strokeStyle='rgba(229,222,170,.26)';ctx.beginPath();ctx.moveTo(-29,-66);ctx.quadraticCurveTo(-48,-101,-51,-127);ctx.stroke();ctx.restore();
-  ctx.save();ctx.rotate(.1-Math.sin(state.time*.0012)*.03);ctx.fillStyle=state.evolved?'#7fb99c':'#6b856d';ctx.beginPath();ctx.moveTo(27,-57);ctx.bezierCurveTo(68,-106,67,-137,47,-141);ctx.bezierCurveTo(20,-129,16,-91,16,-65);ctx.fill();ctx.strokeStyle='rgba(229,222,170,.26)';ctx.beginPath();ctx.moveTo(29,-66);ctx.quadraticCurveTo(47,-101,48,-129);ctx.stroke();ctx.restore();
-  // face
-  ctx.fillStyle='#172b2b';
-  if(blink){ctx.fillRect(-28+lookX,-18+lookY,17,2);ctx.fillRect(11+lookX,-18+lookY,17,2);}else{ctx.beginPath();ctx.ellipse(-19+lookX,-18+lookY,7,10,0,0,Math.PI*2);ctx.ellipse(19+lookX,-18+lookY,7,10,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#e8d58f';ctx.beginPath();ctx.arc(-17+lookX,-21+lookY,2,0,Math.PI*2);ctx.arc(21+lookX,-21+lookY,2,0,Math.PI*2);ctx.fill();}
-  ctx.fillStyle='#526e64';ctx.beginPath();ctx.moveTo(-4,2);ctx.quadraticCurveTo(0,6,4,2);ctx.quadraticCurveTo(0,10,-4,2);ctx.fill();
-  ctx.strokeStyle='rgba(43,69,62,.65)';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(0,7,12,.25,Math.PI-.25);ctx.stroke();
-  ctx.fillStyle='rgba(226,156,139,.15)';ctx.beginPath();ctx.ellipse(-34,2,11,6,0,0,Math.PI*2);ctx.ellipse(34,2,11,6,0,0,Math.PI*2);ctx.fill();
-  if(state.evolved){ctx.fillStyle='#e7cf85';for(let i=0;i<7;i++){const a=i*Math.PI*2/7+state.time*.00015;ctx.beginPath();ctx.arc(Math.cos(a)*43,Math.sin(a)*51,1.8,0,Math.PI*2);ctx.fill();}}
-  ctx.restore();
-  state.hearts.forEach(h=>{const life=(state.time-h.born)/1200;ctx.globalAlpha=Math.max(0,1-life);ctx.fillStyle='#edc78d';ctx.font=`${16+life*9}px serif`;ctx.fillText('♡',h.x+Math.sin(life*8)*10,h.y-life*80);ctx.globalAlpha=1;});
-  state.hearts=state.hearts.filter(h=>state.time-h.born<1200);
-}
-
-function drawRain() {
-  state.rainStrength=lerp(state.rainStrength,state.targetRain,.025);
-  if(state.rainStrength<.03)return;
-  ctx.strokeStyle=`rgba(188,225,222,${.16+state.rainStrength*.18})`;ctx.lineWidth=1;
-  for(let i=0;i<70*state.rainStrength;i++){
-    const x=(i*137+state.time*.13)%(state.width+80)-40;const y=(i*83+state.time*.42)%(state.height+70)-70;
-    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x-7,y+18);ctx.stroke();
-  }
-}
-
-function drawMotes(){
-  if(state.motes.length<30)state.motes.push({x:rand(0,state.width),y:rand(0,state.height*.7),s:rand(.5,2),p:rand(0,9)});
-  state.motes.forEach(m=>{m.y-=.05;ctx.globalAlpha=.22+.25*Math.sin(state.time*.001+m.p);ctx.fillStyle='#e9d28b';ctx.beginPath();ctx.arc(m.x+Math.sin(state.time*.0007+m.p)*8,m.y,m.s,0,Math.PI*2);ctx.fill();if(m.y<0)m.y=state.height*.7;});ctx.globalAlpha=1;
-}
-
-function render(t){state.time=t;gradientSky();drawHills();drawRain();drawPond();drawPlants();drawCreature();drawMotes();requestAnimationFrame(render);}
-
-function addMemory(type) {
-  state.memories=Math.min(5,state.memories+1); state.bond=Math.min(100,state.bond+rand(9,15));
-  bondFill.style.width=`${state.bond}%`;bondValue.textContent=Math.round(state.bond);
-  starRow.forEach((s,i)=>s.classList.toggle('filled',i<state.memories));
-  evolutionText.textContent=state.memories<5?`あと ${5-state.memories} つの記憶`:'変化の時が来た';
-  const text=memories[type][Math.min(1,state.memories>3?1:0)];thought.textContent=`「${type==='pet'?'あたたかい。もう一度、して。':type==='rain'?'この雨、ずっと前にも知っていた気がする。':'ここから何が生まれるの？'}」`;
-  const article=document.createElement('article');article.className='memory active';article.innerHTML=`<time>たった今</time><p>${text}</p>`;memoryList.prepend(article);
-  [...memoryList.children].slice(2).forEach(el=>el.remove());
-  if(state.memories===5&&!state.evolved)setTimeout(evolve,700);
-}
-
-function tone(freq=520){if(!state.audio)return;const AudioCtx=window.AudioContext||window.webkitAudioContext;state.audioCtx??=new AudioCtx();const o=state.audioCtx.createOscillator();const g=state.audioCtx.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(.08,state.audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,state.audioCtx.currentTime+.7);o.connect(g).connect(state.audioCtx.destination);o.start();o.stop(state.audioCtx.currentTime+.75);}
-
-function act(type){
-  const now=performance.now();if(now-state.lastAction<350)return;state.lastAction=now;
-  const cx=state.width*.53,cy=state.height*.55;
-  if(type==='pet'){for(let i=0;i<4;i++)state.hearts.push({x:cx+rand(-35,35),y:cy+rand(-10,35),born:state.time+rand(-200,100)});hint.textContent='ルゥは、くすぐったそうに笑った。';tone(620);}
-  if(type==='rain'){state.targetRain=state.targetRain>.5?.05:.8;document.querySelector('#weatherName').textContent=state.targetRain>.5?'庭を満たす雨':'雲間の光';document.querySelector('#weatherIcon').textContent=state.targetRain>.5?'☂':'☀';for(let i=0;i<5;i++)state.ripples.push({x:rand(state.width*.25,state.width*.8),y:rand(state.height*.65,state.height*.82),life:0});hint.textContent=state.targetRain>.5?'雨が、庭の古い記憶を起こしている。':'雲がほどけ、光が降りてきた。';tone(470);}
-  if(type==='seed'){state.flowers.push({x:rand(state.width*.2,state.width*.83),y:rand(state.height*.66,state.height*.8),born:state.time,color:Math.random()>.5?'#d7b780':'#9bbca6'});hint.textContent='土の下で、小さな鼓動が始まった。';tone(700);}
-  addMemory(type);
-}
-
-function evolve(){state.evolved=true;overlay.classList.add('visible');overlay.setAttribute('aria-hidden','false');document.querySelector('#formName').textContent='星雨の姿';document.querySelector('#portrait').style.background='radial-gradient(circle, #a9d5ad, #3e6d5d 58%, #172e35)';thought.textContent='「聞こえるよ。この庭に降った、ぜんぶの雨の音。」';tone(820);setTimeout(()=>tone(1020),180);}
-
-document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>act(button.dataset.action)));
-document.querySelector('#continueButton').addEventListener('click',()=>{overlay.classList.remove('visible');overlay.setAttribute('aria-hidden','true');hint.textContent='新しい姿のルゥが、光る耳を揺らしている。';});
-document.querySelector('#soundButton').addEventListener('click',(e)=>{state.audio=!state.audio;e.currentTarget.textContent=state.audio?'♫':'♪';e.currentTarget.style.color=state.audio?'#e9c77d':'';if(state.audio)tone(660);});
-canvas.addEventListener('pointermove',(e)=>{const r=canvas.getBoundingClientRect();state.pointer.x=e.clientX-r.left;state.pointer.y=e.clientY-r.top;});
-canvas.addEventListener('pointerdown',(e)=>{const r=canvas.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;state.ripples.push({x,y,life:0});if(Math.hypot(x-state.width*.53,y-state.height*.55)<110)act('pet');});
-window.addEventListener('resize',resize);resize();requestAnimationFrame(render);
+function showPlayed(element,card){element.className=`${element.id==='playerPlayed'?'played-card player-played':'played-card enemy-played'} resolved`;element.style.setProperty('--card-color',card.color);element.innerHTML=`<span class="played-symbol">${card.symbol}</span><div class="played-copy"><span>${card.year} · ${card.type}</span><strong>${card.title}</strong></div>`}
+function resetPlayed(){els.playerPlayed.className='played-card player-played empty';els.playerPlayed.innerHTML='<span>あなたの選択</span>';els.enemyPlayed.className='played-card enemy-played empty';els.enemyPlayed.innerHTML='<span>相手の選択</span>'}
+function nextTurn(){state.turn++;const base=Math.min(5,3+Math.floor((state.turn-1)/4));state.energy=Math.min(5,base+state.player.nextEnergy);state.player.nextEnergy=0;state.enemy.nextEnergy=0;drawCards(state.player,Math.max(0,5-state.player.hand.length));drawCards(state.enemy,Math.max(0,5-state.enemy.hand.length));if(!state.player.hand.some(c=>c.cost<=state.energy))state.energy=Math.min(5,Math.min(...state.player.hand.map(c=>c.cost)));if((state.turn-1)%3===0){state.world=worlds[Math.min(worlds.length-1,Math.floor((state.turn-1)/3))];logEntry('世界情勢',`「${state.world.name}」が始まった。${state.world.effect}。`)}resetPlayed();state.locked=false;render()}
+function clampState(){['player','enemy'].forEach(s=>{state[s].stability=Math.min(15,state[s].stability);state[s].knowledge=Math.max(0,state[s].knowledge)})}
+function checkResult(){if(state.player.influence>=20||state.enemy.stability<=0)return'win';if(state.enemy.influence>=20||state.player.stability<=0)return'lose';if(state.turn>=12)return state.player.influence>=state.enemy.influence?'win':'lose';return null}
+function showResult(result){const win=result==='win';els.resultSeal.textContent=win?'勝':'敗';els.resultTitle.textContent=win?'あなたの歴史が残った':'歴史の主導権を失った';els.resultText.textContent=win?'出来事を連鎖させ、次の時代を切り開いた。':'別の連鎖を試せば、歴史の流れは変えられる。';els.resultModal.classList.add('visible');els.resultModal.setAttribute('aria-hidden','false')}
+function logEntry(time,text){const p=document.createElement('p'),label=document.createElement('time');label.textContent=time;p.append(label,document.createTextNode(text));els.battleLog.prepend(p);while(els.battleLog.children.length>7)els.battleLog.lastElementChild.remove()}
+function floatGain(target,text){const r=target.getBoundingClientRect(),span=document.createElement('span');span.className='floating-number';span.textContent=text;span.style.left=`${r.left}px`;span.style.top=`${r.top}px`;document.body.append(span);setTimeout(()=>span.remove(),1000)}
+document.getElementById('helpButton').addEventListener('click',()=>{document.getElementById('helpModal').classList.add('visible');document.getElementById('helpModal').setAttribute('aria-hidden','false')});
+document.getElementById('newsButton').addEventListener('click',()=>{const modal=document.getElementById('newsModal');modal.classList.add('visible');modal.setAttribute('aria-hidden','false')});
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{const m=document.getElementById(b.dataset.close);m.classList.remove('visible');m.setAttribute('aria-hidden','true')}));
+document.getElementById('restartButton').addEventListener('click',newGame);
+const newsForm=document.getElementById('newsForm');newsForm.elements.date.value=new Date().toISOString().slice(0,10);
+newsForm.addEventListener('submit',event=>{
+  event.preventDefault();const data=new FormData(newsForm),preset=newsPresets[data.get('category')];let source;
+  try{source=new URL(String(data.get('source')));if(!['http:','https:'].includes(source.protocol))throw new Error('protocol')}catch(error){document.getElementById('newsError').textContent='確認できる http または https の出典URLを入力してください。';return}
+  const card={...preset,id:`news-${Date.now()}`,uid:`news-${Date.now()}`,title:String(data.get('title')).trim(),year:String(data.get('date')),fact:String(data.get('summary')).trim(),source:source.href,isNews:true};
+  if(!card.title||!card.fact){document.getElementById('newsError').textContent='見出しと確認できた事実を入力してください。';return}
+  cards.push(card);state.player.hand.unshift(card);const stored=cards.filter(c=>c.isNews).slice(-20);localStorage.setItem('chronicle-news-cards',JSON.stringify(stored));
+  showFact(card);render();logEntry('現在の史料',`「${card.title}」を出典付きカードとして年代記に加えた。`);document.getElementById('newsError').textContent='';document.getElementById('newsModal').classList.remove('visible');document.getElementById('newsModal').setAttribute('aria-hidden','true');newsForm.reset();newsForm.elements.date.value=new Date().toISOString().slice(0,10);
+});
+newGame();
