@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101c2a" />
+    <title>雨を食べる庭</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <div>
+            <p class="eyebrow">A LIVING WEATHER GARDEN</p>
+            <h1>雨を食べる庭</h1>
+          </div>
+        </div>
+        <div class="weather-chip" id="weatherChip">
+          <span class="weather-icon" id="weatherIcon">☁</span>
+          <div><strong id="weatherName">薄明の雨</strong><small id="weatherDetail">天候デモを再生中</small></div>
+        </div>
+      </header>
+
+      <section class="game-card" id="gameCard">
+        <canvas id="garden" aria-label="雨の庭にいる小さな生き物ルゥ"></canvas>
+
+        <div class="garden-title">
+          <span class="day-label">DAY <b id="dayNumber">01</b></span>
+          <p id="gardenHint">ルゥは、あなたの気配に気づいた。</p>
+        </div>
+
+        <div class="sound-toggle">
+          <button id="soundButton" class="round-button" type="button" aria-label="音を切り替える">♪</button>
+        </div>
+
+        <div class="actions" aria-label="庭ですること">
+          <button class="action-button" data-action="pet" type="button">
+            <span class="action-icon">♡</span><span><b>撫でる</b><small>心を近づける</small></span>
+          </button>
+          <button class="action-button" data-action="rain" type="button">
+            <span class="action-icon">⌁</span><span><b>雨を呼ぶ</b><small>水の記憶を与える</small></span>
+          </button>
+          <button class="action-button" data-action="seed" type="button">
+            <span class="action-icon">♧</span><span><b>種を置く</b><small>庭に未来を残す</small></span>
+          </button>
+        </div>
+      </section>
+
+      <aside class="journal">
+        <div class="journal-heading">
+          <div><p class="eyebrow">FIELD NOTES</p><h2>庭の記憶</h2></div>
+          <span class="moon-phase">◐</span>
+        </div>
+
+        <div class="creature-card">
+          <div class="portrait" id="portrait"><span>✦</span></div>
+          <div class="creature-copy">
+            <p class="eyebrow">YOUR LITTLE ONE</p>
+            <h3>ルゥ <small id="formName">雨待ちの姿</small></h3>
+            <div class="bond-row"><span>きずな</span><div class="bond-track"><i id="bondFill"></i></div><b id="bondValue">12</b></div>
+          </div>
+        </div>
+
+        <blockquote id="thought">「雨の匂いがする。あなたは、だれ？」</blockquote>
+
+        <div class="memory-list" id="memoryList">
+          <article class="memory active"><time>たった今</time><p>眠っていた種から、小さなルゥが目を覚ました。</p></article>
+          <article class="memory muted"><time>まだ見ぬ記憶</time><p>この庭は、触れられたことを覚えている。</p></article>
+        </div>
+
+        <div class="evolution-note">
+          <span>次の変化</span><b id="evolutionText">あと 4 つの記憶</b>
+          <div class="star-row" id="starRow"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </aside>
+    </main>
+
+    <div class="evolution-overlay" id="evolutionOverlay" aria-hidden="true">
+      <div class="evolution-bloom"></div>
+      <p>THE GARDEN REMEMBERS</p>
+      <h2>ルゥが、新しい雨の音を覚えた</h2>
+      <button id="continueButton" type="button">庭へ戻る</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
