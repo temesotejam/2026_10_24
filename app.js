@@ -1,4 +1,8 @@
 const W = 17, H = 13, TILE = 48;
+function syncAppHeight() { document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`); }
+syncAppHeight();
+window.addEventListener('resize', syncAppHeight, { passive: true });
+window.visualViewport?.addEventListener('resize', syncAppHeight, { passive: true });
 const canvas = document.querySelector('#dungeon');
 const ctx = canvas.getContext('2d');
 
