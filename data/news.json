@@ -1,77 +1,41 @@
 {
-  "generatedAt": "2026-11-27T21:11:35.061Z",
+  "generatedAt": "2026-11-28T07:41:28.530Z",
   "items": [
     {
-      "id": "CBMiZ0FVX3lxTE1JZFl2ZUVGTVlTdi0yNEVTN2EyaWJsVzdJcE5DVDlseHZBbVA0cXBMcFlYbDZpY1hES05WX1Y3UkJhSElxQWFtaGgxQS1lczlidDdTdk9sLWloTG9yV0VpWVR4Ykx1azg",
-      "title": "8時間労働は持続可能？ 住宅・都市問題の研究者がたどり着いた問い",
-      "summary": "8時間労働は持続可能？ 住宅・都市問題の研究者がたどり着いた問い",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1JZFl2ZUVGTVlTdi0yNEVTN2EyaWJsVzdJcE5DVDlseHZBbVA0cXBMcFlYbDZpY1hES05WX1Y3UkJhSElxQWFtaGgxQS1lczlidDdTdk9sLWloTG9yV0VpWVR4Ykx1azg?oc=5",
-      "source": "朝日新聞",
-      "category": "science",
-      "publishedAt": "2026-11-27T21:01:00.000Z"
-    },
-    {
-      "id": "CBMiZEFVX3lxTE1fYzlNc0dzTUYweXVRcmlRbHlFS3ZscnpEQW9MeWFjX1JoT09mLUZjd2xySUw4aEZjR0JiZHRZRU0yZUVpTE1lUXptUGR3YkVNVmN5a3l2UnpwYVd0WGNQcUJkSnU",
-      "title": "安曇野⇔白馬 シャトルバス本格運行へ 市観光協会 １２月１９日～来年３月１８日 冬季の訪日客呼び込む",
-      "summary": "安曇野⇔白馬 シャトルバス本格運行へ 市観光協会 １２月１９日～来年３月１８日 冬季の訪日客呼び込む",
-      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1fYzlNc0dzTUYweXVRcmlRbHlFS3ZscnpEQW9MeWFjX1JoT09mLUZjd2xySUw4aEZjR0JiZHRZRU0yZUVpTE1lUXptUGR3YkVNVmN5a3l2UnpwYVd0WGNQcUJkSnU?oc=5",
-      "source": "市民タイムス",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T20:00:51.000Z"
-    },
-    {
-      "id": "CBMickFVX3lxTE1QT2xmUjVYOVF5cTN0RjRVTnNKRmpmeXJMYm1QckVnbEU1MEk5c1hJUDZ0ZUwtZFpaWFEtbkdCS0pITVo2OTZ6TE9JMjVCdDhtX3MzTGdDQ0lJVkJLSU9BWWlfT0R2NE1qQV9yRlJvaGU2UQ",
-      "title": "リジェネソーム株式会社は「サイセイラボ株式会社」になりました スペースシードホールディングスグループで老化研究の成果を暮らしに届ける",
-      "summary": "リジェネソーム株式会社は「サイセイラボ株式会社」になりました スペースシードホールディングスグループで老化研究の成果を暮らしに届ける",
-      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1QT2xmUjVYOVF5cTN0RjRVTnNKRmpmeXJMYm1QckVnbEU1MEk5c1hJUDZ0ZUwtZFpaWFEtbkdCS0pITVo2OTZ6TE9JMjVCdDhtX3MzTGdDQ0lJVkJLSU9BWWlfT0R2NE1qQV9yRlJvaGU2UQ?oc=5",
-      "source": "Infoseek",
-      "category": "science",
-      "publishedAt": "2026-11-27T18:45:22.000Z"
-    },
-    {
-      "id": "CBMiR0FVX3lxTFA1WEJvLXc3ci1ObzZPQ3ZkOEprWDlEel9aRC1ZYmFKUWs1ZVpmUGVXbWhfN0MxUnAwMF9landjZUxhaGRkZEc0",
-      "title": "五霞町、地域イベントを企画運営する協力隊を2名募集",
-      "summary": "五霞町、地域イベントを企画運営する協力隊を2名募集",
-      "url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTFA1WEJvLXc3ci1ObzZPQ3ZkOEprWDlEel9aRC1ZYmFKUWs1ZVpmUGVXbWhfN0MxUnAwMF9landjZUxhaGRkZEc0?oc=5",
-      "source": "Dellows News",
-      "category": "community",
-      "publishedAt": "2026-11-27T17:48:19.000Z"
-    },
-    {
-      "id": "CBMiXEFVX3lxTE1XczdmU2wtcFNjdC1Hajl1a29Qb05xbnVHMVEyYU11QXFqNkdLWWpxd1ZDNWZBUFhsWTFuVS1xUE8zY21xYzhpMm9nMWRYbEhZQlZuQUw5TDN0U19S",
-      "title": "ＡＩを活用したインフラ制御や蓄電池の研究開発拠点 北九州市若松区の学術研究都市に完成 | TBS NEWS DIG",
-      "summary": "ＡＩを活用したインフラ制御や蓄電池の研究開発拠点 北九州市若松区の学術研究都市に完成 | TBS NEWS DIG",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1XczdmU2wtcFNjdC1Hajl1a29Qb05xbnVHMVEyYU11QXFqNkdLWWpxd1ZDNWZBUFhsWTFuVS1xUE8zY21xYzhpMm9nMWRYbEhZQlZuQUw5TDN0U19S?oc=5",
-      "source": "TBS NEWS DIG",
-      "category": "science",
-      "publishedAt": "2026-11-27T16:49:01.000Z"
-    },
-    {
-      "id": "CBMidkFVX3lxTE5icS1EQ2VGMEs2LS1QUzRNeGRZSU8xbURsaVNEU0RQN2FjZ3FFR2JCelFsSHQtOU5NYmd3dF9YVkJHMm5wVWdyRGpQMVdPNDhYd0VJZVBYRlMtTk9USGdoT1MzY1RBcFJ6eG1kcE5IUEpNWG1TRXc",
-      "title": "多チャンネル型人工内耳の研究開発と臨床実用化、世界的な普及を先導 グレアム・M・クラーク教授とインゲボルグ・ホフマイヤ",
-      "summary": "多チャンネル型人工内耳の研究開発と臨床実用化、世界的な普及を先導 グレアム・M・クラーク教授とインゲボルグ・ホフマイヤ",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5icS1EQ2VGMEs2LS1QUzRNeGRZSU8xbURsaVNEU0RQN2FjZ3FFR2JCelFsSHQtOU5NYmd3dF9YVkJHMm5wVWdyRGpQMVdPNDhYd0VJZVBYRlMtTk9USGdoT1MzY1RBcFJ6eG1kcE5IUEpNWG1TRXc?oc=5",
-      "source": "ニコニコニュース",
-      "category": "science",
-      "publishedAt": "2026-11-27T16:45:32.000Z"
-    },
-    {
-      "id": "CBMijgFBVV95cUxOLUJvbGQyVGRQTFdpV2dnWi0xclpRUTJ0SmdETkhJbThsc1BhMHlJUWM0a0p0Vmo3QjVsM2lTanFpeEdGeHE1bGFaa0FsNmdZX3I5R2hWakNRaHRNT0ZfTTZkcHdJemlGYms3X2ctZk9nU19oVnlNb0lNeTdBLXVMM0I1WHdQaWZsUUJIX3dB",
-      "title": "AIを活用したインフラ制御や蓄電池の研究開発拠点 北九州市若松区の学術研究都市に完成（RKB毎日放送）",
-      "summary": "AIを活用したインフラ制御や蓄電池の研究開発拠点 北九州市若松区の学術研究都市に完成（RKB毎日放送）",
-      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOLUJvbGQyVGRQTFdpV2dnWi0xclpRUTJ0SmdETkhJbThsc1BhMHlJUWM0a0p0Vmo3QjVsM2lTanFpeEdGeHE1bGFaa0FsNmdZX3I5R2hWakNRaHRNT0ZfTTZkcHdJemlGYms3X2ctZk9nU19oVnlNb0lNeTdBLXVMM0I1WHdQaWZsUUJIX3dB?oc=5",
+      "id": "CBMif0FVX3lxTE9SZ0l1QlhfVUxzUTVxdU9CMVI4RzNZZzUxZkZJRXJJbExwb2FKRWZTUV85NjVrN2V3TmJBZEZ6bzVCbWcwOFhiTVhNd0dSVGRuN0NTX19HR3BENUJoX2NpQzBIX3l3bkVMN1l0UUJjMXNxTmhQRHBPcW40TGZkRUU",
+      "title": "エヌビディアの混乱でどうなるAI・半導体銘柄 元キオクシア研究開発者の億り人・もふ氏、マーケットバンク代表の岡山憲史氏が見据える「脱エヌビディア」シナリオ（マネーポストWEB）",
+      "summary": "エヌビディアの混乱でどうなるAI・半導体銘柄 元キオクシア研究開発者の億り人・もふ氏、マーケットバンク代表の岡山憲史氏が見据える「脱エヌビディア」シナリオ（マネーポストWEB）",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9SZ0l1QlhfVUxzUTVxdU9CMVI4RzNZZzUxZkZJRXJJbExwb2FKRWZTUV85NjVrN2V3TmJBZEZ6bzVCbWcwOFhiTVhNd0dSVGRuN0NTX19HR3BENUJoX2NpQzBIX3l3bkVMN1l0UUJjMXNxTmhQRHBPcW40TGZkRUU?oc=5",
       "source": "Yahoo!ニュース",
       "category": "science",
-      "publishedAt": "2026-11-27T16:41:39.000Z"
+      "publishedAt": "2026-11-28T07:15:00.000Z"
     },
     {
-      "id": "CBMiV0FVX3lxTE0wY3BQd0tmaVBsWGUyWkdna0ZxWFZOdXBQdkZfSzRCcGp6cGRrQTd5UEJhcV91N3FVdGNBNzV4NjBzcFhoc3RSWkdUNXRrZ2NrTnRtQzdXdw",
-      "title": "ＡＩを活用したインフラ制御や蓄電池の研究開発拠点 北九州市若松区の学術研究都市に完成",
-      "summary": "ＡＩを活用したインフラ制御や蓄電池の研究開発拠点 北九州市若松区の学術研究都市に完成",
-      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE0wY3BQd0tmaVBsWGUyWkdna0ZxWFZOdXBQdkZfSzRCcGp6cGRrQTd5UEJhcV91N3FVdGNBNzV4NjBzcFhoc3RSWkdUNXRrZ2NrTnRtQzdXdw?oc=5",
-      "source": "TBS NEWS DIG",
+      "id": "CBMiXkFVX3lxTE83Qng1bEJFM1doWUxZY3RLNEppMUJmbC1ubmRZUmJHSGF4cVd0T2NqMklnVlZtdl9TZmRjRW5xaE1zTjRYNVlrOVB6bTBaaHptZ1o2RE9FRnF0OTVreHc",
+      "title": "［鉄道運行情報］特急いなほ一部列車が区間運休、11月29日 強風や大雪で在来線に遅れや運休の可能性も",
+      "summary": "［鉄道運行情報］特急いなほ一部列車が区間運休、11月29日 強風や大雪で在来線に遅れや運休の可能性も",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE83Qng1bEJFM1doWUxZY3RLNEppMUJmbC1ubmRZUmJHSGF4cVd0T2NqMklnVlZtdl9TZmRjRW5xaE1zTjRYNVlrOVB6bTBaaHptZ1o2RE9FRnF0OTVreHc?oc=5",
+      "source": "新潟日報",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T06:45:00.000Z"
+    },
+    {
+      "id": "CBMiX0FVX3lxTFBnNkloM2pYYXBnczg2ZFVOZVp3S01MS2JUU3g4YmVWeXJJS0I4d0VLSUltTlVrV3NyRm45ZjBXVG04UmZaNjAxdUJLN3IzUFV4RXMtNHZwQ1Zyclk4bkxN",
+      "title": "本日は、自由民主党フュージョンエネルギープロジェクトチーム（PT）の現地視察として、PT座長も...",
+      "summary": "本日は、自由民主党フュージョンエネルギープロジェクトチーム（PT）の現地視察として、PT座長も...",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBnNkloM2pYYXBnczg2ZFVOZVp3S01MS2JUU3g4YmVWeXJJS0I4d0VLSUltTlVrV3NyRm45ZjBXVG04UmZaNjAxdUJLN3IzUFV4RXMtNHZwQ1Zyclk4bkxN?oc=5",
+      "source": "選挙ドットコム",
       "category": "science",
-      "publishedAt": "2026-11-27T15:31:00.000Z"
+      "publishedAt": "2026-11-28T06:29:55.000Z"
+    },
+    {
+      "id": "CBMiW0FVX3lxTE9wMUhkUkNTRnVuUmtOXzR2dVpVQXRvTjFyLWc1N3c4dzUzXzBOWkpMMUJ5MU1NVTNUa2JicVpPY3Z4aTk3dlpVMTh6RmdyWk5CSENwVFMycVVlUHM",
+      "title": "タクシー業者が市民バス運行停止した宮城・栗原市が運営委託料の補正予算案発表",
+      "summary": "タクシー業者が市民バス運行停止した宮城・栗原市が運営委託料の補正予算案発表",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9wMUhkUkNTRnVuUmtOXzR2dVpVQXRvTjFyLWc1N3c4dzUzXzBOWkpMMUJ5MU1NVTNUa2JicVpPY3Z4aTk3dlpVMTh6RmdyWk5CSENwVFMycVVlUHM?oc=5",
+      "source": "河北新報オンライン",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T05:51:52.000Z"
     },
     {
       "id": "CBMiZEFVX3lxTE9qUjJWWHRUVGJ4c1BETXdxUUVTbEVkeDJSZmJSSHlzMWpNQ29yblJmUG9ZZlNSR1RBSHhMZnlYNENCMEF6dmt1aU90VEI4T05DcmhVenRNTkdjdVROYzYxOUhSNFA",
@@ -80,16 +44,124 @@
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9qUjJWWHRUVGJ4c1BETXdxUUVTbEVkeDJSZmJSSHlzMWpNQ29yblJmUG9ZZlNSR1RBSHhMZnlYNENCMEF6dmt1aU90VEI4T05DcmhVenRNTkdjdVROYzYxOUhSNFA?oc=5",
       "source": "Leaf KYOTO",
       "category": "community",
-      "publishedAt": "2026-11-27T14:49:52.000Z"
+      "publishedAt": "2026-11-28T05:44:17.000Z"
     },
     {
-      "id": "CBMiaEFVX3lxTFB4MFNmczVmelI3VDM1bkRNS0VRLUZWUVo3RU9XVzRWbnIwR1gtRWdiMGRNQjBqOWp0a2NPMXJQSlhhRmVGWEFkU2dXMmt2LU9qdnhKMDRkNlpIdG5EOWExZlQ2V1dlOWZL",
-      "title": "ふきとり化粧水の効果実感を高める製剤色の研究",
-      "summary": "ふきとり化粧水の効果実感を高める製剤色の研究",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFB4MFNmczVmelI3VDM1bkRNS0VRLUZWUVo3RU9XVzRWbnIwR1gtRWdiMGRNQjBqOWp0a2NPMXJQSlhhRmVGWEFkU2dXMmt2LU9qdnhKMDRkNlpIdG5EOWExZlQ2V1dlOWZL?oc=5",
-      "source": "ニコニコニュース",
+      "id": "CBMif0FVX3lxTE9yMl80T21PWlZDOUdldG1NbG94VTZpejIyZmtFZU9yaTBrckpoeEY3d05GcGNVZFphNkpQUi1IRTdaeXFWNzVOT1k0YVFFVG4xdXBaVmlVcS1mdmk4R0cxay1EOGh3OGNSQk9DR2JadGFfbDNtblVpUFI1NU5tdXc",
+      "title": "船橋・芝山の「スズキオート」で地域イベント 飲食店の出店や団体出演など（みんなの経済新聞ネットワーク）",
+      "summary": "船橋・芝山の「スズキオート」で地域イベント 飲食店の出店や団体出演など（みんなの経済新聞ネットワーク）",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9yMl80T21PWlZDOUdldG1NbG94VTZpejIyZmtFZU9yaTBrckpoeEY3d05GcGNVZFphNkpQUi1IRTdaeXFWNzVOT1k0YVFFVG4xdXBaVmlVcS1mdmk4R0cxay1EOGh3OGNSQk9DR2JadGFfbDNtblVpUFI1NU5tdXc?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "community",
+      "publishedAt": "2026-11-28T03:32:01.000Z"
+    },
+    {
+      "id": "CBMijgFBVV95cUxQRURxc2Iydi1HRXdIaVhSaUlGcXVoZzFEYjlKajdRVDNRTm9aYUwyQ0VybkJ4YXFadnFGb0NWT0tWX0pYdFlDbF9GVEZ3WXl5ZjVVSWl4djRMb1FlVGlnNkF5R0JsZl82b0hZS0JVOWpVSmI4SDVGZEZuRWFfZUkxRmtXSGkwWDhNVi1zblZ3",
+      "title": "船橋・芝山の「スズキオート」で地域イベント 飲食店の出店や団体出演など (みんなの経済新聞ネットワーク)",
+      "summary": "船橋・芝山の「スズキオート」で地域イベント 飲食店の出店や団体出演など (みんなの経済新聞ネットワーク)",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQRURxc2Iydi1HRXdIaVhSaUlGcXVoZzFEYjlKajdRVDNRTm9aYUwyQ0VybkJ4YXFadnFGb0NWT0tWX0pYdFlDbF9GVEZ3WXl5ZjVVSWl4djRMb1FlVGlnNkF5R0JsZl82b0hZS0JVOWpVSmI4SDVGZEZuRWFfZUkxRmtXSGkwWDhNVi1zblZ3?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "community",
+      "publishedAt": "2026-11-28T03:32:01.000Z"
+    },
+    {
+      "id": "CBMickFVX3lxTE00TUVYeWJnckFTQXE0M3BBZS0wVk04dU9mMVRlalFkQmxKWUk3SmszZmdhd0NjX3ppdy1OX05WOTFQVzFuQVd3LVFIbGY2Z2pwY3MtcVVwaUxfOEdFVVp2RFVxNEM5ckF5Q1pWX281RVpjd9IBVEFVX3lxTFBxRm84MGJzdzhFNDd6anhXUVAzNV9VNklhZXQyYVlhcmQ1TnFFU0h6M2UzTlI3eGlSSzl2bkY4aGtYR1BSdURmYVQ5X1R0UHc5VU5jbw",
+      "title": "韓国、研究開発にAIを導入した中小企業の約9割が時間短縮…専門人材の採用に課題",
+      "summary": "韓国、研究開発にAIを導入した中小企業の約9割が時間短縮…専門人材の採用に課題",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE00TUVYeWJnckFTQXE0M3BBZS0wVk04dU9mMVRlalFkQmxKWUk3SmszZmdhd0NjX3ppdy1OX05WOTFQVzFuQVd3LVFIbGY2Z2pwY3MtcVVwaUxfOEdFVVp2RFVxNEM5ckF5Q1pWX281RVpjd9IBVEFVX3lxTFBxRm84MGJzdzhFNDd6anhXUVAzNV9VNklhZXQyYVlhcmQ1TnFFU0h6M2UzTlI3eGlSSzl2bkY4aGtYR1BSdURmYVQ5X1R0UHc5VU5jbw?oc=5",
+      "source": "AFPBB News",
       "category": "science",
-      "publishedAt": "2026-11-27T14:30:30.000Z"
+      "publishedAt": "2026-11-28T03:26:17.000Z"
+    },
+    {
+      "id": "CBMiO0FVX3lxTE5JdDltWUNPenMxMUlwT19MY01mTm5mUWgxQXdZU3lkS3JtdXhJLUpiTkJ3SWJpbFlGSEZv",
+      "title": "給油10分で700キロ超走行、中国・上海でメタノール電動バスの実証運行",
+      "summary": "給油10分で700キロ超走行、中国・上海でメタノール電動バスの実証運行",
+      "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE5JdDltWUNPenMxMUlwT19MY01mTm5mUWgxQXdZU3lkS3JtdXhJLUpiTkJ3SWJpbFlGSEZv?oc=5",
+      "source": "36Kr Japan",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T03:01:11.000Z"
+    },
+    {
+      "id": "CBMif0FVX3lxTE14bVpSZWZrLUU2WktjZ1BZTkNmNlpSblNCZ1RHWVZyTnd4SVF6a2lwa3U5TlRELTJCR1RZb01YNTNUYjVrQjN5MldfbW10QjVPU29EdnVoSFFxSVpyZU4wLVFXSTRZdXdkYjVKSWxPZXZnNkhtNkg1OE5pWm1Ebk0",
+      "title": "高速バス「藤枝～渋谷・新宿線」が運行開始10周年！記念品を数量限定で配布、静岡発のアイドル「fishbowl」とのコラボも",
+      "summary": "高速バス「藤枝～渋谷・新宿線」が運行開始10周年！記念品を数量限定で配布、静岡発のアイドル「fishbowl」とのコラボも",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE14bVpSZWZrLUU2WktjZ1BZTkNmNlpSblNCZ1RHWVZyTnd4SVF6a2lwa3U5TlRELTJCR1RZb01YNTNUYjVrQjN5MldfbW10QjVPU29EdnVoSFFxSVpyZU4wLVFXSTRZdXdkYjVKSWxPZXZnNkhtNkg1OE5pWm1Ebk0?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T03:00:02.000Z"
+    },
+    {
+      "id": "CBMif0FVX3lxTE1ycm8xLWQzTzlwWjMzV2pDLU1PV29hWTVZRHZaUW4zT1p3bDRRaDBBTU1sM2E2WEdmV2VZTml1SEtWSlNOanZpdDJqaXhmUzA5eHBfUXljYVVveGhvUmc1Tjk1M1hqRjVHcVU1TUhCTVRic0VtZmRxd2Fua1FrZzg",
+      "title": "韓国、研究開発にAIを導入した中小企業の約9割が時間短縮…専門人材の採用に課題（KOREA WAVE）",
+      "summary": "韓国、研究開発にAIを導入した中小企業の約9割が時間短縮…専門人材の採用に課題（KOREA WAVE）",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ycm8xLWQzTzlwWjMzV2pDLU1PV29hWTVZRHZaUW4zT1p3bDRRaDBBTU1sM2E2WEdmV2VZTml1SEtWSlNOanZpdDJqaXhmUzA5eHBfUXljYVVveGhvUmc1Tjk1M1hqRjVHcVU1TUhCTVRic0VtZmRxd2Fua1FrZzg?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "science",
+      "publishedAt": "2026-11-28T02:42:16.000Z"
+    },
+    {
+      "id": "CBMif0FVX3lxTE45T0VEQ2t4OTJvZHNHYUxicF9nZEI4S2RNS2ZYXzJ3N1Z0OWR3OFVfVEp3Z0k3YmRfYjJ5R1lLV3BnaVloYTJfVjJ0LWkwNVlFYkotUEFyRDhPa252ZHNaZ1dqTzFFZ0NrS3VJR0VnajBJcGhoTGtoTXZGcXRQM2c",
+      "title": "ボンネットバス運行60年、28日に催し、奈良公園「周遊ツアー」も（朝日新聞）",
+      "summary": "ボンネットバス運行60年、28日に催し、奈良公園「周遊ツアー」も（朝日新聞）",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE45T0VEQ2t4OTJvZHNHYUxicF9nZEI4S2RNS2ZYXzJ3N1Z0OWR3OFVfVEp3Z0k3YmRfYjJ5R1lLV3BnaVloYTJfVjJ0LWkwNVlFYkotUEFyRDhPa252ZHNaZ1dqTzFFZ0NrS3VJR0VnajBJcGhoTGtoTXZGcXRQM2c?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T01:45:00.000Z"
+    },
+    {
+      "id": "CBMingFBVV95cUxPZ1pnb0dhSkVMb19PdXZGbzNYWmxnU3Y1cEl0dmk5eWVIWFZEdDl3bEZDX2pGM1N6eHNwYklBY0hUNThPMk90YTJfYnVyYUlmOHYtdXRwTU1hSjVyNWZDU1duVERnal95UW5OYW5SS2lYSFBfR1k5b2MyY29hdlkwbDFOUHNFRnc5TjA5VkFDZEJKcjZRWXJRNFBjQk54QdIBngFBVV95cUxPZ1pnb0dhSkVMb19PdXZGbzNYWmxnU3Y1cEl0dmk5eWVIWFZEdDl3bEZDX2pGM1N6eHNwYklBY0hUNThPMk90YTJfYnVyYUlmOHYtdXRwTU1hSjVyNWZDU1duVERnal95UW5OYW5SS2lYSFBfR1k5b2MyY29hdlkwbDFOUHNFRnc5TjA5VkFDZEJKcjZRWXJRNFBjQk54QQ",
+      "title": "ボンネットバス運行60年、28日に催し、奈良公園「周遊ツアー」も",
+      "summary": "ボンネットバス運行60年、28日に催し、奈良公園「周遊ツアー」も",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPZ1pnb0dhSkVMb19PdXZGbzNYWmxnU3Y1cEl0dmk5eWVIWFZEdDl3bEZDX2pGM1N6eHNwYklBY0hUNThPMk90YTJfYnVyYUlmOHYtdXRwTU1hSjVyNWZDU1duVERnal95UW5OYW5SS2lYSFBfR1k5b2MyY29hdlkwbDFOUHNFRnc5TjA5VkFDZEJKcjZRWXJRNFBjQk54QdIBngFBVV95cUxPZ1pnb0dhSkVMb19PdXZGbzNYWmxnU3Y1cEl0dmk5eWVIWFZEdDl3bEZDX2pGM1N6eHNwYklBY0hUNThPMk90YTJfYnVyYUlmOHYtdXRwTU1hSjVyNWZDU1duVERnal95UW5OYW5SS2lYSFBfR1k5b2MyY29hdlkwbDFOUHNFRnc5TjA5VkFDZEJKcjZRWXJRNFBjQk54QQ?oc=5",
+      "source": "ｄメニューニュース",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T01:45:00.000Z"
+    },
+    {
+      "id": "CBMijgFBVV95cUxPWXJSVzRkeXEteVI0ZnkwbUtwX2Zubmprc1RhYnRzem1wdlpWME13S1dhODVGTk9UY0JsSDZsdHoyWlBGUWhPUGZpbWt4bHloRjZSU3h2Tk9KeWQwaXU2cjhMaGR3dHRhNXY1cEVpYzU4MzZULXQxdjdZaUt5Ui02cU9MTy1NNHdwazdyeEF3",
+      "title": "ボンネットバス運行60年、28日に催し、奈良公園「周遊ツアー」も (朝日新聞)",
+      "summary": "ボンネットバス運行60年、28日に催し、奈良公園「周遊ツアー」も (朝日新聞)",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPWXJSVzRkeXEteVI0ZnkwbUtwX2Zubmprc1RhYnRzem1wdlpWME13S1dhODVGTk9UY0JsSDZsdHoyWlBGUWhPUGZpbWt4bHloRjZSU3h2Tk9KeWQwaXU2cjhMaGR3dHRhNXY1cEVpYzU4MzZULXQxdjdZaUt5Ui02cU9MTy1NNHdwazdyeEF3?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "mobility",
+      "publishedAt": "2026-11-28T01:45:00.000Z"
+    },
+    {
+      "id": "CBMiT0FVX3lxTFA1azVVbVlFTUNFTkpvYTRSb2FqbWl3RXdWbUxTN215alg3WmtBRzZKOTRnUzF3NmRWZmYtQlEzblBLSU1wWUlsbWRBcmVTeGc",
+      "title": "日本ライフサイエンス・アナリティクス市場、2035年に26億1,324万米ドルへ拡大、CAGR 11％で進むデータ駆動型創薬と医療研究の高度化",
+      "summary": "日本ライフサイエンス・アナリティクス市場、2035年に26億1,324万米ドルへ拡大、CAGR 11％で進むデータ駆動型創薬と医療研究の高度化",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFA1azVVbVlFTUNFTkpvYTRSb2FqbWl3RXdWbUxTN215alg3WmtBRzZKOTRnUzF3NmRWZmYtQlEzblBLSU1wWUlsbWRBcmVTeGc?oc=5",
+      "source": "Newscast.jp",
+      "category": "science",
+      "publishedAt": "2026-11-28T00:52:00.000Z"
+    },
+    {
+      "id": "CBMif0FVX3lxTFByOHl1MHpSMjl6THh0ZnJ5bXdNeGZISkM0NXlMS2JHWVhpYjVPSzFDcDJqU3Y5aHlJaElLeWhLTE1QN0NUd0R3SnBlTVB6VmNqblVrVHlJM3duczZGRzlxVGdlNXpxV3NPUHZIWTJRMVJtMTZDVVdhdFU1c1FfRFHSAX9BVV95cUxQcjh5dTB6UjI5ekx4dGZyeW13TXhmSEpDNDV5TEtiR1lYaWI1T0sxQ3AyalN2OWh5SWhJS3loS0xNUDdDVHdEd0pwZU1QelZjam5Va1R5STN3bnM2Rkc5cVRnZTV6cVdzT1B2SFkyUTFSbTE2Q1VXYXRVNXNRX0RR",
+      "title": "株式と債券の逆相関から考える「知の分散投資」 基礎研究が支える日本経済",
+      "summary": "株式と債券の逆相関から考える「知の分散投資」 基礎研究が支える日本経済",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFByOHl1MHpSMjl6THh0ZnJ5bXdNeGZISkM0NXlMS2JHWVhpYjVPSzFDcDJqU3Y5aHlJaElLeWhLTE1QN0NUd0R3SnBlTVB6VmNqblVrVHlJM3duczZGRzlxVGdlNXpxV3NPUHZIWTJRMVJtMTZDVVdhdFU1c1FfRFHSAX9BVV95cUxQcjh5dTB6UjI5ekx4dGZyeW13TXhmSEpDNDV5TEtiR1lYaWI1T0sxQ3AyalN2OWh5SWhJS3loS0xNUDdDVHdEd0pwZU1QelZjam5Va1R5STN3bnM2Rkc5cVRnZTV6cVdzT1B2SFkyUTFSbTE2Q1VXYXRVNXNRX0RR?oc=5",
+      "source": "ｄメニューニュース",
+      "category": "science",
+      "publishedAt": "2026-11-28T00:30:00.000Z"
+    },
+    {
+      "id": "CBMif0FVX3lxTFBqSE9vOFR0YnVfc0Y1T2wwWkZBQkpxNjFfT09DU3pOZHpMd0VkMDNnZVlsdGxZUko2WFhOblRYZmZYSnZPRzBVMUJTd3dId1F1YkJ2SjRTRkNjeWxPU2doN2NpaGYtY0xLY2JMcDN5S2xmWGNCaGFTb0ttX0NFSU0",
+      "title": "安曇野⇔白馬 シャトルバス本格運行へ 長野県の安曇野市観光協会 １２月１９日～来年３月１８日 冬季の訪日客呼び込む",
+      "summary": "安曇野⇔白馬 シャトルバス本格運行へ 長野県の安曇野市観光協会 １２月１９日～来年３月１８日 冬季の訪日客呼び込む",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBqSE9vOFR0YnVfc0Y1T2wwWkZBQkpxNjFfT09DU3pOZHpMd0VkMDNnZVlsdGxZUko2WFhOblRYZmZYSnZPRzBVMUJTd3dId1F1YkJ2SjRTRkNjeWxPU2doN2NpaGYtY0xLY2JMcDN5S2xmWGNCaGFTb0ttX0NFSU0?oc=5",
+      "source": "Yahoo!ニュース",
+      "category": "mobility",
+      "publishedAt": "2026-11-27T23:58:01.000Z"
+    },
+    {
+      "id": "CBMiRkFVX3lxTE1NWk5RZlpCYmgxU29BZm5GeThuMVpNV1ZYdWJPS3BuMExXN3hzZmNCcEhmWWZwZmtlbGpJdEhQVnZnYkpLWkE",
+      "title": "いまの季節は湯に浸かって芯から温まりたい！ そんな週末の“日帰り旅”にピッタリ 都心からクルマで90分圏内にある神奈川県の「温泉地」3選",
+      "summary": "いまの季節は湯に浸かって芯から温まりたい！ そんな週末の“日帰り旅”にピッタリ 都心からクルマで90分圏内にある神奈川県の「温泉地」3選",
+      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE1NWk5RZlpCYmgxU29BZm5GeThuMVpNV1ZYdWJPS3BuMExXN3hzZmNCcEhmWWZwZmtlbGpJdEhQVnZnYkpLWkE?oc=5",
+      "source": "VAGUE(ヴァーグ)",
+      "category": "climate",
+      "publishedAt": "2026-11-27T23:12:06.000Z"
     },
     {
       "id": "CBMiZEFVX3lxTE1iMGdnMGQzaUN6WW5lbU14NTJHODI1SFNtTnpqcllzU29TYUl0MWt1VTh0RUdaa2lDV2N0bmUyMUo3dFc5N05vUE1RYnZYVlBlVDBER3JwNzJPUGhmM0VzS0xucEM",
@@ -98,124 +170,52 @@
       "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1iMGdnMGQzaUN6WW5lbU14NTJHODI1SFNtTnpqcllzU29TYUl0MWt1VTh0RUdaa2lDV2N0bmUyMUo3dFc5N05vUE1RYnZYVlBlVDBER3JwNzJPUGhmM0VzS0xucEM?oc=5",
       "source": "科学技術振興機構（JST）",
       "category": "science",
-      "publishedAt": "2026-11-27T13:06:19.000Z"
+      "publishedAt": "2026-11-27T22:57:38.000Z"
     },
     {
-      "id": "CBMiYEFVX3lxTE5tVEVoanhEYk1rejZqZGJKOGFQZXJHM3lNVlYzWGZfcFFyNWh5UDc4S1BVNHJjVXNLQkVfbGI1bmdNSlB5cEpTdWhOYnZoUlozVkhpUGxVbWx5dWhRekhkLQ",
-      "title": "NEDO事業で深海でも分解するプラスチックを開発 東大など、水深757mで5カ月以内に完全分解",
-      "summary": "NEDO事業で深海でも分解するプラスチックを開発 東大など、水深757mで5カ月以内に完全分解",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5tVEVoanhEYk1rejZqZGJKOGFQZXJHM3lNVlYzWGZfcFFyNWh5UDc4S1BVNHJjVXNLQkVfbGI1bmdNSlB5cEpTdWhOYnZoUlozVkhpUGxVbWx5dWhRekhkLQ?oc=5",
-      "source": "電波タイムズ",
+      "id": "CBMiZEFVX3lxTFB0T19qSkhEelVNc2dyM0R2b0FQcm5mcXZkOVJ2b0UyWjdNREJBcDJrTDZBbjdWUUlKTlJxTTZ3bll2Mm9rU1hMeVRlTGFFYnN0bElUX3pQTHM0QTJUYTdkdW5RR24",
+      "title": "財務大臣、AIの安全確保と国内開発基盤の強化、地域発展に向けた大規模投資計画を発表",
+      "summary": "財務大臣、AIの安全確保と国内開発基盤の強化、地域発展に向けた大規模投資計画を発表",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFB0T19qSkhEelVNc2dyM0R2b0FQcm5mcXZkOVJ2b0UyWjdNREJBcDJrTDZBbjdWUUlKTlJxTTZ3bll2Mm9rU1hMeVRlTGFFYnN0bElUX3pQTHM0QTJUYTdkdW5RR24?oc=5",
+      "source": "科学技術振興機構（JST）",
       "category": "science",
-      "publishedAt": "2026-11-27T13:05:57.000Z"
+      "publishedAt": "2026-11-27T22:57:38.000Z"
     },
     {
-      "id": "CBMiVEFVX3lxTE94UE1Fbmlra2hRT3h3QW05MGQ5bG5HNkM1b1MxVkRxdVZtWW93WDVBeWN5RFlQTzR3TFpCVzJ6amF1ZEZpVllHNnBTSWtDaTZxOXpJUQ",
-      "title": "路線バス廃止の岐阜県白川町と東白川村、町営バスを村全域で運行へ",
-      "summary": "路線バス廃止の岐阜県白川町と東白川村、町営バスを村全域で運行へ",
-      "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE94UE1Fbmlra2hRT3h3QW05MGQ5bG5HNkM1b1MxVkRxdVZtWW93WDVBeWN5RFlQTzR3TFpCVzJ6amF1ZEZpVllHNnBTSWtDaTZxOXpJUQ?oc=5",
-      "source": "中日新聞Web",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T13:00:00.000Z"
-    },
-    {
-      "id": "CBMiY0FVX3lxTE9BSFFMdjZUS3Jqb09mOTFwQ0NiZ0ZaaFFPVXMwM3cxNUU3RGhYNGxJaTVWb2F5b1c4emhqUC0wdEhESURud3JPdU9wSVZvRzVVLW5xNENpS2RHSU80NWZwV3lKYw",
-      "title": "鉄道労組の遵法闘争、列車運行に遅れが2日目 : 社会 : 財経日報",
-      "summary": "鉄道労組の遵法闘争、列車運行に遅れが2日目 : 社会 : 財経日報",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9BSFFMdjZUS3Jqb09mOTFwQ0NiZ0ZaaFFPVXMwM3cxNUU3RGhYNGxJaTVWb2F5b1c4emhqUC0wdEhESURud3JPdU9wSVZvRzVVLW5xNENpS2RHSU80NWZwV3lKYw?oc=5",
-      "source": "재경일보",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T12:45:06.000Z"
-    },
-    {
-      "id": "CBMiT0FVX3lxTE9fZTVHRURrYlp4d29Tb3ZUV00tYkhxV1lHVVo2TEZjc0tncFZmb2Y2aHAzc3c2ZlAzVVh4WmU1V2pXNElhOGJ5aUdndXRlOUE",
-      "title": "【12/12（土） SC相模原戦】オフィシャルシャトルバス運行決定！",
-      "summary": "【12/12（土） SC相模原戦】オフィシャルシャトルバス運行決定！",
-      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9fZTVHRURrYlp4d29Tb3ZUV00tYkhxV1lHVVo2TEZjc0tncFZmb2Y2aHAzc3c2ZlAzVVh4WmU1V2pXNElhOGJ5aUdndXRlOUE?oc=5",
-      "source": "FC大阪",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T12:05:38.000Z"
-    },
-    {
-      "id": "CBMiaEFVX3lxTE1GdGFyc0ZwZ08yLUdHR05ZMndCbk5kTHdsTktBY1RiWXNZLVQwMUU3LUZmWlIyV1VHRkFOaXQ4UnloUkoxN3pyc0JkZExFWjVJTUM1TlRuRTlFU3JzUXNEMmtjUTktLTRi",
-      "title": "学生の学びを地域の力に！学校法人三幸学園",
-      "summary": "学生の学びを地域の力に！学校法人三幸学園",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1GdGFyc0ZwZ08yLUdHR05ZMndCbk5kTHdsTktBY1RiWXNZLVQwMUU3LUZmWlIyV1VHRkFOaXQ4UnloUkoxN3pyc0JkZExFWjVJTUM1TlRuRTlFU3JzUXNEMmtjUTktLTRi?oc=5",
-      "source": "ニコニコニュース",
-      "category": "community",
-      "publishedAt": "2026-11-27T11:45:16.000Z"
-    },
-    {
-      "id": "CBMihwFBVV95cUxQMmNNVTF2ZEFzb21tbGVWSzAtWlpBREtSdmwxZXZFVVVuaExOUkJKQnRVUjZvMUQ5QUM5SUtUZFhsYlExSmtydGJBbUlzU1BxdkdXM1dpT1h5RFRrajZ0UjlPZDlnNG5XRk1nTmMySGdnSUlSUGxzblBWTGRVQTZ1MTdPbEo2eVk",
-      "title": "富山地方鉄道不二越・上滝線 再構築へ富山市が段階的に運行本数増加の考え示す 富山県",
-      "summary": "富山地方鉄道不二越・上滝線 再構築へ富山市が段階的に運行本数増加の考え示す 富山県",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQMmNNVTF2ZEFzb21tbGVWSzAtWlpBREtSdmwxZXZFVVVuaExOUkJKQnRVUjZvMUQ5QUM5SUtUZFhsYlExSmtydGJBbUlzU1BxdkdXM1dpT1h5RFRrajZ0UjlPZDlnNG5XRk1nTmMySGdnSUlSUGxzblBWTGRVQTZ1MTdPbEo2eVk?oc=5",
-      "source": "日テレNEWS NNN",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T11:08:00.000Z"
-    },
-    {
-      "id": "CBMiWEFVX3lxTFBlZm5aOTcwRktWV1g3NnhVZGE0cGd3TzFDMFh1dHBVUjZRaVdBekdCWXppM25WUmRBVnNnZzV5TVh6ckxmZXlFMDZWUVlOR1hXaVA2MHpINUk",
-      "title": "岡山市内支線バス運行１年 定着は道半ば 市、無料券で利用促進へ注力",
-      "summary": "岡山市内支線バス運行１年 定着は道半ば 市、無料券で利用促進へ注力",
-      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTFBlZm5aOTcwRktWV1g3NnhVZGE0cGd3TzFDMFh1dHBVUjZRaVdBekdCWXppM25WUmRBVnNnZzV5TVh6ckxmZXlFMDZWUVlOR1hXaVA2MHpINUk?oc=5",
-      "source": "山陽新聞",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T11:01:27.000Z"
-    },
-    {
-      "id": "CBMiU0FVX3lxTFBya0lhRHBTMFU4YmxkbVB3d1FwcGR2eC1VMTVaUEZ6ZFdYWEZKRGhpLWJWNXNRSTdUWmFBT0xaX3FOTmYxa21DNjlGWnFlQmw5TEVJ",
-      "title": "すすきのから1時間2分！新千歳空港連絡バスが新路線＆10便増便",
-      "summary": "すすきのから1時間2分！新千歳空港連絡バスが新路線＆10便増便",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBya0lhRHBTMFU4YmxkbVB3d1FwcGR2eC1VMTVaUEZ6ZFdYWEZKRGhpLWJWNXNRSTdUWmFBT0xaX3FOTmYxa21DNjlGWnFlQmw5TEVJ?oc=5",
-      "source": "北海道Likers",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T11:00:34.000Z"
-    },
-    {
-      "id": "CBMiUkFVX3lxTFA4YmpHak9KTWQzbE5FT0xoVUE2Z1dBVmVtUjlfQi1VTkQzMjRld1p2OXEtR2tmUFRXU2tQVHRzU0pYb1NfZkc0bHdqRUw3LUpBdlE",
-      "title": "キム·ジョングァン産業通商部長官が超広域特区法(メガ特区法)に含まれた研究開発(R&D)人材の週52時間制特例導入の必要性を再度強調した。 勤労時間規制で先端産業の技術競争力が遅れれば、良質の..",
-      "summary": "キム·ジョングァン産業通商部長官が超広域特区法(メガ特区法)に含まれた研究開発(R&D)人材の週52時間制特例導入の必要性を再度強調した。 勤労時間規制で先端産業の技術競争力が遅れれば、良質の..",
-      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFA4YmpHak9KTWQzbE5FT0xoVUE2Z1dBVmVtUjlfQi1VTkQzMjRld1p2OXEtR2tmUFRXU2tQVHRzU0pYb1NfZkc0bHdqRUw3LUpBdlE?oc=5",
-      "source": "매일경제",
+      "id": "CBMiZEFVX3lxTE5mWVp0WlJaYTZkbUxxMF9UTVpyeXNNaDBsYmw4U2JZcmh6TElNUF9KQjRxTm9hWlZpRjJUMkNzODBXRmlQM0RCUEpwQjFtRVJFTkthQWMzcHFNbmZadkczblZEZ3g",
+      "title": "ドイツ、科学自由法の第一次改正が施行 非営利研究機関の給与規定を緩和｜海外記事検索｜研究開発戦略センター（CRDS）",
+      "summary": "ドイツ、科学自由法の第一次改正が施行 非営利研究機関の給与規定を緩和｜海外記事検索｜研究開発戦略センター（CRDS）",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5mWVp0WlJaYTZkbUxxMF9UTVpyeXNNaDBsYmw4U2JZcmh6TElNUF9KQjRxTm9hWlZpRjJUMkNzODBXRmlQM0RCUEpwQjFtRVJFTkthQWMzcHFNbmZadkczblZEZ3g?oc=5",
+      "source": "科学技術振興機構（JST）",
       "category": "science",
-      "publishedAt": "2026-11-27T10:38:30.000Z"
+      "publishedAt": "2026-11-27T22:57:38.000Z"
     },
     {
-      "id": "CBMiekFVX3lxTE1QekFkcTJqNUdVMFJadkRVOWhuYjIwcjFxNHQ1dm9maVhHZXloQjVxaHI4V1Z1a19lX1E2NTUwNV93QzJCaHdhMGVXZXR3R09wYmQ3OWxRbmZCNGREdzdNRVc5bWVNdzF2aFBBMzdlbnV0cEdIamFHVFp3",
-      "title": "東北最大級・イオンモール伊達が開業 福島県初出店74店舗が集結 地域との\"共創\"にも期待：ニュース",
-      "summary": "東北最大級・イオンモール伊達が開業 福島県初出店74店舗が集結 地域との\"共創\"にも期待：ニュース",
-      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1QekFkcTJqNUdVMFJadkRVOWhuYjIwcjFxNHQ1dm9maVhHZXloQjVxaHI4V1Z1a19lX1E2NTUwNV93QzJCaHdhMGVXZXR3R09wYmQ3OWxRbmZCNGREdzdNRVc5bWVNdzF2aFBBMzdlbnV0cEdIamFHVFp3?oc=5",
-      "source": "FTV 福島テレビ",
-      "category": "community",
-      "publishedAt": "2026-11-27T10:30:00.000Z"
-    },
-    {
-      "id": "CBMif0FVX3lxTE5ZSF82UURKMGZmSlhQYnZLeHZCN1dsN2RlUGp2aFZyYk5mSzdpc2V5aHZjdE5qNlJRVzY3dnVzWHQ5S0V4UHVScmRaSENSMEVpbXVmU1BDVUxiRnRZdjBZaWZKVGJkQ2ExZTBUVGtjNkdZS3o5N05yNXk5YWpPdnM",
-      "title": "ダンロップとNEC、AIでタイヤ開発の変革を促進 デザインや材料探索から部門間調整まで",
-      "summary": "ダンロップとNEC、AIでタイヤ開発の変革を促進 デザインや材料探索から部門間調整まで",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5ZSF82UURKMGZmSlhQYnZLeHZCN1dsN2RlUGp2aFZyYk5mSzdpc2V5aHZjdE5qNlJRVzY3dnVzWHQ5S0V4UHVScmRaSENSMEVpbXVmU1BDVUxiRnRZdjBZaWZKVGJkQ2ExZTBUVGtjNkdZS3o5N05yNXk5YWpPdnM?oc=5",
-      "source": "Yahoo!ニュース",
+      "id": "CBMiZEFVX3lxTE9jN0xfcHJUdURDNDNlb0hnYU5fLW8tNGNPZUFLbVU3TmtIUkE3RTJEWC1BdFFVRGcyU081Tkl4cU0xU3dfX0FoV1hOMk5VUkZzTkc5T1ZNeVo3bXJTMFhieUFfT08",
+      "title": "政府、スケールアップ企業の国内での成長継続を支援｜海外記事検索｜研究開発戦略センター（CRDS）",
+      "summary": "政府、スケールアップ企業の国内での成長継続を支援｜海外記事検索｜研究開発戦略センター（CRDS）",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9jN0xfcHJUdURDNDNlb0hnYU5fLW8tNGNPZUFLbVU3TmtIUkE3RTJEWC1BdFFVRGcyU081Tkl4cU0xU3dfX0FoV1hOMk5VUkZzTkc5T1ZNeVo3bXJTMFhieUFfT08?oc=5",
+      "source": "科学技術振興機構（JST）",
       "category": "science",
-      "publishedAt": "2026-11-27T10:30:00.000Z"
+      "publishedAt": "2026-11-27T22:57:38.000Z"
     },
     {
-      "id": "CBMihgFBVV95cUxOVWdoeVZOYjAxME1QZHAyVHlzZWktbHYyM1doUjJjZGxzZW9WMGZOQ0ZSa1Q2SVg0Y255d1N4RHhfMkN4VEFNYWJZQng3VWZ1REZEdVhyN3h4T1JLdDVrTHVkVlc0QnR0Y2lIV204VHRjX3JlaEJNY0lZdFdkc1NXaldqUzlid9IBhgFBVV95cUxOVWdoeVZOYjAxME1QZHAyVHlzZWktbHYyM1doUjJjZGxzZW9WMGZOQ0ZSa1Q2SVg0Y255d1N4RHhfMkN4VEFNYWJZQng3VWZ1REZEdVhyN3h4T1JLdDVrTHVkVlc0QnR0Y2lIV204VHRjX3JlaEJNY0lZdFdkc1NXaldqUzlidw",
-      "title": "タイヤづくりはAIでどう変わる？ デザインや材料探索から部門間調整まで、ダンロップとNECが進める開発改革",
-      "summary": "タイヤづくりはAIでどう変わる？ デザインや材料探索から部門間調整まで、ダンロップとNECが進める開発改革",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOVWdoeVZOYjAxME1QZHAyVHlzZWktbHYyM1doUjJjZGxzZW9WMGZOQ0ZSa1Q2SVg0Y255d1N4RHhfMkN4VEFNYWJZQng3VWZ1REZEdVhyN3h4T1JLdDVrTHVkVlc0QnR0Y2lIV204VHRjX3JlaEJNY0lZdFdkc1NXaldqUzlid9IBhgFBVV95cUxOVWdoeVZOYjAxME1QZHAyVHlzZWktbHYyM1doUjJjZGxzZW9WMGZOQ0ZSa1Q2SVg0Y255d1N4RHhfMkN4VEFNYWJZQng3VWZ1REZEdVhyN3h4T1JLdDVrTHVkVlc0QnR0Y2lIV204VHRjX3JlaEJNY0lZdFdkc1NXaldqUzlidw?oc=5",
-      "source": "ｄメニューニュース",
+      "id": "CBMiZEFVX3lxTE5iWnM1bGtWMFhicThXUlBLLUZ0YXNzQTM5U2pxTU9IdE1JQ1FvbmZ4Tzh5SEFUZmtfWFRlclJ3VHBnejRGaHkzZU5pdFN0bk4xS0ZOUlI4RW45VlhORnkteUJXU0Y",
+      "title": "フランス2030：「重要金属」プロジェクトの第3回公募を開始｜海外記事検索｜研究開発戦略センター（CRDS）",
+      "summary": "フランス2030：「重要金属」プロジェクトの第3回公募を開始｜海外記事検索｜研究開発戦略センター（CRDS）",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5iWnM1bGtWMFhicThXUlBLLUZ0YXNzQTM5U2pxTU9IdE1JQ1FvbmZ4Tzh5SEFUZmtfWFRlclJ3VHBnejRGaHkzZU5pdFN0bk4xS0ZOUlI4RW45VlhORnkteUJXU0Y?oc=5",
+      "source": "科学技術振興機構（JST）",
       "category": "science",
-      "publishedAt": "2026-11-27T10:30:00.000Z"
+      "publishedAt": "2026-11-27T22:57:38.000Z"
     },
     {
-      "id": "CBMibkFVX3lxTE5XY3Z1b3NWc3pwbDlwUHQwZExMN3RwVlZUYk5TeUloRFRUWGpiWkJ5NDFKRUxlbjNNOEc1emNKMWhmXzJJSzVQOHhsZlU4dFB4alU0eGlYZjNWWUt4OEFEQnZ6aEpBdlZLX0NzYXBR",
-      "title": "都市計画から６９年 園芸博会場へのシャトルバス運行ルートが開通",
-      "summary": "都市計画から６９年 園芸博会場へのシャトルバス運行ルートが開通",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5XY3Z1b3NWc3pwbDlwUHQwZExMN3RwVlZUYk5TeUloRFRUWGpiWkJ5NDFKRUxlbjNNOEc1emNKMWhmXzJJSzVQOHhsZlU4dFB4alU0eGlYZjNWWUt4OEFEQnZ6aEpBdlZLX0NzYXBR?oc=5",
-      "source": "au Webポータル",
-      "category": "mobility",
-      "publishedAt": "2026-11-27T10:22:51.000Z"
+      "id": "CBMiYkFVX3lxTE1pTWk0ck5xMk4xSkQtdVFhR1E3UTFCSFFvX0RoNjNuVGNobmg4RU03WGdwWmVMcGxpZGJQaF9IbVV0b0lJem1fM1lQRExhTHpkXzFyR1F4Ykp4RzhSVHdQbGJB",
+      "title": "金価格は1月と8月に上昇しやすい？ 過去50年以上のデータと過去実績から読み解く投資戦略",
+      "summary": "金価格は1月と8月に上昇しやすい？ 過去50年以上のデータと過去実績から読み解く投資戦略",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1pTWk0ck5xMk4xSkQtdVFhR1E3UTFCSFFvX0RoNjNuVGNobmg4RU03WGdwWmVMcGxpZGJQaF9IbVV0b0lJem1fM1lQRExhTHpkXzFyR1F4Ykp4RzhSVHdQbGJB?oc=5",
+      "source": "Infoseek",
+      "category": "climate",
+      "publishedAt": "2026-11-27T22:30:00.000Z"
     }
   ]
 }
